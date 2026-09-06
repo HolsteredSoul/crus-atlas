@@ -23,4 +23,5 @@ doesn't already cover it: update rather than duplicate; delete rulings that turn
 
 ## Rulings
 - [rejected-approaches](rejected-approaches.md) — what we will NOT do, each with its why and revival condition
-- [model-contract](model-contract.md) — authorized procedural stand-in, stable IDs and GLB spatial-registration requirements
+- [model-contract](model-contract.md) — source-derived GLB, stable IDs and spatial-registration requirements
+- [anatomical-source-review](anatomical-source-review.md) — rejected screenshots, verified Blender tools and downloaded real Z-Anatomy source audit

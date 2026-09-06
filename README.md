@@ -1,8 +1,8 @@
 # CRUS — lower leg anatomy atlas
 
-A static Vite + TypeScript + Three.js browser app for exploring the **right lower leg**, ankle and distal knee. Includes 47 individually selectable structures, compartment layers, camera presets, three explode modes and 14 source-linked clinical cards.
+A static Vite + TypeScript + Three.js browser app for exploring the **right lower leg**, ankle and distal knee. Includes 74 individually selectable structures, compartment layers, camera presets, three explode modes and 14 source-linked clinical cards.
 
-**Educational use only. Not a medical device. Not for diagnosis, treatment decisions or surgical planning.** Anatomical geometry and clinical overlays are schematic and have not undergone anatomical or clinical validation.
+**Educational use only. Not a medical device. Not for diagnosis, treatment decisions or surgical planning.** Source anatomy and landmark registration have not undergone independent clinical validation. Clinical overlays are schematic.
 
 ## Run
 
@@ -27,30 +27,32 @@ Deploy the contents of `dist/` to a static host. No backend, API key, account or
 - Left: search, expand systems/compartments, select individual parts, toggle eyes, solo a system or compartment, X-ray bones, fade others and restore the default layer state.
 - Centre: drag to orbit, right-drag to pan, wheel/pinch to zoom. Double-click a part to focus it. OrbitControls uses damping and prevents flipping below the ground plane.
 - Right: structure name, attachments, action, related conditions and clinical references. Section plane keeps anatomy below the chosen nominal Y coordinate; it does not create filled anatomical slice surfaces.
-- Bottom: anterior, posterior, medial, lateral, knee plateau and ankle mortise views; explode slider; clinical condition chips.
+- Bottom: anterior, posterior, medial, lateral, knee plateau, ankle mortise and foot views; explode slider; clinical condition chips.
 - Keyboard: **F** focus, **H** hide, **I** isolate, **R** reset, **Esc** clear selection/overlay, **/** search. Shortcuts are disabled while typing or while help is open. The structure tree provides keyboard selection without requiring canvas picking.
 - Small screens: header layer and information buttons open the corresponding panels. Help explains axes, shortcuts, source limitations and the colour key.
 
-**Restore all** restores the default anatomy layers and clears isolation, fading, X-ray and the clinical overlay. The four translucent compartment envelopes are hidden by default; expand Compartment envelopes to show them. Reset additionally reassembles the model, disables clipping and resets the camera.
+**Restore all** restores the default anatomy layers and clears isolation, fading, X-ray and the clinical overlay. The four compartment envelopes, five joint-region highlights and standalone tibial cartilage are hidden by default (64/74 visible). Bone surfaces already retain their source cartilage colours. Reset additionally reassembles the model, disables clipping and resets the camera.
 
 ## Model status and attribution
 
-The supplied model is an **original procedural stand-in** created for this application, not a real anatomical scan or a segmented cadaver model. No third-party anatomical meshes from Open3DModel, BodyParts3D or Z-Anatomy are bundled. These remain candidate sources for a future licensed replacement. Do not attribute the current geometry to those projects.
+The rejected procedural model has been removed. The bundled Draco GLB uses actual right-side meshes from [Z-Anatomy](https://github.com/Z-Anatomy/Models-of-human-anatomy), by Gauthier Kervyn, with upstream BodyParts3D work by Kousaku Okubo and the Database Center for Life Science. The adapted model is distributed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Preserve the source's requested credits: **Z-Anatomy — The libre 3D atlas of anatomy — CC-BY-SA 4.0** and **BodyParts3D — The Database Center for Life Science — CC-BY-SA 2.1 Japan**. See `public/models/ATTRIBUTION.txt`.
 
-All requested muscle groups, major tendons, ligaments, joints and six minimum bones are represented. Additional midfoot bones, two metatarsals, cartilage, a common fibular nerve, retrocalcaneal bursa and retinaculum provide landmarks. Four optional translucent envelopes identify the compartments. Muscle fibres are a procedural rendering texture, not reconstructed fascicles.
+There are 31 bone entries, 20 muscle entries, five tendons, five ligament complexes, five joint regions, cartilage, four compartment envelopes, a nerve, bursa and retinaculum. The foot includes all seven tarsals, five metatarsals, 14 phalanges and hallux sesamoids, plus six selected intrinsic muscle entries. This is not complete foot musculature or neurovascular anatomy.
 
-Detailed toes, distal phalanges, the full forefoot, complete neurovascular anatomy and proximal femur are outside this schematic. Toe insertions are described in the catalogue even when their terminal bones are not modelled. Some long flexor/extensor paths combine muscle and a simplified terminal extension under one muscle ID. The separately requested Achilles, TA, TP and fibular tendons have their own IDs. Ligament complexes are simplified envelopes/straps. Clinical pressure, gap, split, stress-band and bursal overlays are visual teaching symbols, not simulated tissue damage.
+Modifications: select the right-leg/foot meshes, evaluate source modifiers, crop/cap the femur at 590 mm, separate source-marked tendon surfaces, merge logical parts, clean degenerate geometry, retain tissue colours as vertex colours, transform coordinates, add metadata and Draco-compress. Four convex hulls derived from muscle vertices illustrate compartments; they are not segmented fascia. Joint entries use source menisci, capsule, ligaments or articular surfaces as region highlights. The deltoid contains tibionavicular, tibiocalcaneal and posterior tibiotalar components; a separate anterior tibiotalar component is missing. Long flexor/extensor muscle entries can include source tendon portions.
+
+The GLB is 532,228 bytes (about 0.53 MB), with 107,739 exported pre-triangulation polygons. `manifest.json` records per-part source names, counts and bounds. The source project has outstanding anatomy/validation work; provenance does not establish clinical validation. Gap, split, stress and fluid overlays remain teaching symbols, not simulated tissue damage.
 
 Third-party runtime components: Three.js (MIT), Lucide (ISC), GSAP (Standard No Charge licence linked by its package metadata), and Google Draco (Apache-2.0). Draco decoder files are copied from the installed Three.js distribution. See `THIRD_PARTY_NOTICES.md`.
 
 ## Swap in one Draco GLB
 
-The interface and clinical data use `src/catalogue.ts` IDs, not display names or mesh ordering. The procedural fallback remains usable if no GLB is configured or a load fails.
+The interface and clinical data use `src/catalogue.ts` IDs, not display names or mesh ordering. The bundled model loads by default; an invalid replacement displays an error. There is no primitive fallback.
 
 1. Obtain a licensed right-leg model and document the source URL, creator, licence, modifications and required attribution. Do not assume an asset aggregator owns every uploaded mesh.
 2. Crop the femur below mid-femur, preserving the condyles and relevant origins. Keep the ankle and required insertion landmarks. Do not mirror a left leg without correcting metadata and geometry.
-3. Register the geometry to the app coordinates: **+Y proximal, +Z anterior, +X medial for the right leg**. Thus the fibula is at negative X. Nominal units are **millimetres**, with the floor near Y=0, calcaneal insertion near `[0,65,-40]`, ankle near Y=85, tibial plateau near Y=460 and femoral cut near Y=580. glTF normally describes metres: this app intentionally consumes numeric coordinates as millimetres; export appropriately or bake a 1000x conversion before validation. Do not retain an accidental Blender export scale.
-4. Merge each named anatomical part into one mesh (disconnected subcomponents are fine). This first implementation expects one mesh per catalogue ID and all 47 IDs. Add/remove catalogue entries and matching condition references together if the source has different coverage. Missing, duplicate, unknown or incompatible IDs cause a visible fallback message; partial imports are not silently accepted.
+3. Register the geometry to the app coordinates: **+Y proximal, +Z anterior, +X medial for the right leg**. Thus the fibula is at negative X. Nominal units are **millimetres**, with the floor near Y=0, calcaneal insertion near Y=25, ankle near Y=75, tibial plateau near Y=425 and femoral cut near Y=590. glTF normally describes metres: this app intentionally consumes numeric coordinates as millimetres; export appropriately or bake a 1000x conversion before validation. Do not retain an accidental Blender export scale.
+4. Merge each named anatomical part into one mesh (disconnected subcomponents are fine). This first implementation expects one mesh per catalogue ID and all 74 IDs. Add/remove catalogue entries and matching condition references together if the source has different coverage. Missing, duplicate, unknown or incompatible IDs cause a visible error message; partial imports are not silently accepted.
 5. Export each mesh's custom properties as glTF `extras`, with exactly the required values from `catalogue.ts`:
 
 ```ts
@@ -68,8 +70,8 @@ The interface and clinical data use `src/catalogue.ts` IDs, not display names or
 }
 ```
 
-6. Export a single Draco-compressed binary glTF, for example `public/models/right-lower-leg.glb`. Target 15–25 MB for a cropped high-detail model; this is a source-preparation target, not a size claimed for an asset supplied here. Preserve custom properties when optimizing. Prefer baked static mesh transforms, outward normals, indexed triangles and sensible polygon counts.
-7. Create the ignored `.env.local` file:
+6. Export a single Draco-compressed binary glTF, for example `public/models/right-lower-leg.glb`. Target 15–25 MB for a cropped high-detail model; this is an upper preparation target, not padding to add to the smaller supplied GLB. Preserve custom properties when optimizing. Prefer baked static mesh transforms, outward normals, indexed triangles and sensible polygon counts.
+7. Optionally override the default model URL in ignored `.env.local`:
 
 ```env
 VITE_ATLAS_GLB_URL=/models/right-lower-leg.glb
@@ -77,9 +79,9 @@ VITE_ATLAS_GLB_URL=/models/right-lower-leg.glb
 
 Restart Vite or rebuild. For subdirectory deployments, use a URL that resolves beneath that deployment's base path. This is public configuration, not a secret.
 
-`GLTFLoader` and `DRACOLoader` load and validate the GLB. The loader bakes nested transforms, recentres each mesh for explosion, restores the atlas material palette and uses the same metadata for selection and layers. Materials from the source are deliberately replaced so bones, cartilage and connective tissues remain readable.
+`GLTFLoader` and `DRACOLoader` load and validate the GLB. The loader bakes nested transforms, recentres each mesh for explosion, restores the atlas material palette and uses the same metadata for selection and layers. Source tissue colours in COLOR_0 are preserved with atlas lighting. Without vertex colours the loader uses the catalogue tissue palette.
 
-**Clinical marker registration is a required part of swapping the model.** Adjust marker coordinates and scales in `src/conditions.ts` to the replacement geometry and have their anatomical placement reviewed. Model metadata alone does not register spatial landmarks. The current markers are nominal positions on the procedural stand-in. The loader's validation checks identity metadata, not medical accuracy, orientation, scale or source licensing.
+**Clinical marker registration is a required part of swapping the model.** Adjust marker coordinates and scales in `src/landmarks.json` to the replacement geometry and have their anatomical placement reviewed. Model metadata alone does not register spatial landmarks. Current markers were projected onto source surfaces with `scripts/register-landmarks.py`; that registration still requires anatomical review. The loader's validation checks identity metadata, not medical accuracy, orientation, scale or source licensing.
 
 ## Explode and rendering
 
@@ -87,8 +89,8 @@ Restart Vite or rebuild. For subdirectory deployments, use a URL that resolves b
 - Hierarchical: centroid offsets relative to a calf pivot are weighted by tissue type and compartment direction; tendons/ligaments travel less than muscles.
 - Inventory: only visible parts are packed in a world-XY grid using actual bounding sizes and spacing. Full explosion guarantees disjoint XY bounding boxes. Intermediate slider values interpolate from assembly and can overlap. Perspective and subsequent orbiting can project parts onto one another. Releasing the slider frames the inventory.
 - Leader lines connect displaced centroids to their assembled positions. Clinical markers follow their associated meshes. Reassemble returns every part to its saved assembled position.
-- Cyan emissive selection plus an OutlinePass; dimmed context at 10% opacity; optional bone transparency. Muscle fibre shading, soft directional lighting and a quiet floor grid provide shape cues.
-- Rendering pauses when the tab is hidden and renders on demand when the view is still. Device pixel ratio is capped at 1.65. Shared procedural fibre texture and modest segment counts limit overhead. The target is 60 fps during interaction on a midrange laptop; **this target has not been benchmarked on representative hardware**. Large replacement GLBs may require mesh/texture optimization.
+- Cyan emissive selection plus an OutlinePass; dimmed context at 10% opacity; optional bone transparency. Source tissue colours, soft directional lighting and a quiet floor grid provide shape cues.
+- Rendering pauses when the tab is hidden and renders on demand when the view is still. Device pixel ratio is capped at 1.65. The bundled model is compact and uses vertex colours instead of texture downloads. The target is 60 fps during interaction on a midrange laptop; **this target has not been benchmarked on representative hardware**. Large replacement GLBs may require mesh/texture optimization.
 
 ## Clinical sources
 
@@ -109,7 +111,7 @@ Primary/professional references (linked on the corresponding cards):
 
 - `src/catalogue.ts` — canonical metadata, attachments, functions and material colours.
 - `src/conditions.ts` — clinical cards, references, spatial markers and overlay colour language.
-- `src/model.ts` — original procedural geometry, material generation and validated GLB loading.
+- `src/model.ts` — source materials and validated GLB loading.
 - `src/layout.ts` — pure explode layout and non-overlapping inventory packing.
 - `src/viewer.ts` — Three.js lifecycle, picking, camera, rendering, clipping and overlays.
 - `src/main.ts` / `src/style.css` — responsive interface, controls and keyboard interaction.
@@ -119,4 +121,16 @@ npm test
 npm run build
 ```
 
-Five Node tests verify complete finite geometry, anatomical coordinate relationships, metadata rejection, clinical-reference/marker integrity, inventory non-overlap and fixed-bone/reduced-tendon offsets. TypeScript strict checks and the Vite production build pass. The local Vite endpoint was verified with HTTP 200. Browser interaction/accessibility testing and representative-device frame-rate measurement remain unperformed; do not treat the node/build checks as those tests. The production build currently emits the standard warning for the approximately 538 kB minified Three.js chunk (about 137 kB gzip).
+Five passing Node tests check the real GLB Draco/colour/metadata contract, source bounds and foot coverage, rejected metadata, clinical references and marker bounds, inventory separation and hierarchical weights. TypeScript and the production build pass. Browser checks exercised source loading, desktop and narrow layouts, foot preset, selection, hide/isolate/restore, inventory/reassembly and the Achilles overlay. This is not a complete accessibility or clinical validation audit. Representative-device frame-rate measurement remains unperformed. The build emits the standard warning for the approximately 533 kB minified Three.js chunk (135 kB gzip).
+
+## Rebuild the source asset
+
+Blender 5.2.1 LTS with its glTF/Draco exporter was used. Download the official repository's `Z-Anatomy.zip` and extract `Z-Anatomy/Startup.blend` to `output/review/source/Z-Anatomy.blend`. Source archives and review captures are ignored by Git. Set the ROOT/root paths in both Python scripts if working outside C:/DEV/Leg.
+
+Prepare metadata in the project terminal:
+
+```sh
+node --import tsx --input-type=module -e "import fs from 'node:fs'; import {catalogue} from './src/catalogue.ts'; import {conditions} from './src/conditions.ts'; fs.mkdirSync('output/review',{recursive:true}); fs.writeFileSync('output/review/catalogue.json',JSON.stringify(catalogue)); fs.writeFileSync('output/review/conditions.json',JSON.stringify(conditions));"
+```
+
+Run `scripts/build-atlas.py` inside Blender, then `scripts/register-landmarks.py` in the same Blender session. They create a separate workshop scene/export collection, write the GLB/manifest and register illustrative clinical anchors. Run tests/build and inspect full-leg, foot and ankle views after export. The scripts do not substitute for anatomical review.

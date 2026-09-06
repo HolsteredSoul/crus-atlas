@@ -47,7 +47,7 @@ export const catalogue: Part[] = [
   p('atfl','Anterior talofibular ligament','ligament','ankle','Anterior lateral malleolus','Lateral talar neck','Restrains anterior talar translation and inversion in plantarflexion.','ATFL — commonly the first ligament involved in an inversion ankle sprain.'),
   p('cfl','Calcaneofibular ligament','ligament','ankle','Tip of lateral malleolus','Lateral calcaneus','Resists hindfoot inversion across ankle and subtalar joints.'),
   p('ptfl','Posterior talofibular ligament','ligament','ankle','Malleolar fossa of distal fibula','Posterolateral talus','Restrains posterior talar translation.'),
-  p('deltoid','Deltoid ligament complex','ligament','ankle','Medial malleolus','Talus, calcaneus and navicular','Resists eversion and supports medial ankle stability.','A schematic envelope of superficial and deep components.'),
+  p('deltoid','Deltoid ligament complex','ligament','ankle','Medial malleolus','Talus, calcaneus and navicular','Resists eversion and supports medial ankle stability.','Source includes tibionavicular, tibiocalcaneal and posterior tibiotalar components. A separate anterior tibiotalar component is unavailable; this complex is incomplete.'),
   p('syndesmosis','Syndesmotic ligaments','ligament','ankle','Distal tibia','Distal fibula','Resist separation and external rotation at the ankle mortise.','Schematic anterior/posterior inferior tibiofibular and interosseous ligament complex.'),
   p('anterior_compartment','Anterior compartment envelope','fascia','anterior','Crural fascia, tibia, interosseous membrane and anterior septum','Not applicable — fascial envelope','Encloses the dorsiflexors and toe extensors.'),
   p('lateral_compartment','Lateral compartment envelope','fascia','lateral','Crural fascia, fibula and intermuscular septa','Not applicable — fascial envelope','Encloses fibularis longus and brevis.'),
@@ -57,5 +57,15 @@ export const catalogue: Part[] = [
   p('retrocalcaneal_bursa','Retrocalcaneal bursa','bursa','ankle','Between anterior Achilles and posterosuperior calcaneus','Not applicable — bursa','Reduces friction between Achilles and calcaneus.'),
   p('superior_fibular_retinaculum','Superior fibular retinaculum','retinaculum','ankle','Posterolateral fibula','Lateral calcaneus','Retains the fibular tendons in the retromalleolar groove.'),
 ];
+for (const [id,name] of [['cuboid','Cuboid'],['intermediate_cuneiform','Intermediate cuneiform'],['lateral_cuneiform','Lateral cuneiform'],['metatarsal_2','Second metatarsal'],['metatarsal_3','Third metatarsal'],['metatarsal_4','Fourth metatarsal'],['sesamoids','Hallux sesamoids']]) {
+ catalogue.push(p(id,name,'bone','foot','Not applicable — bone','Articulates with adjacent foot bones','Contributes to foot support and motion.','Source-derived right foot geometry from Z-Anatomy.'));
+}
+for(let toe=1;toe<=5;toe++)for(const segment of ['proximal','middle','distal']){
+ if(toe===1&&segment==='middle')continue;
+ catalogue.push(p(`toe_${toe}_${segment}`,`${segment[0].toUpperCase()+segment.slice(1)} phalanx · toe ${toe}`,'bone','foot','Not applicable — bone','Toe joints and flexor/extensor attachments','Contributes to toe motion and load transfer.','Source-derived phalanx; toe 1 is the hallux.'));
+}
+for(const [id,name] of [['extensor_digitorum_brevis','Extensor digitorum brevis'],['extensor_hallucis_brevis','Extensor hallucis brevis'],['abductor_hallucis','Abductor hallucis'],['flexor_digitorum_brevis','Flexor digitorum brevis'],['foot_interossei','Dorsal interossei of foot'],['foot_lumbricals','Lumbricals of foot']]){
+ catalogue.push(p(id,name,'muscle','foot','Intrinsic foot origin; see source anatomy','Digital tendons and phalanges','Contributes to coordinated toe motion and foot support.','Intrinsic foot muscle shown using the source anatomy mesh.'));
+}
 export const byId = new Map(catalogue.map(part => [part.id,part]));
 export const palette: Record<PartType,string> = {bone:'#ddd6bb',muscle:'#a34f43',tendon:'#ede0b4',ligament:'#e0d9b5',cartilage:'#97cadf',joint:'#8db8c7',fascia:'#55c7b8',nerve:'#e6c56d',vessel:'#c3666a',bursa:'#71bfff',retinaculum:'#c7d1bb',skin:'#d3ac93'};

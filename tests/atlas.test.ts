@@ -1,40 +1,42 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Box3, Group, Mesh, Vector3 } from 'three';
+import fs from 'node:fs';
+import { Box3, BoxGeometry, Group, Mesh, Vector3 } from 'three';
 import { catalogue, byId } from '../src/catalogue.ts';
 import { conditions } from '../src/conditions.ts';
-import { buildProceduralModel, disposeModel, validateModel } from '../src/model.ts';
+import { validateModel, disposeModel } from '../src/model.ts';
 import { explodeOffsets, type LayoutItem } from '../src/layout.ts';
 
-test('complete procedural mesh contract, finite geometry, and clinically important orientation',()=>{
- const root=buildProceduralModel();const meshes=validateModel(root);
- assert.equal(meshes.size,catalogue.length);assert.equal(new Set(catalogue.map(p=>p.id)).size,catalogue.length);
- for(const [id,mesh] of meshes){assert.equal(mesh.userData.laterality,'right');assert.ok(mesh.geometry.getAttribute('position').count>30,id);const box=new Box3().setFromObject(mesh);assert.ok(!box.isEmpty(),id);assert.ok([...box.min,...box.max].every(Number.isFinite),id);}
- assert.ok(meshes.get('fibula')!.position.x<meshes.get('tibia')!.position.x,'right fibula is lateral (-X)');
- assert.ok(meshes.get('gastrocnemius_medial')!.position.z<meshes.get('tibia')!.position.z,'calf is posterior');
- assert.ok(meshes.get('femur_distal')!.position.y>meshes.get('talus')!.position.y,'proximal is +Y');
- disposeModel(root);
+const binary=fs.readFileSync(new URL('../public/models/right-lower-leg.glb',import.meta.url));
+const gltf=JSON.parse(binary.subarray(20,20+binary.readUInt32LE(12)).toString('utf8'));
+const manifest=JSON.parse(fs.readFileSync(new URL('../public/models/manifest.json',import.meta.url),'utf8'));
+const nodes=gltf.nodes.filter((n:any)=>n.mesh!==undefined);
+function contractFixture(){const root=new Group();for(const n of nodes){const mesh=new Mesh(new BoxGeometry(1,1,1));mesh.userData=structuredClone(n.extras);root.add(mesh);}return root;}
+function items():LayoutItem[]{return catalogue.map(p=>{const b=manifest.parts[p.id];const box=new Box3(new Vector3(...b.min),new Vector3(...b.max));return {id:p.id,type:p.type,compartment:p.compartment,center:box.getCenter(new Vector3()),size:box.getSize(new Vector3())};});}
+
+test('shipped GLB is complete Draco anatomy, with separate IDs and source tissue colours',()=>{
+ assert.equal(binary.readUInt32LE(0),0x46546c67);assert.equal(binary.readUInt32LE(8),binary.length);
+ assert.equal(nodes.length,catalogue.length);assert.equal(catalogue.length,74);assert.ok(binary.length<25_000_000);
+ assert.ok(gltf.extensionsRequired.includes('KHR_draco_mesh_compression'));
+ assert.equal(new Set(nodes.map((n:any)=>n.extras.id)).size,74);
+ const root=contractFixture();assert.equal(validateModel(root).size,74);disposeModel(root);
+ for(const n of nodes){const primitives=gltf.meshes[n.mesh].primitives;assert.equal(primitives.length,1);assert.ok(primitives[0].extensions.KHR_draco_mesh_compression);assert.ok(primitives[0].attributes.COLOR_0!==undefined,n.extras.id);}
+ for(const p of catalogue){const m=manifest.parts[p.id];assert.ok(m.polygons>0,p.id);assert.ok([...m.min,...m.max].every(Number.isFinite),p.id);assert.ok(m.sources.length,p.id);}
+ for(let toe=1;toe<=5;toe++){assert.ok(byId.has(`toe_${toe}_proximal`));assert.ok(byId.has(`toe_${toe}_distal`));assert.equal(byId.has(`toe_${toe}_middle`),toe!==1);}
+ const lookup=new Map(items().map(p=>[p.id,p]));assert.ok(lookup.get('fibula')!.center.x<lookup.get('tibia')!.center.x);assert.ok(lookup.get('femur_distal')!.center.y>lookup.get('talus')!.center.y);assert.ok(lookup.get('toe_1_distal')!.center.z>lookup.get('talus')!.center.z);
 });
-test('GLB validator rejects missing, duplicate, unknown and incompatible metadata',()=>{
- assert.throws(()=>validateModel(new Group()),/Missing parts/);
- const root=buildProceduralModel();const mesh=root.children[0] as Mesh;const duplicate=mesh.clone();root.add(duplicate);assert.throws(()=>validateModel(root),/Duplicate/);root.remove(duplicate);
- const id=mesh.userData.id;mesh.userData.id='bad-id';assert.throws(()=>validateModel(root),/Unknown/);mesh.userData.id=id;
- mesh.userData.laterality='left';assert.throws(()=>validateModel(root),/laterality/);disposeModel(root);
+test('metadata validator rejects missing, duplicate, unknown and wrong-side anatomy',()=>{
+ assert.throws(()=>validateModel(new Group()),/Missing parts/);const root=contractFixture();const mesh=root.children[0] as Mesh;const dupe=mesh.clone();root.add(dupe);assert.throws(()=>validateModel(root),/Duplicate/);root.remove(dupe);const id=mesh.userData.id;mesh.userData.id='bad';assert.throws(()=>validateModel(root),/Unknown/);mesh.userData.id=id;mesh.userData.laterality='left';assert.throws(()=>validateModel(root),/laterality/);disposeModel(root);
 });
-test('every condition has valid parts, localizable markers, imaging notes and references',()=>{
+test('clinical references and registered markers refer to included source anatomy',()=>{
  assert.equal(conditions.length,14);assert.equal(new Set(conditions.map(c=>c.id)).size,14);
- for(const c of conditions){assert.ok(c.mechanism&&c.landmark&&c.ultrasound&&c.mri&&c.lookAlikes,c.id);assert.ok(c.sources.every(s=>s.url.startsWith('https://')),c.id);for(const id of c.parts)assert.ok(byId.has(id),`${c.id}: ${id}`);for(const m of c.markers){assert.ok(c.parts.includes(m.partId));assert.ok(m.scale.every(n=>n>0));}}
+ for(const c of conditions){assert.ok(c.mechanism&&c.landmark&&c.ultrasound&&c.mri&&c.lookAlikes);assert.ok(c.sources.every(s=>s.url.startsWith('https://')));for(const id of c.parts)assert.ok(byId.has(id));for(const m of c.markers){assert.ok(c.parts.includes(m.partId));assert.ok(m.scale.every(n=>n>0));const b=manifest.parts[m.partId];const bounds=new Box3(new Vector3(...b.min),new Vector3(...b.max)).expandByScalar(5);assert.ok(bounds.containsPoint(new Vector3(...m.position)),`${c.id}: marker outside ${m.partId}`);}}
  for(const id of ['tennis_leg','achilles_rupture','soleus_strain'])assert.match(conditions.find(c=>c.id===id)!.lookAlikes,/DVT/);
 });
-function items(){const root=buildProceduralModel();const data:LayoutItem[]=root.children.map(obj=>{const mesh=obj as Mesh;return {id:mesh.userData.id,center:mesh.position.clone(),size:mesh.geometry.boundingBox!.getSize(new Vector3()),type:mesh.userData.type,compartment:mesh.userData.compartment};});disposeModel(root);return data;}
-test('inventory packs all visible bounds without intersection at full explosion',()=>{
- for(const parts of [items(),items().filter(p=>p.type==='muscle'),items().slice(0,1)]){
-  const offsets=explodeOffsets(parts,'inventory');const boxes=parts.map(p=>new Box3().setFromCenterAndSize(p.center.clone().add(offsets.get(p.id)!),p.size));
-  for(let a=0;a<boxes.length;a++)for(let b=a+1;b<boxes.length;b++)assert.equal(boxes[a].intersectsBox(boxes[b]),false,`${parts[a].id} overlaps ${parts[b].id}`);
- }
+test('inventory avoids overlap using actual source mesh bounds',()=>{
+ for(const parts of [items(),items().filter(p=>p.type==='muscle'),items().slice(0,1)]){const offsets=explodeOffsets(parts,'inventory');const boxes=parts.map(p=>new Box3().setFromCenterAndSize(p.center.clone().add(offsets.get(p.id)!),p.size));for(let a=0;a<boxes.length;a++)for(let b=a+1;b<boxes.length;b++)assert.equal(boxes[a].intersectsBox(boxes[b]),false,`${parts[a].id}/${parts[b].id}`);}
 });
-test('compartment and hierarchical modes retain bones; hierarchical tendon travel is reduced',()=>{
- const parts=items();for(const mode of ['compartment','hierarchical'] as const){const offsets=explodeOffsets(parts,mode);for(const p of parts.filter(p=>p.type==='bone'))assert.equal(offsets.get(p.id)!.length(),0,p.id);}
- const pair:LayoutItem[]=[{id:'m',type:'muscle',compartment:'anterior',center:new Vector3(0,285,20),size:new Vector3(10,100,10)},{id:'t',type:'tendon',compartment:'anterior',center:new Vector3(0,285,20),size:new Vector3(10,100,10)}];
- const offsets=explodeOffsets(pair,'hierarchical');assert.ok(offsets.get('t')!.length()<offsets.get('m')!.length());
+test('hierarchical explosion fixes bones and reduces tendon displacement',()=>{
+ const parts=items();for(const mode of ['compartment','hierarchical'] as const){const offsets=explodeOffsets(parts,mode);for(const p of parts.filter(p=>p.type==='bone'))assert.equal(offsets.get(p.id)!.length(),0);}
+ const pair:LayoutItem[]=[{id:'m',type:'muscle',compartment:'anterior',center:new Vector3(0,285,20),size:new Vector3(10,100,10)},{id:'t',type:'tendon',compartment:'anterior',center:new Vector3(0,285,20),size:new Vector3(10,100,10)}];const offsets=explodeOffsets(pair,'hierarchical');assert.ok(offsets.get('t')!.length()<offsets.get('m')!.length());
 });

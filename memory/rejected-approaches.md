@@ -14,3 +14,4 @@ approach. Nothing leaves this list by being re-proposed; only by its revival con
 - **Harness hooks to enforce the session ritual** — the user prefers convention-enforced
   discipline via AGENTS.md — revive only if the user asks, after the ritual has been skipped
   repeatedly.
+- **Tube/ellipsoid procedural anatomy as the deliverable** — user inspected the leg and foot and rejected the result as unusable; basic naming and functional controls do not meet the visual/anatomical quality bar — revive only as an explicitly requested developer-only test fixture, never as the anatomical atlas shown for acceptance.

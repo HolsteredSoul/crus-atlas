@@ -1,3 +1,4 @@
+import sourceLandmarks from './landmarks.json';
 export type OverlayKind = 'tendinopathy'|'partial'|'rupture'|'stress'|'sprain'|'fluid'|'pressure'|'landmark';
 export const overlayColors: Record<OverlayKind,string> = {tendinopathy:'#e5af55',partial:'#f68a47',rupture:'#f45962',stress:'#eb77c8',sprain:'#e5d762',fluid:'#67b9f6',pressure:'#52cbb8',landmark:'#d7bf78'};
 export interface Marker {partId:string; position:[number,number,number]; scale:[number,number,number]; kind:OverlayKind;}
@@ -32,3 +33,11 @@ export const conditions:Condition[] = [
  {id:'stress_fracture',title:'Tibial stress-fracture band',shortName:'Tibial stress fracture',region:'Tibial shaft',kind:'stress',parts:['tibia'],view:'Anterior',mechanism:'Accumulated repetitive loading can exceed bone remodelling capacity and progress to a stress fracture.',landmark:'The focal magenta band is an example location; stress fractures can occur at other tibial sites.',ultrasound:'Cannot reliably exclude a tibial stress fracture.',mri:'Can demonstrate early bone stress change and fracture detail even when early radiographs are unrevealing.',lookAlikes:'MTSS and other causes of focal bone pain; the band is illustrative, not a severity grade.',markers:[m('tibia',[4,226,3],[24,7,21],'stress')],sources:[source.stress]},
  {id:'fibular_neck',title:'Fibular neck · common fibular nerve',shortName:'Fibular neck landmark',region:'Lateral knee',kind:'landmark',parts:['common_fibular_nerve','fibula'],view:'Lateral',mechanism:'The superficial common fibular nerve can be vulnerable to compression or traction around the fibular neck.',landmark:'Nerve winding around the neck just distal to the fibular head; a location marker, not a lesion.',ultrasound:'Can trace accessible nerve anatomy and assess focal structural change.',mri:'Can assess adjacent tissues and denervation patterns; localisation also depends on clinical and electrophysiological assessment.',lookAlikes:'L5 radiculopathy, sciatic neuropathy and more distal fibular nerve lesions.',markers:[m('common_fibular_nerve',[-40,425,-2],[11,17,13],'landmark')],sources:[source.nerve]}
 ];
+for(const condition of conditions){
+ const markers=sourceLandmarks[condition.id as keyof typeof sourceLandmarks];
+ if(!markers)throw new Error(`Missing source landmarks: ${condition.id}`);
+ condition.markers=markers.map(marker=>{
+  if(marker.position.length!==3||marker.scale.length!==3||!Object.hasOwn(overlayColors,marker.kind))throw new Error(`Invalid source landmark: ${condition.id}`);
+  return {...marker,position:marker.position as Marker['position'],scale:marker.scale as Marker['scale'],kind:marker.kind as OverlayKind};
+ });
+}

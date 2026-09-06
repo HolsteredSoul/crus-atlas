@@ -1,6 +1,6 @@
 # Third-party notices
 
-The procedural anatomy geometry and fibre texture are original work for this application. No scanned or segmented anatomical asset is bundled.
+The bundled anatomical GLB is adapted from [Z-Anatomy](https://github.com/Z-Anatomy/Models-of-human-anatomy), by Gauthier Kervyn, with upstream BodyParts3D by Kousaku Okubo and the Database Center for Life Science. The adapted GLB is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Preserve the requested credits: Z-Anatomy — The libre 3D atlas of anatomy — CC-BY-SA 4.0; BodyParts3D — The Database Center for Life Science — CC-BY-SA 2.1 Japan. Source selection, cropping, colour/metadata conversion, tendon splitting and derived compartment hulls are documented in README and `public/models/ATTRIBUTION.txt`. No source endorsement is implied.
 
 - Three.js: MIT. Copyright Three.js authors. See `node_modules/three/LICENSE` and https://github.com/mrdoob/three/blob/dev/LICENSE.
 - Draco decoder: Google Draco, Apache License 2.0. Decoder files under `public/draco/` originate in the Three.js distribution; see https://github.com/google/draco/blob/main/LICENSE.

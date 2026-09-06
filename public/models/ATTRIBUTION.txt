@@ -1,0 +1,16 @@
+CRUS right lower leg model — adapted from Z-Anatomy.
+
+Source: https://github.com/Z-Anatomy/Models-of-human-anatomy
+Source download: Z-Anatomy.zip / Z-Anatomy/Startup.blend, retrieved 2026-09-06.
+Z-Anatomy — The libre 3D atlas of anatomy — CC-BY-SA 4.0.
+BodyParts3D — The Database Center for Life Science — CC-BY-SA 2.1 Japan.
+Credits: Gauthier Kervyn (Z-Anatomy design, 3D and anatomy); Kousaku Okubo and the Database Center for Life Science (original BodyParts3D model).
+
+This adapted GLB is licensed under Creative Commons Attribution-ShareAlike 4.0 International:
+https://creativecommons.org/licenses/by-sa/4.0/
+Legal code: https://creativecommons.org/licenses/by-sa/4.0/legalcode
+Historical upstream licence: https://creativecommons.org/licenses/by-sa/2.1/jp/
+
+Modifications for CRUS: right-leg/foot selection; cropped and capped femur; evaluated source modifiers; cleaned geometry; split source tendon surfaces; grouped structures; converted orientation/units; vertex tissue colours; added metadata; derived four illustrative compartment convex hulls; Draco compression. Per-part source mapping is in manifest.json; export scripts are supplied with the app.
+
+No endorsement or clinical validation by source authors is implied. Educational use only; not a medical device.

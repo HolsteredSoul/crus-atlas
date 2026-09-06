@@ -1,0 +1,296 @@
+{
+  "achilles_mid": [
+    {
+      "partId": "achilles",
+      "position": [
+        3.774,
+        65.512,
+        -46.345
+      ],
+      "scale": [
+        8,
+        20,
+        7
+      ],
+      "kind": "tendinopathy"
+    }
+  ],
+  "achilles_insertion": [
+    {
+      "partId": "achilles",
+      "position": [
+        4.952,
+        31.923,
+        -53.923
+      ],
+      "scale": [
+        15,
+        11,
+        10
+      ],
+      "kind": "tendinopathy"
+    },
+    {
+      "partId": "retrocalcaneal_bursa",
+      "position": [
+        0.607,
+        65.865,
+        -40.628
+      ],
+      "scale": [
+        13,
+        7,
+        7
+      ],
+      "kind": "fluid"
+    },
+    {
+      "partId": "calcaneus",
+      "position": [
+        0.309,
+        52.524,
+        -43.72
+      ],
+      "scale": [
+        15,
+        8,
+        8
+      ],
+      "kind": "tendinopathy"
+    }
+  ],
+  "achilles_rupture": [
+    {
+      "partId": "achilles",
+      "position": [
+        3.774,
+        65.512,
+        -46.345
+      ],
+      "scale": [
+        10,
+        6,
+        9
+      ],
+      "kind": "rupture"
+    }
+  ],
+  "pttd": [
+    {
+      "partId": "tp_tendon",
+      "position": [
+        22.348,
+        73.301,
+        -11.507
+      ],
+      "scale": [
+        7,
+        16,
+        7
+      ],
+      "kind": "tendinopathy"
+    }
+  ],
+  "peroneal": [
+    {
+      "partId": "fl_tendon",
+      "position": [
+        -25.115,
+        75.216,
+        -24.601
+      ],
+      "scale": [
+        5,
+        15,
+        5
+      ],
+      "kind": "tendinopathy"
+    },
+    {
+      "partId": "fb_tendon",
+      "position": [
+        -21.166,
+        75.61,
+        -25.387
+      ],
+      "scale": [
+        5,
+        15,
+        5
+      ],
+      "kind": "partial"
+    }
+  ],
+  "tennis_leg": [
+    {
+      "partId": "gastrocnemius_medial",
+      "position": [
+        20.858,
+        284.574,
+        -62.879
+      ],
+      "scale": [
+        19,
+        27,
+        10
+      ],
+      "kind": "partial"
+    },
+    {
+      "partId": "soleus",
+      "position": [
+        16.145,
+        269.959,
+        -37.01
+      ],
+      "scale": [
+        19,
+        12,
+        5
+      ],
+      "kind": "fluid"
+    }
+  ],
+  "soleus_strain": [
+    {
+      "partId": "soleus",
+      "position": [
+        0.301,
+        255.059,
+        -41.7
+      ],
+      "scale": [
+        22,
+        33,
+        10
+      ],
+      "kind": "partial"
+    }
+  ],
+  "cecs_anterior": [
+    {
+      "partId": "anterior_compartment",
+      "position": [
+        -30.475,
+        215.712,
+        75.441
+      ],
+      "scale": [
+        39,
+        142,
+        32
+      ],
+      "kind": "pressure"
+    }
+  ],
+  "cecs_deep": [
+    {
+      "partId": "deep_posterior_compartment",
+      "position": [
+        -21.024,
+        236.008,
+        65.407
+      ],
+      "scale": [
+        33,
+        143,
+        23
+      ],
+      "kind": "pressure"
+    }
+  ],
+  "lateral_sprain": [
+    {
+      "partId": "atfl",
+      "position": [
+        -20.951,
+        65.955,
+        -1.66
+      ],
+      "scale": [
+        14,
+        7,
+        12
+      ],
+      "kind": "sprain"
+    },
+    {
+      "partId": "cfl",
+      "position": [
+        -20.51,
+        59.312,
+        -23.451
+      ],
+      "scale": [
+        8,
+        17,
+        8
+      ],
+      "kind": "sprain"
+    }
+  ],
+  "high_sprain": [
+    {
+      "partId": "syndesmosis",
+      "position": [
+        -6.46,
+        88.817,
+        -8.247
+      ],
+      "scale": [
+        22,
+        12,
+        10
+      ],
+      "kind": "sprain"
+    }
+  ],
+  "mtss": [
+    {
+      "partId": "tibia",
+      "position": [
+        7.682,
+        191.998,
+        -0.668
+      ],
+      "scale": [
+        7,
+        66,
+        12
+      ],
+      "kind": "stress"
+    }
+  ],
+  "stress_fracture": [
+    {
+      "partId": "tibia",
+      "position": [
+        1.218,
+        224.956,
+        17.249
+      ],
+      "scale": [
+        24,
+        7,
+        21
+      ],
+      "kind": "stress"
+    }
+  ],
+  "fibular_neck": [
+    {
+      "partId": "common_fibular_nerve",
+      "position": [
+        -42.797,
+        391.657,
+        -16.448
+      ],
+      "scale": [
+        11,
+        17,
+        13
+      ],
+      "kind": "landmark"
+    }
+  ]
+}

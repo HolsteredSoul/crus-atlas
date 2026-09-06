@@ -93,7 +93,7 @@ Run from the project root with Node.js 22.12+ or 24 and npm. Install with npm ci
 - Develop: npm run dev
 - Static preview: npm run preview
 
-VITE_ATLAS_GLB_URL is optional public build-time configuration. No real anatomical GLB is bundled; the procedural fallback is the delivered model. Browser performance is not yet benchmarked.
+VITE_ATLAS_GLB_URL optionally overrides the bundled Z-Anatomy Draco GLB. Preserve its CC BY-SA attribution. No primitive fallback. Browser performance is not yet benchmarked.
 
 ## Code map (entry points only — open the file for detail)
 
@@ -101,7 +101,8 @@ VITE_ATLAS_GLB_URL is optional public build-time configuration. No real anatomic
 |---|---|---|
 | Anatomy contract | src/catalogue.ts | Stable IDs and metadata |
 | Clinical overlays | src/conditions.ts | Cards, references and markers |
-| Model and loader | src/model.ts | Procedural anatomy and GLB validation |
+| Model and loader | src/model.ts | Source anatomy and GLB validation |
+| Source preparation | scripts/build-atlas.py | Blender export; see README |
 | Explode | src/layout.ts | Pure layout math |
 | 3D viewer | src/viewer.ts | Camera, picking and scene lifecycle |
 | Interface | src/main.ts | Controls and application state |

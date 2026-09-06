@@ -5,12 +5,12 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { OutlinePass } from 'three/addons/postprocessing/OutlinePass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import gsap from 'gsap';
-import { buildProceduralModel, disposeModel, loadAtlasGLB } from './model';
+import { disposeModel, loadAtlasGLB } from './model';
 import { byId, type Part } from './catalogue';
 import { overlayColors, type Condition } from './conditions';
 import { explodeOffsets, type ExplodeMode, type LayoutItem } from './layout';
 
-export const presets=['Anterior','Posterior','Medial','Lateral','Knee plateau','Ankle mortise'] as const;
+export const presets=['Anterior','Posterior','Medial','Lateral','Knee plateau','Ankle mortise','Foot'] as const;
 export type Preset=typeof presets[number]|'Reset';
 interface Piece {mesh:THREE.Mesh<THREE.BufferGeometry,THREE.MeshStandardMaterial>;base:THREE.Vector3;size:THREE.Vector3;part:Part;}
 export class AtlasViewer {
@@ -38,7 +38,7 @@ export class AtlasViewer {
   this.controls.addEventListener('change',()=>this.dirty=true);this.controls.addEventListener('start',()=>{gsap.killTweensOf(this.camera.position);gsap.killTweensOf(this.controls.target);});
   this.composer=new EffectComposer(this.renderer);this.composer.addPass(new RenderPass(this.scene,this.camera));
   this.outline=new OutlinePass(new THREE.Vector2(1,1),this.scene,this.camera);this.outline.edgeStrength=3;this.outline.edgeGlow=.3;this.outline.edgeThickness=1.5;this.outline.visibleEdgeColor.set('#92f1dd');this.outline.hiddenEdgeColor.set('#376960');this.composer.addPass(this.outline);this.composer.addPass(new OutputPass());
-  this.scene.add(this.overlays,this.leaders);this.replace(buildProceduralModel());this.preset('Reset',false);
+  this.scene.add(this.overlays,this.leaders);this.preset('Reset',false);
   this.label=document.createElement('div');this.label.className='model-label';host.append(this.label);
   this.observer=new ResizeObserver(()=>this.resize());this.observer.observe(host);this.resize();
   const canvas=this.renderer.domElement;
@@ -51,9 +51,9 @@ export class AtlasViewer {
  private replace(root:THREE.Group){
   this.scene.remove(this.root);disposeModel(this.root);this.root=root;this.scene.add(root);this.pieces.clear();
   root.traverse(obj=>{if(obj instanceof THREE.Mesh){const mesh=obj as Piece['mesh'];mesh.geometry.computeBoundingBox();this.pieces.set(mesh.userData.id,{mesh,base:mesh.position.clone(),size:mesh.geometry.boundingBox!.getSize(new THREE.Vector3()),part:byId.get(mesh.userData.id)!});}});
-  this.hidden=new Set([...this.pieces.values()].filter(p=>p.part.type==='fascia').map(p=>p.part.id));this.apply();
+  this.hidden=new Set([...this.pieces.values()].filter(p=>p.part.type==='fascia'||p.part.type==='joint'||p.part.id==='tibial_cartilage').map(p=>p.part.id));this.apply();
  }
- async load(url:string){try{const root=await loadAtlasGLB(url);if(this.dead){disposeModel(root);return;}this.clearGroup(this.overlays);this.clearGroup(this.leaders);this.condition=null;this.explodeAmount=0;this.selected=null;this.isolated=null;this.replace(root);this.preset('Reset');this.onModel();this.onStatus('GLB loaded · verify source registration and scale');}catch(error){this.onStatus(`Schematic retained: ${error instanceof Error?error.message:'model could not be loaded'}`);}}
+ async load(url:string){try{const root=await loadAtlasGLB(url);if(this.dead){disposeModel(root);return;}this.clearGroup(this.overlays);this.clearGroup(this.leaders);this.condition=null;this.explodeAmount=0;this.selected=null;this.isolated=null;this.replace(root);this.preset('Reset');this.onModel();this.onStatus('Z-Anatomy model loaded');}catch(error){this.onStatus(`Model unavailable: ${error instanceof Error?error.message:'could not load the anatomical GLB'}`);}}
  private resize(){const {width,height}=this.host.getBoundingClientRect();if(width<1||height<1)return;this.camera.aspect=width/height;this.camera.updateProjectionMatrix();this.renderer.setSize(width,height);this.composer.setSize(width,height);this.dirty=true;}
  private hit(event:PointerEvent|MouseEvent){const r=this.renderer.domElement.getBoundingClientRect();this.pointer.set((event.clientX-r.left)/r.width*2-1,-(event.clientY-r.top)/r.height*2+1);this.raycaster.setFromCamera(this.pointer,this.camera);
   const selectable=[...this.pieces.values()].filter(p=>p.mesh.visible&&p.mesh.material.opacity>.15).map(p=>p.mesh);
@@ -72,12 +72,12 @@ export class AtlasViewer {
  }
  toggle(ids:string[]){const show=ids.some(id=>this.hidden.has(id));ids.forEach(id=>show?this.hidden.delete(id):this.hidden.add(id));this.apply();if(this.explodeAmount>0)this.explode(this.explodeAmount,this.explodeMode);}
  isolate(ids:string[],fade=false){this.isolated=new Set(ids);this.fade=fade;ids.forEach(id=>this.hidden.delete(id));this.apply();}
- restore(){this.hidden=new Set([...this.pieces.values()].filter(p=>p.part.type==='fascia').map(p=>p.part.id));this.isolated=null;this.fade=false;this.xray=false;this.showCondition(null);this.apply();}
+ restore(){this.hidden=new Set([...this.pieces.values()].filter(p=>p.part.type==='fascia'||p.part.type==='joint'||p.part.id==='tibial_cartilage').map(p=>p.part.id));this.isolated=null;this.fade=false;this.xray=false;this.showCondition(null);this.apply();}
  setClip(enabled:boolean,height=300){this.cutEnabled=enabled;this.plane.constant=height;this.apply();this.overlays.traverse(o=>{if(o instanceof THREE.Mesh){o.material.clippingPlanes=enabled?[this.plane]:[];o.material.needsUpdate=true;}});}
  private travel(target:THREE.Vector3,position:THREE.Vector3,animate=true){const duration=animate&&!this.reduced?.75:0;gsap.to(this.controls.target,{x:target.x,y:target.y,z:target.z,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>this.dirty=true});gsap.to(this.camera.position,{x:position.x,y:position.y,z:position.z,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>this.dirty=true});this.dirty=true;}
  preset(name:Preset,animate=true){
-  const target=new THREE.Vector3(0,name==='Knee plateau'?452:name==='Ankle mortise'?80:285,0);
-  const directions:Record<Preset,THREE.Vector3>={Anterior:new THREE.Vector3(0,70,1050),Posterior:new THREE.Vector3(0,70,-1050),Medial:new THREE.Vector3(1050,70,0),Lateral:new THREE.Vector3(-1050,70,0),'Knee plateau':new THREE.Vector3(0,230,180),'Ankle mortise':new THREE.Vector3(-60,50,330),Reset:new THREE.Vector3(-540,145,1080)};
+  const target=new THREE.Vector3(name==='Foot'?-20:0,name==='Knee plateau'?425:name==='Ankle mortise'?75:name==='Foot'?55:285,name==='Foot'?100:0);
+  const directions:Record<Preset,THREE.Vector3>={Anterior:new THREE.Vector3(0,70,1050),Posterior:new THREE.Vector3(0,70,-1050),Medial:new THREE.Vector3(1050,70,0),Lateral:new THREE.Vector3(-1050,70,0),'Knee plateau':new THREE.Vector3(0,230,180),'Ankle mortise':new THREE.Vector3(-60,50,330),Foot:new THREE.Vector3(-220,230,420),Reset:new THREE.Vector3(-540,145,1080)};
   const direction=directions[name].clone();if(['Anterior','Posterior','Medial','Lateral','Reset'].includes(name)){const fit=Math.max(1, .85/this.camera.aspect);direction.multiplyScalar(fit);}
   this.travel(target,target.clone().add(direction),animate);
  }
@@ -99,9 +99,12 @@ export class AtlasViewer {
   if(condition){this.isolated=null;condition.parts.forEach(id=>this.hidden.delete(id));
    for(const marker of condition.markers){
     let geometry:THREE.BufferGeometry;
-    if(marker.kind==='rupture'){geometry=new THREE.TorusGeometry(1,.18,8,48);geometry.rotateX(Math.PI/2);}else if(marker.kind==='partial'&&condition.id==='peroneal'){geometry=new THREE.TorusGeometry(1,.18,8,48);geometry.scale(.4,1,1);}else geometry=new THREE.SphereGeometry(1,24,16);
-    const material=new THREE.MeshBasicMaterial({color:overlayColors[marker.kind],transparent:true,opacity:marker.kind==='pressure'?.22:marker.kind==='fluid'?.6:.75,depthWrite:false,side:THREE.DoubleSide,clippingPlanes:this.cutEnabled?[this.plane]:[]});
-    const mesh=new THREE.Mesh(geometry,material);mesh.position.set(...marker.position);mesh.scale.set(...marker.scale);mesh.userData={partId:marker.partId,base:new THREE.Vector3(...marker.position)};mesh.renderOrder=3;this.overlays.add(mesh);
+    const sourcePiece=this.pieces.get(marker.partId);
+    const surface=!!sourcePiece&&(marker.kind==='pressure'||marker.kind==='sprain');
+    if(surface){geometry=sourcePiece!.mesh.geometry.clone();}else if(marker.kind==='rupture'){geometry=new THREE.TorusGeometry(1,.18,8,48);geometry.rotateX(Math.PI/2);}else if(marker.kind==='partial'&&condition.id==='peroneal'){geometry=new THREE.TorusGeometry(1,.18,8,48);geometry.scale(.4,1,1);}else geometry=new THREE.SphereGeometry(1,24,16);
+    const material=new THREE.MeshBasicMaterial({color:overlayColors[marker.kind],transparent:true,opacity:marker.kind==='pressure'?.22:marker.kind==='fluid'?.6:.75,depthWrite:false,side:THREE.DoubleSide,polygonOffset:surface,polygonOffsetFactor:-1,polygonOffsetUnits:-1,clippingPlanes:this.cutEnabled?[this.plane]:[]});
+    const base=surface?sourcePiece!.base.clone():new THREE.Vector3(...marker.position);
+    const mesh=new THREE.Mesh(geometry,material);mesh.position.copy(base);if(!surface)mesh.scale.set(...marker.scale);mesh.userData={partId:marker.partId,base};mesh.renderOrder=3;this.overlays.add(mesh);
    }
   }
   this.apply();
