@@ -16,7 +16,7 @@ The requested structures are independently selectable under a stable metadata co
 - **Phase:** 2 — Source anatomy integrated; awaiting user visual review.
 - **Last done:** Replaced rejected primitives with a 74-part Z-Anatomy Draco GLB, including the bony foot and source tendon/cartilage surfaces. Added Foot preset and registered clinical symbols. Five tests and production build pass; browser checks cover loading, selection, visibility, inventory/reassembly and Achilles overlay. Captured real full-leg and foot views. Documented attribution and incomplete deltoid component. No deployment.
 - **Next action:** User visual review of the source model; independent anatomical validation and representative-device performance remain outstanding.
-- **Synced to:** d2254dc — 2026-09-06, with uncommitted source-model integration and documentation changes. User acceptance is pending.
+- **Synced to:** edc4865 — 2026-09-06, source-model integration and documentation committed. User acceptance is pending.
 
 ## Slips
 - Treated procedural fallback permission as acceptable final anatomical quality; pursued publishing before visually verifying the model. User screenshots exposed the failure.
