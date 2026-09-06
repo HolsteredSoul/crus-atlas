@@ -120,4 +120,3 @@ npm run build
 ```
 
 Five Node tests verify complete finite geometry, anatomical coordinate relationships, metadata rejection, clinical-reference/marker integrity, inventory non-overlap and fixed-bone/reduced-tendon offsets. TypeScript strict checks and the Vite production build pass. The local Vite endpoint was verified with HTTP 200. Browser interaction/accessibility testing and representative-device frame-rate measurement remain unperformed; do not treat the node/build checks as those tests. The production build currently emits the standard warning for the approximately 538 kB minified Three.js chunk (about 137 kB gzip).
-

@@ -112,4 +112,3 @@ Keep operational rules here; rationale lives in PROJECT.md or memory. Keep the c
 to entry points, never function lists or line numbers. Do not let an initialization
 command regenerate shared guidance or duplicate it into harness adapters. When it grows,
 prune without weakening the base requirements.
-

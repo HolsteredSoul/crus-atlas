@@ -16,7 +16,7 @@ The requested structures are independently selectable under a stable metadata co
 - **Phase:** 3 — Harden: implementation and automated validation complete; browser/device validation unperformed.
 - **Last done:** Implemented 47-part procedural atlas, metadata-validating Draco loader, 14 clinical cards, layers, camera, selection, clipping and three explode modes. Five automated tests and strict production build pass; local server returned HTTP 200.
 - **Next action:** User review; separately validate browser interactions/performance and supply/register a licensed real GLB if requested.
-- **Synced to:** uncommitted — 2026-09-06. All application, documentation and bootstrap changes are currently uncommitted.
+- **Synced to:** fd14718 — 2026-09-06. Application, documentation and bootstrap source committed; this status-only update records that anchor.
 
 ## Slips
 - Initial test assumed 15 clinical cards; actual 14 grouped cards cover the requested topics. Corrected the assertion and documentation.

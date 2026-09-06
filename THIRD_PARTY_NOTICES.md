@@ -9,4 +9,3 @@ The procedural anatomy geometry and fibre texture are original work for this app
 - DM Sans and Manrope: fonts served by Google Fonts; their fallback system fonts are used if unavailable. See the font projects and their licences at https://github.com/google/fonts/tree/main/ofl/dmsans and https://github.com/google/fonts/tree/main/ofl/manrope.
 
 Medical reference text is independently summarized for educational cards, with links in `src/conditions.ts` and the README. Sources have not endorsed or clinically validated this atlas.
-
