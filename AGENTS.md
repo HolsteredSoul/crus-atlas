@@ -95,11 +95,15 @@ Run from the project root with Node.js 22.12+ or 24 and npm. Install with npm ci
 
 VITE_ATLAS_GLB_URL optionally overrides the bundled Z-Anatomy Draco GLB. Preserve its CC BY-SA attribution. No primitive fallback. Browser performance is not yet benchmarked.
 
+Prepare metadata with node --import tsx scripts/prepare-export.ts before Blender export. Use the active-scene export restriction; unrelated selected objects must not enter the GLB. Editable assets are collection libraries (see README), avoiding Blender 5.2's scene-library copy crash. Keep generated and authored assets separate.
+
 ## Code map (entry points only — open the file for detail)
 
 | Concern | File | Notes |
 |---|---|---|
 | Anatomy contract | src/catalogue.ts | Stable IDs and metadata |
+| Supplement registry | assets/supplements.json | Source bindings, additions and references |
+| Anatomical gaps | assets/unresolved.json | Reviewed exclusions and source uncertainty |
 | Clinical overlays | src/conditions.ts | Cards, references and markers |
 | Model and loader | src/model.ts | Source anatomy and GLB validation |
 | Source preparation | scripts/build-atlas.py | Blender export; see README |

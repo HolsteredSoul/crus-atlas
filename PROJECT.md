@@ -13,14 +13,15 @@ The requested structures are independently selectable under a stable metadata co
 - No detailed full-body anatomy, complete foot musculature or new roadmap features.
 
 ## Status — where we are
-- **Phase:** 2 — Source anatomy integrated; awaiting user visual review.
-- **Last done:** Added Sole preset and underside orbiting, concealed floor guides below ground, lit plantar surfaces and preserved viewing angle when focusing. Browser verified heel-to-toe framing, focus and orbit beneath the foot; production build passes. Source-model validation and acceptance remain as previously recorded.
-- **Next action:** User visual review of the source model; independent anatomical validation and representative-device performance remain outstanding.
-- **Synced to:** a274d61 — 2026-09-07, underside-view changes committed. User acceptance is pending.
+- **Phase:** 2 — Supplemented source atlas delivered; explicit anatomical gaps remain.
+- **Last done:** Established public HolsteredSoul/crus-atlas preserving history; corrected tissue-region contrast and added provenance. Batches A–F add 19 IDs (93 total): five tendon partitions, six fascia/aponeurosis parts and eight sheaths. G candidates were inspected and excluded because source-specific attachment registration remains unresolved. Disputed retinaculum is labelled and hidden by default. Portable Blender export and editable libraries verified in a fresh process; 7 tests, production build and browser interaction checks pass. Final review images and documentation accompany this status update.
+- **Next action:** User review of delivered atlas and itemised gaps. G authoring needs registered footprint/receiving-surface evidence. Independent clinical validation and representative-device performance remain outstanding; no further scope is authorized by this pointer.
+- **Synced to:** 62bf00e — 2026-09-07, reviewed supplementation/export changes committed; accompanying review documentation and images are included in this documentation update.
 
 ## Slips
 - Treated procedural fallback permission as acceptable final anatomical quality; pursued publishing before visually verifying the model. User screenshots exposed the failure.
 - Initial test assumed 15 clinical cards; actual 14 grouped cards cover the requested topics. Corrected the assertion and documentation.
+- Clean rebuild exposed selected objects from other scenes and a Blender 5.2 scene-library copy crash. Restricted export to the active atlas scene and verified collection libraries instead.
 
 ## Stack
 Vite 7, strict TypeScript, Three.js 0.180+, GLTFLoader/DRACOLoader, OrbitControls, GSAP, Lucide and a custom semantic HTML/CSS tree. Static app with bundled source-derived Draco GLB; no primitive fallback. No framework or server needed.
