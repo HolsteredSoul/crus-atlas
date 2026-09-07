@@ -14,9 +14,9 @@ The requested structures are independently selectable under a stable metadata co
 
 ## Status — where we are
 - **Phase:** 2 — Supplemented source atlas delivered; explicit anatomical gaps remain.
-- **Last done:** Established public HolsteredSoul/crus-atlas preserving history; corrected tissue-region contrast and added provenance. Batches A–F add 19 IDs (93 total): five tendon partitions, six fascia/aponeurosis parts and eight sheaths. G candidates were inspected and excluded because source-specific attachment registration remains unresolved. Disputed retinaculum is labelled and hidden by default. Portable Blender export and editable libraries verified in a fresh process; 7 tests, production build and browser interaction checks pass. Final review images and documentation accompany this status update.
+- **Last done:** Published the supplemented 93-entry atlas to https://holsteredsoul.github.io/crus-atlas/ using GitHub Actions. CI tests/build/deploy succeeded; the public browser loaded all entries, rendered the model, exercised layer visibility and Foot focus, and reported no browser errors. The workflow builds with the repository base path and publishes dist on master pushes. Preserved the user's remote .nojekyll addition. Anatomy coverage and reviewed exclusions remain as documented in docs/reviews/IMPLEMENTATION.md.
 - **Next action:** User review of delivered atlas and itemised gaps. G authoring needs registered footprint/receiving-surface evidence. Independent clinical validation and representative-device performance remain outstanding; no further scope is authorized by this pointer.
-- **Synced to:** 62bf00e — 2026-09-07, reviewed supplementation/export changes committed; accompanying review documentation and images are included in this documentation update.
+- **Synced to:** 18e9150 — 2026-09-07, GitHub Pages workflow committed and deployed successfully (run 34084464704); this update records the verified hosting status.
 
 ## Slips
 - Treated procedural fallback permission as acceptable final anatomical quality; pursued publishing before visually verifying the model. User screenshots exposed the failure.
