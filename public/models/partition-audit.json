@@ -5,8 +5,8 @@
       "Extensor digitorum longus.r": 3176
     },
     "allocation": {
-      "edl_tendon": 5638,
-      "extensor_digitorum_longus": 2722
+      "extensor_digitorum_longus": 2722,
+      "edl_tendon": 5638
     },
     "allFacesAssignedExactlyOnce": true
   },
@@ -25,8 +25,8 @@
       "Flexor hallucis longus.r": 5878
     },
     "allocation": {
-      "flexor_hallucis_longus": 3754,
-      "fhl_tendon": 2124
+      "fhl_tendon": 2124,
+      "flexor_hallucis_longus": 3754
     },
     "allFacesAssignedExactlyOnce": true
   },

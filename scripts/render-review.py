@@ -19,10 +19,12 @@ scene.world=bpy.data.worlds.new('CRUS_ReviewWorld');scene.world.use_nodes=True
 scene.world.node_tree.nodes['Background'].inputs[0].default_value=(.08,.11,.12,1)
 scene.world.node_tree.nodes['Background'].inputs[1].default_value=.5
 scene.view_settings.view_transform='AgX'
-for original in bpy.data.collections['CRUS_Export'].objects:
+for original in bpy.data.collections[globals().get('REVIEW_COLLECTION','CRUS_Export')].objects:
  if selected and original['id'] not in selected:continue
  if not selected and original['type'] in ['fascia','joint','sheath']:continue
  obj=original.copy();scene.collection.objects.link(obj);obj.hide_render=False
+ if original['id'] in globals().get('REVIEW_OFFSETS',{}):
+  delta=REVIEW_OFFSETS[original['id']];obj.location+=Vector((delta[0],-delta[2],delta[1]))
  if view=='section':
   obj.data=original.data.copy();bm=bmesh.new();bm.from_mesh(obj.data)
   for height,normal in [(slice_y+3,1),(slice_y-3,-1)]:
@@ -41,9 +43,12 @@ for original in bpy.data.collections['CRUS_Export'].objects:
 def point(xyz):return Vector((xyz[0],-xyz[2],xyz[1]))
 target=point((0,slice_y,0) if view=='section' else (0,285,0) if view=='full' else (-20,55,90))
 direction=point((0,600,1) if view=='section' else (-540,145,1080) if view=='full' else (-30,-600,90) if view=='sole' else (-220,230,420))
+if 'REVIEW_TARGET' in globals():target=point(REVIEW_TARGET)
+if 'REVIEW_DIRECTION' in globals():direction=point(REVIEW_DIRECTION)
 camera=bpy.data.objects.new('Review camera',bpy.data.cameras.new('Review camera'));scene.collection.objects.link(camera)
 camera.location=target+direction;camera.rotation_euler=(target-camera.location).to_track_quat('-Z','Y').to_euler()
 camera.data.type='ORTHO';camera.data.ortho_scale=160 if view=='section' else 700 if view=='full' else 360;camera.data.clip_end=10000;scene.camera=camera
+if 'REVIEW_SCALE' in globals():camera.data.ortho_scale=REVIEW_SCALE
 for index,(position,energy) in enumerate([((-300,500,400),2.2),((250,250,-400),1.2),((0,-450,150),1.4)]):
  light=bpy.data.objects.new('Review light',bpy.data.lights.new('Review light','SUN'));scene.collection.objects.link(light)
  light.data.energy=energy;light.data.angle=math.radians(12);light.location=point(position)

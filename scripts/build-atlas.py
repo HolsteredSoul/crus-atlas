@@ -168,6 +168,6 @@ for obj in work.objects:obj.select_set(False)
 for obj in out.objects:obj.select_set(True);obj.hide_set(False);obj.hide_render=False
 bpy.context.view_layer.objects.active=next(iter(out.objects))
 target=ROOT/'public/models/right-lower-leg.glb';target.parent.mkdir(parents=True,exist_ok=True)
-bpy.ops.export_scene.gltf(filepath=str(target),export_format='GLB',use_selection=True,export_extras=True,export_yup=True,export_apply=True,export_draco_mesh_compression_enable=True,export_draco_mesh_compression_level=6,export_draco_position_quantization=16,export_draco_normal_quantization=10,export_draco_color_quantization=10,export_materials='EXPORT',export_animations=False,export_cameras=False,export_lights=False)
+bpy.ops.export_scene.gltf(filepath=str(target),export_format='GLB',use_selection=True,use_active_scene=True,export_extras=True,export_yup=True,export_apply=True,export_draco_mesh_compression_enable=True,export_draco_mesh_compression_level=6,export_draco_position_quantization=16,export_draco_normal_quantization=10,export_draco_color_quantization=10,export_materials='EXPORT',export_animations=False,export_cameras=False,export_lights=False)
 (ROOT/'public/models/manifest.json').write_text(json.dumps({'source':'Z-Anatomy','sourcePin':source_info,'license':'CC BY-SA 4.0','coordinates':'+X medial, +Y proximal, +Z anterior; millimetres','parts':manifest},indent=2))
 print(json.dumps({'exported':str(target),'bytes':target.stat().st_size,'parts':len(manifest),'polygons':sum(p['polygons'] for p in manifest.values())}))

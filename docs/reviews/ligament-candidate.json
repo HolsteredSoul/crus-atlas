@@ -1,0 +1,17 @@
+{
+  "sourceObject": "Plantar calcaneonavicular ligament.r",
+  "status": "candidate only; not exported",
+  "vertices": 18,
+  "polygons": 16,
+  "min": [
+    3.720611095428467,
+    48.82168197631836,
+    4.990586757659912
+  ],
+  "max": [
+    13.116374015808105,
+    53.60545349121094,
+    25.912168502807617
+  ],
+  "reviewColour": "orange; not the accepted tissue palette"
+}
