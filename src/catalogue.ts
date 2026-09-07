@@ -1,3 +1,4 @@
+import supplements from '../assets/supplements.json';
 import tissuePalette from './tissue-palette.json';
 export type PartType = 'bone'|'cartilage'|'joint'|'muscle'|'tendon'|'ligament'|'fascia'|'nerve'|'vessel'|'bursa'|'retinaculum'|'skin'|'sheath';
 export type Compartment = 'anterior'|'lateral'|'superficial_posterior'|'deep_posterior'|'knee'|'ankle'|'foot'|'neurovascular'|'none';
@@ -71,11 +72,15 @@ for(let toe=1;toe<=5;toe++)for(const segment of ['proximal','middle','distal']){
 for(const [id,name] of [['extensor_digitorum_brevis','Extensor digitorum brevis'],['extensor_hallucis_brevis','Extensor hallucis brevis'],['abductor_hallucis','Abductor hallucis'],['flexor_digitorum_brevis','Flexor digitorum brevis'],['foot_interossei','Dorsal interossei of foot'],['foot_lumbricals','Lumbricals of foot']]){
  catalogue.push(p(id,name,'muscle','foot','Intrinsic foot origin; see source anatomy','Digital tendons and phalanges','Contributes to coordinated toe motion and foot support.','Intrinsic foot muscle shown using the source anatomy mesh.'));
 }
+for(const entry of supplements){
+ const item=p(entry.id,entry.displayName,entry.type as PartType,entry.compartment as Compartment,entry.origin,entry.insertion,entry.action,entry.description);
+ catalogue.push(item);
+}
 export const byId = new Map(catalogue.map(part => [part.id,part]));
 export const palette:Record<PartType,string> = tissuePalette;
 export const partOpacity=(part:Part)=>part.id.endsWith('_compartment')?.22:part.type==='fascia'?.65:part.type==='sheath'?.55:part.type==='joint'?.38:1;
 export const hiddenByDefault=(part:Part)=>part.defaultHidden??(['fascia','joint','sheath'].includes(part.type)||part.id==='tibial_cartilage');
 for(const part of catalogue){
- const kind:Representation=part.id.endsWith('_compartment')||part.type==='joint'?'derived_illustration':['ta_tendon','tp_tendon','fl_tendon','fb_tendon','tibialis_anterior','tibialis_posterior','fibularis_longus','fibularis_brevis'].includes(part.id)?'source_partition':'source_mesh';
+ const kind:Representation=part.id.endsWith('_compartment')||part.type==='joint'?'derived_illustration':['ta_tendon','tp_tendon','fl_tendon','fb_tendon','tibialis_anterior','tibialis_posterior','fibularis_longus','fibularis_brevis','tibial_cartilage',...supplements.flatMap(e=>'splitFrom' in e?[e.id,String(e.splitFrom)]:[])].includes(part.id)?'source_partition':'source_mesh';
  part.provenance??={kind,source:'Z-Anatomy / BodyParts3D',references:['https://github.com/Z-Anatomy/Models-of-human-anatomy'],review:'Technical review only; independent anatomical validation pending.'};
 }

@@ -2,7 +2,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { Box3, BoxGeometry, Group, Mesh, Vector3 } from 'three';
-import { catalogue, byId } from '../src/catalogue.ts';
+import requiredParts from '../assets/required-parts.json';
+import supplements from '../assets/supplements.json';
+import { catalogue, byId, partOpacity, hiddenByDefault } from '../src/catalogue.ts';
 import { conditions } from '../src/conditions.ts';
 import { validateModel, disposeModel } from '../src/model.ts';
 import { explodeOffsets, type LayoutItem } from '../src/layout.ts';
@@ -16,10 +18,10 @@ function items():LayoutItem[]{return catalogue.map(p=>{const b=manifest.parts[p.
 
 test('shipped GLB is complete Draco anatomy, with separate IDs and source tissue colours',()=>{
  assert.equal(binary.readUInt32LE(0),0x46546c67);assert.equal(binary.readUInt32LE(8),binary.length);
- assert.equal(nodes.length,catalogue.length);assert.equal(catalogue.length,74);assert.ok(binary.length<25_000_000);
+ assert.equal(nodes.length,catalogue.length);assert.deepEqual(new Set(catalogue.map(p=>p.id)),new Set([...requiredParts,...supplements.map(p=>p.id)]));assert.ok(binary.length<25_000_000);
  assert.ok(gltf.extensionsRequired.includes('KHR_draco_mesh_compression'));
- assert.equal(new Set(nodes.map((n:any)=>n.extras.id)).size,74);
- const root=contractFixture();assert.equal(validateModel(root).size,74);disposeModel(root);
+ assert.equal(new Set(nodes.map((n:any)=>n.extras.id)).size,catalogue.length);
+ const root=contractFixture();assert.equal(validateModel(root).size,catalogue.length);disposeModel(root);
  for(const n of nodes){const primitives=gltf.meshes[n.mesh].primitives;assert.equal(primitives.length,1);assert.ok(primitives[0].extensions.KHR_draco_mesh_compression);assert.ok(primitives[0].attributes.COLOR_0!==undefined,n.extras.id);}
  for(const p of catalogue){const m=manifest.parts[p.id];assert.ok(m.polygons>0,p.id);assert.ok([...m.min,...m.max].every(Number.isFinite),p.id);assert.ok(m.sources.length,p.id);}
  for(let toe=1;toe<=5;toe++){assert.ok(byId.has(`toe_${toe}_proximal`));assert.ok(byId.has(`toe_${toe}_distal`));assert.equal(byId.has(`toe_${toe}_middle`),toe!==1);}
@@ -39,4 +41,14 @@ test('inventory avoids overlap using actual source mesh bounds',()=>{
 test('hierarchical explosion fixes bones and reduces tendon displacement',()=>{
  const parts=items();for(const mode of ['compartment','hierarchical'] as const){const offsets=explodeOffsets(parts,mode);for(const p of parts.filter(p=>p.type==='bone'))assert.equal(offsets.get(p.id)!.length(),0);}
  const pair:LayoutItem[]=[{id:'m',type:'muscle',compartment:'anterior',center:new Vector3(0,285,20),size:new Vector3(10,100,10)},{id:'t',type:'tendon',compartment:'anterior',center:new Vector3(0,285,20),size:new Vector3(10,100,10)}];const offsets=explodeOffsets(pair,'hierarchical');assert.ok(offsets.get('t')!.length()<offsets.get('m')!.length());
+});
+
+test('new tendon partitions conserve all source faces and visible fascia can be picked',()=>{
+ const audit=JSON.parse(fs.readFileSync(new URL('../public/models/partition-audit.json',import.meta.url),'utf8'));
+ for(const item of supplements.filter(s=>'splitFrom' in s)){
+  const record=audit[item.id];assert.ok(record.allFacesAssignedExactlyOnce);
+  assert.equal(Object.values<number>(record.sourceFaces).reduce((a,b)=>a+b,0),Object.values<number>(record.allocation).reduce((a,b)=>a+b,0));
+  assert.ok(record.allocation[item.id]>0);assert.ok(record.allocation[String(item.splitFrom)]>0);
+ }
+ for(const part of catalogue){assert.ok(part.provenance);if(['fascia','sheath'].includes(part.type)){assert.ok(partOpacity(part)>.15);assert.ok(hiddenByDefault(part));}}
 });

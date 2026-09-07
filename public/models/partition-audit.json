@@ -1,0 +1,13 @@
+{
+  "edl_tendon": {
+    "sourceFaces": {
+      "Tendon of extensor digitorum longus.r": 5184,
+      "Extensor digitorum longus.r": 3176
+    },
+    "allocation": {
+      "edl_tendon": 5638,
+      "extensor_digitorum_longus": 2722
+    },
+    "allFacesAssignedExactlyOnce": true
+  }
+}

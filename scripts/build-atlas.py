@@ -45,6 +45,12 @@ for toe, ordinal in enumerate(['first','second','third','fourth','fifth'],1):
   if toe==1 and segment=='middle':continue
   bindings[f'toe_{toe}_{segment}']=[(f'{segment.title()} phalanx of {ordinal} finger of foot.r','all')]
 
+supplements=json.loads((ROOT/'assets/supplements.json').read_text())
+for entry in supplements:
+ bindings[entry['id']]=entry['sources']
+ if 'splitFrom' in entry:bindings[entry['splitFrom']]=[(name,'muscle') for name in entry['muscleSources']]
+face_uses={}
+
 work=bpy.data.scenes.get('CRUS_Workshop') or bpy.data.scenes.new('CRUS_Workshop')
 bpy.context.window.scene=work
 with bpy.data.libraries.load(str(SOURCE),link=False) as (src,dst):
@@ -52,7 +58,7 @@ with bpy.data.libraries.load(str(SOURCE),link=False) as (src,dst):
  missing=needed-set(src.objects)
  if missing:raise RuntimeError('Missing source anatomy: '+str(sorted(missing)))
  ordered=sorted(needed)
- dst.objects=ordered
+ dst.objects=ordered.copy()
 source_objects=dict(zip(ordered,dst.objects))
 for name in needed:
  obj=source_objects[name]
@@ -99,7 +105,7 @@ def finish(part_id,mesh,source_names):
  for face in mesh.polygons:face.material_index=0;face.use_smooth=True
  obj=bpy.data.objects.new(part_id,mesh);out.objects.link(obj)
  for k,v in part.items():obj[k]=v
- obj['source']='Z-Anatomy / BodyParts3D';obj['sourceObjects']=source_names
+ obj['source']=part['provenance']['source'];obj['sourceObjects']=source_names
  obj['representation']=part['provenance']['kind']
  xyz=[(v.co.x,v.co.z,-v.co.y) for v in mesh.vertices]
  manifest[part_id]={'sources':source_names,'provenance':part['provenance'],'vertices':len(mesh.vertices),'polygons':len(mesh.polygons),'min':[min(v[i] for v in xyz) for i in range(3)],'max':[max(v[i] for v in xyz) for i in range(3)]}
@@ -122,6 +128,7 @@ for part_id,sources in bindings.items():
    if region=='upper_cartilage' and mean_z<.065:continue
    if region=='lower_cartilage' and mean_z>=.065:continue
    faces.append([offset+i for i in poly.vertices])
+   face_uses.setdefault((name,poly.index),[]).append(part_id)
    tissue='tendon' if tendon else 'cartilage' if cartilage else part['type']
    colors.append(rgba(tissue))
   bpy.data.meshes.remove(mesh)
@@ -130,6 +137,21 @@ for part_id,sources in bindings.items():
  for face,color in zip(mesh.polygons,colors):
   for loop in face.loop_indices:attribute.data[loop].color=color
  finish(part_id,mesh,[n for n,_ in sources])
+
+partition_audit={}
+for entry in supplements:
+ if 'splitFrom' not in entry:continue
+ ids={entry['id'],entry['splitFrom']};sources={n for n,_ in entry['sources']}|set(entry['muscleSources'])
+ expected={};allocation={i:0 for i in ids}
+ for name in sources:
+  evaluated=source_objects[name].evaluated_get(depsgraph)
+  count=len(evaluated.data.polygons);expected[name]=count
+  for index in range(count):
+   owners=[i for i in face_uses.get((name,index),[]) if i in ids]
+   if len(owners)!=1:raise RuntimeError('Partition lost or duplicated face '+name+':'+str(index))
+   allocation[owners[0]]+=1
+ partition_audit[entry['id']]={'sourceFaces':expected,'allocation':allocation,'allFacesAssignedExactlyOnce':True}
+(ROOT/'public/models/partition-audit.json').write_text(json.dumps(partition_audit,indent=2))
 
 # Immutable accepted envelopes: tendon partitioning must not redefine compartments.
 for part_id,data in json.loads((ROOT/'assets/compartment-baseline.json').read_text()).items():

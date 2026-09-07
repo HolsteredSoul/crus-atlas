@@ -1,0 +1,26 @@
+[
+  {
+    "id": "edl_tendon",
+    "displayName": "Extensor digitorum longus tendon",
+    "type": "tendon",
+    "compartment": "anterior",
+    "origin": "Extensor digitorum longus muscle",
+    "insertion": "Dorsal extensor expansions of toes 2\u20135",
+    "action": "Transmits extension of the lateral four toes and assists ankle dorsiflexion.",
+    "description": "Four distal branches retain the source extensor expansion geometry; separated without changing their course.",
+    "splitFrom": "extensor_digitorum_longus",
+    "muscleSources": [
+      "Extensor digitorum longus.r"
+    ],
+    "sources": [
+      [
+        "Extensor digitorum longus.r",
+        "tendon"
+      ],
+      [
+        "Tendon of extensor digitorum longus.r",
+        "all"
+      ]
+    ]
+  }
+]

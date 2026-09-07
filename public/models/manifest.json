@@ -394,7 +394,7 @@
         "Tibia.r"
       ],
       "provenance": {
-        "kind": "source_mesh",
+        "kind": "source_partition",
         "source": "Z-Anatomy / BodyParts3D",
         "references": [
           "https://github.com/Z-Anatomy/Models-of-human-anatomy"
@@ -491,28 +491,27 @@
     },
     "extensor_digitorum_longus": {
       "sources": [
-        "Extensor digitorum longus.r",
-        "Tendon of extensor digitorum longus.r"
+        "Extensor digitorum longus.r"
       ],
       "provenance": {
-        "kind": "source_mesh",
+        "kind": "source_partition",
         "source": "Z-Anatomy / BodyParts3D",
         "references": [
           "https://github.com/Z-Anatomy/Models-of-human-anatomy"
         ],
         "review": "Technical review only; independent anatomical validation pending."
       },
-      "vertices": 4237,
-      "polygons": 8360,
+      "vertices": 1371,
+      "polygons": 2722,
       "min": [
-        -69.07189178466797,
-        12.796137809753418,
+        -44.46237564086914,
+        140.88311767578125,
         -10.164655685424805
       ],
       "max": [
-        -11.98083209991455,
+        -21.708890914916992,
         418.6822509765625,
-        161.49136352539062
+        22.73992156982422
       ]
     },
     "fibularis_tertius": {
@@ -1767,6 +1766,32 @@
         -63.41481399536133,
         14.837618827819824,
         131.7049102783203
+      ]
+    },
+    "edl_tendon": {
+      "sources": [
+        "Extensor digitorum longus.r",
+        "Tendon of extensor digitorum longus.r"
+      ],
+      "provenance": {
+        "kind": "source_partition",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
+      "vertices": 2892,
+      "polygons": 5638,
+      "min": [
+        -69.07189178466797,
+        12.796137809753418,
+        -5.044806957244873
+      ],
+      "max": [
+        -11.98083209991455,
+        152.11940002441406,
+        161.49136352539062
       ]
     },
     "anterior_compartment": {
