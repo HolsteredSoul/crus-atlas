@@ -10,7 +10,7 @@ import { byId, type Part } from './catalogue';
 import { overlayColors, type Condition } from './conditions';
 import { explodeOffsets, type ExplodeMode, type LayoutItem } from './layout';
 
-export const presets=['Anterior','Posterior','Medial','Lateral','Knee plateau','Ankle mortise','Foot'] as const;
+export const presets=['Anterior','Posterior','Medial','Lateral','Knee plateau','Ankle mortise','Foot','Sole'] as const;
 export type Preset=typeof presets[number]|'Reset';
 interface Piece {mesh:THREE.Mesh<THREE.BufferGeometry,THREE.MeshStandardMaterial>;base:THREE.Vector3;size:THREE.Vector3;part:Part;}
 export class AtlasViewer {
@@ -18,7 +18,7 @@ export class AtlasViewer {
  readonly renderer:THREE.WebGLRenderer; readonly controls:OrbitControls; readonly composer:EffectComposer;readonly outline:OutlinePass;
  readonly pieces=new Map<string,Piece>();hidden=new Set<string>();selected:string|null=null;isolated:Set<string>|null=null;fade=false;xray=false;
  explodeAmount=0;explodeMode:ExplodeMode='compartment';condition:Condition|null=null;
- private root=new THREE.Group();private overlays=new THREE.Group();private leaders=new THREE.Group();
+ private ground=new THREE.Group();private root=new THREE.Group();private overlays=new THREE.Group();private leaders=new THREE.Group();
  private raycaster=new THREE.Raycaster();private pointer=new THREE.Vector2();private down={x:0,y:0};private raf=0;
  private observer:ResizeObserver;private plane=new THREE.Plane(new THREE.Vector3(0,-1,0),600);private cutEnabled=false;
  private label:HTMLDivElement;private dead=false;private dirty=true;private lastFrame=0;private reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -32,9 +32,10 @@ export class AtlasViewer {
   const key=new THREE.DirectionalLight(0xffeee2,3.5);key.position.set(-180,480,370);this.scene.add(key);
   const fill=new THREE.DirectionalLight(0x9ac9ce,2.8);fill.position.set(230,320,-350);this.scene.add(fill);
   const side=new THREE.DirectionalLight(0xffd1a9,1);side.position.set(-250,120,-100);this.scene.add(side);
-  const grid=new THREE.GridHelper(1000,40,0x344245,0x253034);grid.position.y=-3;const gm=grid.material as THREE.Material;gm.transparent=true;gm.opacity=.27;this.scene.add(grid);
-  const circle=new THREE.Mesh(new THREE.RingGeometry(85,86,96),new THREE.MeshBasicMaterial({color:0x5b7476,transparent:true,opacity:.35,side:THREE.DoubleSide}));circle.rotation.x=-Math.PI/2;circle.position.y=-1;this.scene.add(circle);
-  this.controls=new OrbitControls(this.camera,this.renderer.domElement);this.controls.enableDamping=true;this.controls.dampingFactor=.075;this.controls.minPolarAngle=.12;this.controls.maxPolarAngle=Math.PI/2-.015;this.controls.minDistance=65;this.controls.maxDistance=9000;this.controls.target.set(0,285,0);
+  const grid=new THREE.GridHelper(1000,40,0x344245,0x253034);grid.position.y=-3;const gm=grid.material as THREE.Material;gm.transparent=true;gm.opacity=.27;this.ground.add(grid);
+  const circle=new THREE.Mesh(new THREE.RingGeometry(85,86,96),new THREE.MeshBasicMaterial({color:0x5b7476,transparent:true,opacity:.35,side:THREE.DoubleSide}));circle.rotation.x=-Math.PI/2;circle.position.y=-1;this.ground.add(circle);this.scene.add(this.ground);
+  const plantarFill=new THREE.DirectionalLight(0xe2eeee,2.5);plantarFill.position.set(0,-350,120);this.scene.add(plantarFill);
+  this.controls=new OrbitControls(this.camera,this.renderer.domElement);this.controls.enableDamping=true;this.controls.dampingFactor=.075;this.controls.minPolarAngle=.12;this.controls.maxPolarAngle=Math.PI-.12;this.controls.minDistance=65;this.controls.maxDistance=9000;this.controls.target.set(0,285,0);
   this.controls.addEventListener('change',()=>this.dirty=true);this.controls.addEventListener('start',()=>{gsap.killTweensOf(this.camera.position);gsap.killTweensOf(this.controls.target);});
   this.composer=new EffectComposer(this.renderer);this.composer.addPass(new RenderPass(this.scene,this.camera));
   this.outline=new OutlinePass(new THREE.Vector2(1,1),this.scene,this.camera);this.outline.edgeStrength=3;this.outline.edgeGlow=.3;this.outline.edgeThickness=1.5;this.outline.visibleEdgeColor.set('#92f1dd');this.outline.hiddenEdgeColor.set('#376960');this.composer.addPass(this.outline);this.composer.addPass(new OutputPass());
@@ -76,15 +77,16 @@ export class AtlasViewer {
  setClip(enabled:boolean,height=300){this.cutEnabled=enabled;this.plane.constant=height;this.apply();this.overlays.traverse(o=>{if(o instanceof THREE.Mesh){o.material.clippingPlanes=enabled?[this.plane]:[];o.material.needsUpdate=true;}});}
  private travel(target:THREE.Vector3,position:THREE.Vector3,animate=true){const duration=animate&&!this.reduced?.75:0;gsap.to(this.controls.target,{x:target.x,y:target.y,z:target.z,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>this.dirty=true});gsap.to(this.camera.position,{x:position.x,y:position.y,z:position.z,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>this.dirty=true});this.dirty=true;}
  preset(name:Preset,animate=true){
-  const target=new THREE.Vector3(name==='Foot'?-20:0,name==='Knee plateau'?425:name==='Ankle mortise'?75:name==='Foot'?55:285,name==='Foot'?100:0);
-  const directions:Record<Preset,THREE.Vector3>={Anterior:new THREE.Vector3(0,70,1050),Posterior:new THREE.Vector3(0,70,-1050),Medial:new THREE.Vector3(1050,70,0),Lateral:new THREE.Vector3(-1050,70,0),'Knee plateau':new THREE.Vector3(0,230,180),'Ankle mortise':new THREE.Vector3(-60,50,330),Foot:new THREE.Vector3(-220,230,420),Reset:new THREE.Vector3(-540,145,1080)};
+  const footView=name==='Foot'||name==='Sole';
+  const target=new THREE.Vector3(footView?-20:0,name==='Knee plateau'?425:name==='Ankle mortise'?75:footView?55:285,name==='Sole'?80:footView?100:0);
+  const directions:Record<Preset,THREE.Vector3>={Anterior:new THREE.Vector3(0,70,1050),Posterior:new THREE.Vector3(0,70,-1050),Medial:new THREE.Vector3(1050,70,0),Lateral:new THREE.Vector3(-1050,70,0),'Knee plateau':new THREE.Vector3(0,230,180),'Ankle mortise':new THREE.Vector3(-60,50,330),Foot:new THREE.Vector3(-220,230,420),Sole:new THREE.Vector3(-30,-600,90),Reset:new THREE.Vector3(-540,145,1080)};
   const direction=directions[name].clone();if(['Anterior','Posterior','Medial','Lateral','Reset'].includes(name)){const fit=Math.max(1, .85/this.camera.aspect);direction.multiplyScalar(fit);}
   this.travel(target,target.clone().add(direction),animate);
  }
  focus(id?:string){
   const box=new THREE.Box3();if(id){const p=this.pieces.get(id);if(!p)return;this.hidden.delete(id);this.apply();box.setFromObject(p.mesh);}else for(const p of this.pieces.values())if(p.mesh.visible)box.union(new THREE.Box3().setFromObject(p.mesh));
   if(box.isEmpty())return;const center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3());const dist=Math.max(size.y,size.x/this.camera.aspect,size.z)*.65/Math.tan(THREE.MathUtils.degToRad(this.camera.fov/2));
-  const direction=this.camera.position.clone().sub(this.controls.target).normalize();direction.y=Math.max(.1,direction.y);direction.normalize();this.travel(center,center.clone().addScaledVector(direction,Math.max(100,dist)));
+  const direction=this.camera.position.clone().sub(this.controls.target).normalize();this.travel(center,center.clone().addScaledVector(direction,Math.max(100,dist)));
  }
  explode(amount:number,mode:ExplodeMode){
   this.explodeAmount=amount;this.explodeMode=mode;const items:LayoutItem[]=[...this.pieces.values()].filter(p=>p.mesh.visible).map(p=>({id:p.part.id,center:p.base,size:p.size,type:p.part.type,compartment:p.part.compartment}));
@@ -112,6 +114,7 @@ export class AtlasViewer {
  private tick=()=>{
   if(this.dead)return;this.raf=requestAnimationFrame(this.tick);if(document.hidden)return;
   this.controls.update();const moving=gsap.globalTimeline.isActive();if(!this.dirty&&!moving)return;
+  this.ground.visible=this.camera.position.y>=0;
   this.root.updateMatrixWorld(true);
   for(const obj of this.overlays.children){const p=this.pieces.get(obj.userData.partId);if(p){obj.position.copy(obj.userData.base).add(p.mesh.position).sub(p.base);obj.visible=p.mesh.visible;}}
   for(const obj of this.leaders.children){const p=this.pieces.get(obj.userData.partId);if(p&&obj instanceof THREE.Line){const positions=obj.geometry.getAttribute('position') as THREE.BufferAttribute;positions.setXYZ(1,p.mesh.position.x,p.mesh.position.y,p.mesh.position.z);positions.needsUpdate=true;obj.visible=p.mesh.visible;}}

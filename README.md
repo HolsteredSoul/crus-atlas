@@ -25,9 +25,9 @@ Deploy the contents of `dist/` to a static host. No backend, API key, account or
 ## Explore
 
 - Left: search, expand systems/compartments, select individual parts, toggle eyes, solo a system or compartment, X-ray bones, fade others and restore the default layer state.
-- Centre: drag to orbit, right-drag to pan, wheel/pinch to zoom. Double-click a part to focus it. OrbitControls uses damping and prevents flipping below the ground plane.
+- Centre: drag to orbit, right-drag to pan, wheel/pinch to zoom. Double-click a part to focus it. OrbitControls uses damping and allows inspection underneath the foot while keeping a small limit at each pole to avoid inversion.
 - Right: structure name, attachments, action, related conditions and clinical references. Section plane keeps anatomy below the chosen nominal Y coordinate; it does not create filled anatomical slice surfaces.
-- Bottom: anterior, posterior, medial, lateral, knee plateau, ankle mortise and foot views; explode slider; clinical condition chips.
+- Bottom: anterior, posterior, medial, lateral, knee plateau, ankle mortise, foot and Sole (plantar) views; explode slider; clinical condition chips.
 - Keyboard: **F** focus, **H** hide, **I** isolate, **R** reset, **Esc** clear selection/overlay, **/** search. Shortcuts are disabled while typing or while help is open. The structure tree provides keyboard selection without requiring canvas picking.
 - Small screens: header layer and information buttons open the corresponding panels. Help explains axes, shortcuts, source limitations and the colour key.
 
@@ -82,6 +82,8 @@ Restart Vite or rebuild. For subdirectory deployments, use a URL that resolves b
 `GLTFLoader` and `DRACOLoader` load and validate the GLB. The loader bakes nested transforms, recentres each mesh for explosion, restores the atlas material palette and uses the same metadata for selection and layers. Source tissue colours in COLOR_0 are preserved with atlas lighting. Without vertex colours the loader uses the catalogue tissue palette.
 
 **Clinical marker registration is a required part of swapping the model.** Adjust marker coordinates and scales in `src/landmarks.json` to the replacement geometry and have their anatomical placement reviewed. Model metadata alone does not register spatial landmarks. Current markers were projected onto source surfaces with `scripts/register-landmarks.py`; that registration still requires anatomical review. The loader's validation checks identity metadata, not medical accuracy, orientation, scale or source licensing.
+
+The Sole preset frames the plantar surface. Orbiting can pass beneath the foot; the floor guides disappear below ground level, and focus preserves the viewing side. Reset returns to the upright overview.
 
 ## Explode and rendering
 

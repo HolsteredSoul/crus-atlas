@@ -9,3 +9,5 @@ The atlas now loads a 74-part Z-Anatomy Draco GLB by default. Preserve its CC BY
 **Why:** Naming and functional controls did not make the earlier procedural leg credible. Actual source surfaces replace the failed approach, with full bony foot coverage.
 
 **How to apply:** One mesh per catalogue ID, matching required extras. Numeric coordinates are millimetres, +Y proximal, +Z anterior, +X medial. Clinical symbols in landmarks.json are projected onto source surfaces but are not clinically validated. Keep illustrative compartment hulls and partial deltoid coverage explicit. See README for preparation and replacement. Do not publish before user visual review or convert to a server stack.
+
+The user requested underside access on 2026-09-07, superseding the original above-floor-only orbit restriction. Keep the Sole preset, below-foot orbiting and focus direction preservation.
