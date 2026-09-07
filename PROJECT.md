@@ -14,9 +14,9 @@ The requested structures are independently selectable under a stable metadata co
 
 ## Status — where we are
 - **Phase:** 2 — Supplemented source atlas delivered; explicit anatomical gaps remain.
-- **Last done:** Published the supplemented 93-entry atlas to https://holsteredsoul.github.io/crus-atlas/ using GitHub Actions. CI tests/build/deploy succeeded; the public browser loaded all entries, rendered the model, exercised layer visibility and Foot focus, and reported no browser errors. The workflow builds with the repository base path and publishes dist on master pushes. Preserved the user's remote .nojekyll addition. Anatomy coverage and reviewed exclusions remain as documented in docs/reviews/IMPLEMENTATION.md.
-- **Next action:** User review of delivered atlas and itemised gaps. G authoring needs registered footprint/receiving-surface evidence. Independent clinical validation and representative-device performance remain outstanding; no further scope is authorized by this pointer.
-- **Synced to:** 18e9150 — 2026-09-07, GitHub Pages workflow committed and deployed successfully (run 34084464704); this update records the verified hosting status.
+- **Last done:** Separated an existing deep anterior component within Tibionavicular ligament.r as the 94th selectable entry, explicitly labelled interpreted. Independent anatomy review retained a possible talar tibionavicular/capsular-slip alternative; no authored reconstruction was accepted. Export review preserved all source triangles, colours, unaffected structures and clinical markers. Seven tests, production build and browser picking/layer/focus/explode/reset checks passed. Evidence and exact source membership are in docs/reviews/DATTL-PILOT.md. Public delivery uses the existing GitHub Pages workflow.
+- **Next action:** User review of the interpreted source partition. Distal interosseous ligament, tibiospring/receiving spring surface, plantar distal branches and disputed retinaculum remain open; native attachment identity and independent anatomical validation remain uncertain. This pointer does not authorize another batch.
+- **Synced to:** 2100b47 — 2026-09-07, accepted source-component pilot committed after geometry and application review.
 
 ## Slips
 - Treated procedural fallback permission as acceptable final anatomical quality; pursued publishing before visually verifying the model. User screenshots exposed the failure.
