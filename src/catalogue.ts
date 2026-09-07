@@ -74,6 +74,7 @@ for(const [id,name] of [['extensor_digitorum_brevis','Extensor digitorum brevis'
 }
 for(const entry of supplements){
  const item=p(entry.id,entry.displayName,entry.type as PartType,entry.compartment as Compartment,entry.origin,entry.insertion,entry.action,entry.description);
+ if('references' in entry)item.provenance={kind:'source_mesh',source:'Z-Anatomy / BodyParts3D',references:[...(entry.references as string[]),'https://github.com/Z-Anatomy/Models-of-human-anatomy'],review:'Source geometry; technical and reference review only, not independent anatomical validation.'};
  catalogue.push(item);
 }
 export const byId = new Map(catalogue.map(part => [part.id,part]));

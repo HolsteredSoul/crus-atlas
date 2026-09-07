@@ -1894,6 +1894,32 @@
         -26.29750633239746
       ]
     },
+    "interosseous_membrane": {
+      "sources": [
+        "Interosseous membrane of leg.r"
+      ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://pubmed.ncbi.nlm.nih.gov/33983148/",
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Source geometry; technical and reference review only, not independent anatomical validation."
+      },
+      "vertices": 6321,
+      "polygons": 12642,
+      "min": [
+        -35.381263732910156,
+        103.23624420166016,
+        -7.2137041091918945
+      ],
+      "max": [
+        -12.854896545410156,
+        395.936767578125,
+        14.163275718688965
+      ]
+    },
     "anterior_compartment": {
       "sources": [
         "accepted pre-partition compartment envelope"

@@ -102,5 +102,24 @@
         "tendon"
       ]
     ]
+  },
+  {
+    "id": "interosseous_membrane",
+    "displayName": "Interosseous membrane of leg",
+    "type": "fascia",
+    "compartment": "none",
+    "origin": "Interosseous border of tibia",
+    "insertion": "Interosseous border of fibula",
+    "action": "Connects tibia and fibula and provides muscle attachment surfaces.",
+    "description": "Source membrane between the leg bones; retained openings and distal contour are not a separately segmented distal interosseous ligament.",
+    "sources": [
+      [
+        "Interosseous membrane of leg.r",
+        "all"
+      ]
+    ],
+    "references": [
+      "https://pubmed.ncbi.nlm.nih.gov/33983148/"
+    ]
   }
 ]
