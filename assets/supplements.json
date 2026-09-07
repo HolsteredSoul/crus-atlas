@@ -378,5 +378,46 @@
       "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf",
       "https://pmc.ncbi.nlm.nih.gov/articles/PMC3535154/"
     ]
+  },
+  {
+    "id": "deep_anterior_tibiotalar",
+    "displayName": "Deep anterior tibiotalar band · interpreted",
+    "type": "ligament",
+    "compartment": "ankle",
+    "origin": "Anterior-inferior medial malleolar region; source attachment extent is approximate",
+    "insertion": "Proximal medial talar body below the trochlear margin; source attachment extent is approximate",
+    "action": "Contributes to deep medial ankle stability.",
+    "description": "Interpreted anterior tibiotalar component separated from the upstream Tibionavicular ligament object. Its short tibia-to-talus course and deep position support this identification. Geometry is preserved; fine enthesis boundaries and individual variation are not resolved. This does not complete the deltoid complex. A talar slip of the tibionavicular/capsular complex remains an alternative identification.",
+    "sources": [
+      [
+        "Tibionavicular ligament.r",
+        "component:15"
+      ]
+    ],
+    "partitionFrom": "deltoid",
+    "parentSources": [
+      [
+        "Tibionavicular ligament.r",
+        "except_component:15"
+      ],
+      [
+        "Tibiocalcaneal ligament.r",
+        "all"
+      ],
+      [
+        "Posterior tibiotalar ligament.r",
+        "all"
+      ]
+    ],
+    "provenance": {
+      "kind": "source_partition",
+      "source": "Z-Anatomy / BodyParts3D; interpreted component of Tibionavicular ligament.r",
+      "references": [
+        "https://sportsfootankle.com/wp-content/uploads/2015/09/ligament-anatomy-deltoid-complex-ankle-qualitative-quantitative-anatomical-study.pdf",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9201323/",
+        "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+      ],
+      "review": "Identified from its short, deep tibia-to-talus course. The upstream source does not name this band separately. Native attachment boundaries and band identity are not independently validated; assembled source geometry is unchanged."
+    }
   }
 ]

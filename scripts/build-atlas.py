@@ -49,6 +49,7 @@ supplements=json.loads((ROOT/'assets/supplements.json').read_text())
 for entry in supplements:
  bindings[entry['id']]=entry['sources']
  if 'splitFrom' in entry:bindings[entry['splitFrom']]=[(name,'muscle') for name in entry['muscleSources']]
+ if 'partitionFrom' in entry:bindings[entry['partitionFrom']]=entry['parentSources']
 face_uses={}
 
 work=bpy.data.scenes.get('CRUS_Workshop') or bpy.data.scenes.new('CRUS_Workshop')
@@ -117,10 +118,26 @@ for part_id,sources in bindings.items():
   original=source_objects[name];evaluated=original.evaluated_get(depsgraph)
   mesh=bpy.data.meshes.new_from_object(evaluated,depsgraph=depsgraph)
   offset=len(vertices);world=[original.matrix_world@v.co for v in mesh.vertices];vertices.extend([transform(v) for v in world])
+  component=None
+  if region.startswith(('component:','except_component:')):
+   seed=int(region.split(':')[1]);adj={v.index:set() for v in mesh.vertices}
+   for edge in mesh.edges:
+    a,b=edge.vertices;adj[a].add(b);adj[b].add(a)
+   if seed not in adj:raise RuntimeError('Component seed missing: '+name)
+   component={seed};stack=[seed]
+   while stack:
+    for vertex in adj[stack.pop()]-component:component.add(vertex);stack.append(vertex)
+   reviewed=json.loads((ROOT/'assets/review/dattl-source-partition.json').read_text())
+   selected_faces=[p.index for p in mesh.polygons if p.vertices[0] in component]
+   if reviewed['sourceSha256']!=source_info['sha256'] or name!=reviewed['sourceObject'] or sorted(component)!=reviewed['vertexIndices'] or selected_faces!=reviewed['faceIndices']:
+    raise RuntimeError('Reviewed ligament component membership changed: '+name)
   for poly in mesh.polygons:
    mat=mesh.materials[poly.material_index].name.lower() if len(mesh.materials)>poly.material_index and mesh.materials[poly.material_index] else ''
    tendon='tendon' in mat;cartilage='cartilage' in mat
    mean_z=sum(world[i].z for i in poly.vertices)/len(poly.vertices)
+   if component is not None:
+    included=poly.vertices[0] in component
+    if included != region.startswith('component:'):continue
    if region=='muscle' and tendon:continue
    if region=='tendon' and not tendon:continue
    if 'cartilage' in region and not cartilage:continue
@@ -142,8 +159,9 @@ for part_id,sources in bindings.items():
 
 partition_audit={}
 for entry in supplements:
- if 'splitFrom' not in entry:continue
- ids={entry['id'],entry['splitFrom']};sources={n for n,_ in entry['sources']}|set(entry['muscleSources'])
+ if 'splitFrom' not in entry and 'partitionFrom' not in entry:continue
+ parent=entry.get('splitFrom',entry.get('partitionFrom'))
+ ids={entry['id'],parent};sources={n for n,_ in entry['sources']}|{n for n,_ in bindings[parent]}
  expected={};allocation={i:0 for i in ids}
  for name in sources:
   evaluated=source_objects[name].evaluated_get(depsgraph)

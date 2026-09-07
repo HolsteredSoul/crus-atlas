@@ -1,7 +1,44 @@
 [
-  {"candidate":"distal_interosseous_ligament","status":"excluded","reason":"Exposed distal tibial and fibular source surfaces do not resolve reproducible attachment footprints or the graded thickened membrane-to-ligament transition. The source membrane is a thin sheet, not a segmented IOL.","needed":"Source-specific paired footprint annotations or a registered donor ligament mesh with supported transition and perforator relationships.","references":["https://pubmed.ncbi.nlm.nih.gov/33983148/","https://pmc.ncbi.nlm.nih.gov/articles/PMC3039176/"]},
-  {"candidate":"anterior_tibiotalar_ligament","status":"excluded","reason":"Bone-only medial and oblique views do not resolve the anterior-collicular/intercollicular origin and small talar insertion below the trochlear margin reproducibly.","needed":"Annotated attachment footprints registered to these bone surfaces, or higher-detail registered source anatomy.","references":["https://sportsfootankle.com/wp-content/uploads/2015/09/ligament-anatomy-deltoid-complex-ankle-qualitative-quantitative-anatomical-study.pdf","https://pmc.ncbi.nlm.nih.gov/articles/PMC9201323/"]},
-  {"candidate":"tibiospring_ligament","status":"excluded","reason":"The available plantar calcaneonavicular source mesh is an 18-vertex, 16-face plantar strap; it does not resolve the superomedial spring-ligament receiving surface.","needed":"Verified superomedial spring surface plus source-registered tibial origin and soft-tissue insertion.","references":["https://sportsfootankle.com/wp-content/uploads/2015/09/ligament-anatomy-deltoid-complex-ankle-qualitative-quantitative-anatomical-study.pdf","https://pmc.ncbi.nlm.nih.gov/articles/PMC9201323/"]},
-  {"candidate":"plantar_aponeurosis_distal_branches","status":"partial source coverage","reason":"Central sheet accepted; digital branching, dermal attachments and plantar-plate connections are not resolved.","needed":"Source-supported distal branching and attachment surfaces, without confusing underlying FDB tendons with aponeurotic slips."},
-  {"candidate":"superior_fibular_retinaculum","status":"source identity disputed; historical ID retained, default hidden","reason":"One connected source sheet spans the anterior ankle rather than staying behind the lateral malleolus. It is not relabelled as a verified extensor retinaculum either.","needed":"A verified retromalleolar source component or registered reconstruction; existing mesh remains explicitly labelled for review only."}
+  {
+    "candidate": "distal_interosseous_ligament",
+    "status": "excluded",
+    "reason": "Exposed distal tibial and fibular source surfaces do not resolve reproducible attachment footprints or the graded thickened membrane-to-ligament transition. The source membrane is a thin sheet, not a segmented IOL.",
+    "needed": "Source-specific paired footprint annotations or a registered donor ligament mesh with supported transition and perforator relationships.",
+    "references": [
+      "https://pubmed.ncbi.nlm.nih.gov/33983148/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC3039176/"
+    ]
+  },
+  {
+    "candidate": "anterior_tibiotalar_ligament",
+    "status": "represented as interpreted source component",
+    "reason": "A disconnected 30-vertex, 28-face component within Tibionavicular ligament.r follows a short deep medial malleolus-to-talar-body course. It is now separately selectable as deep_anterior_tibiotalar. Identification is inferred, not a verified upstream standalone label; a talar tibionavicular/capsular slip remains an alternative.",
+    "needed": "Independent confirmation of band identity and finer native attachment boundaries. No additional authored band is accepted.",
+    "references": [
+      "https://sportsfootankle.com/wp-content/uploads/2015/09/ligament-anatomy-deltoid-complex-ankle-qualitative-quantitative-anatomical-study.pdf",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC9201323/"
+    ]
+  },
+  {
+    "candidate": "tibiospring_ligament",
+    "status": "excluded",
+    "reason": "The available plantar calcaneonavicular source mesh is an 18-vertex, 16-face plantar strap; it does not resolve the superomedial spring-ligament receiving surface.",
+    "needed": "Verified superomedial spring surface plus source-registered tibial origin and soft-tissue insertion.",
+    "references": [
+      "https://sportsfootankle.com/wp-content/uploads/2015/09/ligament-anatomy-deltoid-complex-ankle-qualitative-quantitative-anatomical-study.pdf",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC9201323/"
+    ]
+  },
+  {
+    "candidate": "plantar_aponeurosis_distal_branches",
+    "status": "partial source coverage",
+    "reason": "Central sheet accepted; digital branching, dermal attachments and plantar-plate connections are not resolved.",
+    "needed": "Source-supported distal branching and attachment surfaces, without confusing underlying FDB tendons with aponeurotic slips."
+  },
+  {
+    "candidate": "superior_fibular_retinaculum",
+    "status": "source identity disputed; historical ID retained, default hidden",
+    "reason": "One connected source sheet spans the anterior ankle rather than staying behind the lateral malleolus. It is not relabelled as a verified extensor retinaculum either.",
+    "needed": "A verified retromalleolar source component or registered reconstruction; existing mesh remains explicitly labelled for review only."
+  }
 ]

@@ -114,3 +114,8 @@ Reviewed `images/blender-distal-footprint-fibula-only.png` and `-tibia-only.png`
 | Tibiospring band | Evaluated; excluded from accepted additions | A verified superomedial spring-ligament receiving surface and its registered tibiospring insertion, plus the tibial footprint. The current thin plantar strap is insufficient. |
 
 These are candidate-specific registration limits identified after visual exposure, not exclusions based merely on missing source names. Published descriptions support the general anatomy but do not supply these mesh-specific targets. No authored reconstruction of these three structures is accepted, and batch G must be reported as evaluated/deferred rather than reconstructed. Independent accepted source additions can be delivered under the user's explicit unresolved-candidate policy.
+
+
+## dATTL pilot follow-up
+
+The subsequent reference-guided pilot found a disconnected deep anterior component within `Tibionavicular ligament.r`. It is accepted for separate selection with an interpreted identity; the prior absence-of-standalone-ID assessment is superseded. Campbell PDF pages 4, 6 and 8 were visually inspected. Gregersen full text and figure captions were inspected, but its figure image could not be retrieved through the accessible publisher endpoint. Two agents independently reviewed anatomy/partition evidence. See [the pilot review](DATTL-PILOT.md) for source membership, decoded-geometry comparison and residual alternative identification. No authored reconstruction was accepted.

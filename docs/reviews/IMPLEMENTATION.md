@@ -3,7 +3,9 @@
 Educational model review, not clinical validation. Public repository:
 [HolsteredSoul/crus-atlas](https://github.com/HolsteredSoul/crus-atlas).
 Baseline history was retained and published first after a text-history credential
-scan found no matching secrets. Website deployment was not performed.
+scan found no matching secrets. GitHub Pages deployment subsequently completed.
+
+**Latest pilot update:** the atlas now has 94 entries. The anterior tibiotalar gap is represented by an interpreted source component, separated without changing assembled geometry. [Pilot evidence and remaining uncertainty](DATTL-PILOT.md). The 93-entry counts and initial G exclusion below describe the preceding A–F review.
 
 ## Delivered and limited coverage
 

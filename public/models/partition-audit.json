@@ -5,8 +5,8 @@
       "Extensor digitorum longus.r": 3176
     },
     "allocation": {
-      "extensor_digitorum_longus": 2722,
-      "edl_tendon": 5638
+      "edl_tendon": 5638,
+      "extensor_digitorum_longus": 2722
     },
     "allFacesAssignedExactlyOnce": true
   },
@@ -47,6 +47,18 @@
     "allocation": {
       "plantaris_tendon": 2525,
       "plantaris": 2173
+    },
+    "allFacesAssignedExactlyOnce": true
+  },
+  "deep_anterior_tibiotalar": {
+    "sourceFaces": {
+      "Tibiocalcaneal ligament.r": 28,
+      "Tibionavicular ligament.r": 116,
+      "Posterior tibiotalar ligament.r": 28
+    },
+    "allocation": {
+      "deltoid": 144,
+      "deep_anterior_tibiotalar": 28
     },
     "allFacesAssignedExactlyOnce": true
   }

@@ -52,7 +52,7 @@ export const catalogue: Part[] = [
   p('atfl','Anterior talofibular ligament','ligament','ankle','Anterior lateral malleolus','Lateral talar neck','Restrains anterior talar translation and inversion in plantarflexion.','ATFL — commonly the first ligament involved in an inversion ankle sprain.'),
   p('cfl','Calcaneofibular ligament','ligament','ankle','Tip of lateral malleolus','Lateral calcaneus','Resists hindfoot inversion across ankle and subtalar joints.'),
   p('ptfl','Posterior talofibular ligament','ligament','ankle','Malleolar fossa of distal fibula','Posterolateral talus','Restrains posterior talar translation.'),
-  p('deltoid','Deltoid ligament complex','ligament','ankle','Medial malleolus','Talus, calcaneus and navicular','Resists eversion and supports medial ankle stability.','Source includes tibionavicular, tibiocalcaneal and posterior tibiotalar components. Anterior tibiotalar and tibiospring reconstructions remain excluded because source-specific attachment sites could not be resolved. This is an incomplete complex.'),
+  p('deltoid','Deltoid ligament complex','ligament','ankle','Medial malleolus','Talus, calcaneus and navicular','Resists eversion and supports medial ankle stability.','Source tibionavicular, tibiocalcaneal and posterior tibiotalar components. The interpreted deep anterior tibiotalar band is separately selectable. Tibiospring remains unresolved; this is an incomplete complex.'),
   p('syndesmosis','Syndesmotic ligaments','ligament','ankle','Distal tibia','Distal fibula','Resist separation and external rotation at the ankle mortise.','Source anterior, posterior and transverse tibiofibular ligaments. The distal interosseous ligament is not represented: its footprint and thickened transition could not be resolved in this source. The shaft interosseous membrane is a separate layer.'),
   p('anterior_compartment','Anterior compartment envelope','fascia','anterior','Crural fascia, tibia, interosseous membrane and anterior septum','Not applicable — fascial envelope','Encloses the dorsiflexors and toe extensors.'),
   p('lateral_compartment','Lateral compartment envelope','fascia','lateral','Crural fascia, fibula and intermuscular septa','Not applicable — fascial envelope','Encloses fibularis longus and brevis.'),
@@ -76,6 +76,7 @@ for(const entry of supplements){
  const item=p(entry.id,entry.displayName,entry.type as PartType,entry.compartment as Compartment,entry.origin,entry.insertion,entry.action,entry.description);
  if('colourTissue' in entry)item.colourTissue=entry.colourTissue as PartType;
  if('references' in entry)item.provenance={kind:'source_mesh',source:'Z-Anatomy / BodyParts3D',references:[...(entry.references as string[]),'https://github.com/Z-Anatomy/Models-of-human-anatomy'],review:'Source geometry; technical and reference review only, not independent anatomical validation.'};
+ if('provenance' in entry){item.provenance=entry.provenance as Provenance;item.wikiUrl=item.provenance.references[0];}
  catalogue.push(item);
 }
 export const byId = new Map(catalogue.map(part => [part.id,part]));
@@ -84,7 +85,7 @@ export const partOpacity=(part:Part)=>part.id.endsWith('_compartment')?.22:part.
 export const hiddenByDefault=(part:Part)=>part.defaultHidden??(['fascia','joint','sheath'].includes(part.type)||part.id==='tibial_cartilage');
 for(const part of catalogue){
  if(part.id==='superior_fibular_retinaculum'){part.defaultHidden=true;part.wikiUrl=undefined;}
- const kind:Representation=part.id.endsWith('_compartment')||part.type==='joint'?'derived_illustration':['ta_tendon','tp_tendon','fl_tendon','fb_tendon','tibialis_anterior','tibialis_posterior','fibularis_longus','fibularis_brevis','tibial_cartilage',...supplements.flatMap(e=>'splitFrom' in e?[e.id,String(e.splitFrom)]:[])].includes(part.id)?'source_partition':'source_mesh';
+ const kind:Representation=part.id.endsWith('_compartment')||part.type==='joint'?'derived_illustration':['ta_tendon','tp_tendon','fl_tendon','fb_tendon','tibialis_anterior','tibialis_posterior','fibularis_longus','fibularis_brevis','tibial_cartilage',...supplements.flatMap(e=>'splitFrom' in e?[e.id,String(e.splitFrom)]:'partitionFrom' in e?[e.id,String(e.partitionFrom)]:[])].includes(part.id)?'source_partition':'source_mesh';
  part.provenance??={kind,source:'Z-Anatomy / BodyParts3D',references:['https://github.com/Z-Anatomy/Models-of-human-anatomy'],review:'Technical review only; independent anatomical validation pending.'};
  if(part.id==='superior_fibular_retinaculum')part.provenance.review='Source identity disputed after location review. Hidden by default; retained for source inspection, not accepted as an identified superior fibular retinaculum.';
 }

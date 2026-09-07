@@ -51,11 +51,12 @@ test('hierarchical explosion fixes bones and reduces tendon displacement',()=>{
 
 test('new tendon partitions conserve all source faces and visible fascia can be picked',()=>{
  const audit=JSON.parse(fs.readFileSync(new URL('../public/models/partition-audit.json',import.meta.url),'utf8'));
- for(const item of supplements.filter(s=>'splitFrom' in s)){
+ for(const item of supplements.filter(s=>'splitFrom' in s||'partitionFrom' in s)){
+  const parent='splitFrom' in item?String(item.splitFrom):String(item.partitionFrom);
   const record=audit[item.id];assert.ok(record.allFacesAssignedExactlyOnce);
   assert.equal(Object.values<number>(record.sourceFaces).reduce((a,b)=>a+b,0),Object.values<number>(record.allocation).reduce((a,b)=>a+b,0));
-  assert.equal(manifest.parts[item.id].polygons+manifest.parts[String(item.splitFrom)].polygons,Object.values<number>(record.allocation).reduce((a,b)=>a+b,0));
-  assert.ok(record.allocation[item.id]>0);assert.ok(record.allocation[String(item.splitFrom)]>0);
+  assert.equal(manifest.parts[item.id].polygons+manifest.parts[parent].polygons,Object.values<number>(record.allocation).reduce((a,b)=>a+b,0));
+  assert.ok(record.allocation[item.id]>0);assert.ok(record.allocation[parent]>0);
  }
  for(const part of catalogue){assert.ok(part.provenance);assert.deepEqual(manifest.parts[part.id].provenance,part.provenance);assert.deepEqual(nodes.find((n:any)=>n.extras.id===part.id).extras.provenance,part.provenance);if(['fascia','sheath'].includes(part.type)){assert.ok(partOpacity(part)>.15);assert.ok(hiddenByDefault(part));}}
 });

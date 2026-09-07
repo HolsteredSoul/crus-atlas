@@ -4,7 +4,7 @@ description: Source-derived GLB, stable metadata and registered educational over
 metadata:
   type: project
 ---
-The atlas loads a 93-entry Z-Anatomy Draco GLB. Preserve its CC BY-SA attribution and tissue-region boundaries. The shared educational palette in src/tissue-palette.json is applied to source vertex colours, app materials and swatches. The user rejected primitive anatomy; no primitive fallback remains.
+The atlas loads a 94-entry Z-Anatomy Draco GLB. Preserve its CC BY-SA attribution and tissue-region boundaries. The shared educational palette in src/tissue-palette.json is applied to source vertex colours, app materials and swatches. The user rejected primitive anatomy; no primitive fallback remains.
 
 **Why:** Naming and functional controls did not make the earlier procedural leg credible. Actual source surfaces replace the failed approach, with full bony foot coverage.
 
@@ -17,3 +17,5 @@ G reconstructions remain excluded with specific registration gaps in
 assets/unresolved.json. No authored ligament was accepted. The historic superior
 fibular retinaculum ID is a disputed source sheet, explicitly labelled and hidden
 by default. See docs/reviews/IMPLEMENTATION.md and anatomical-references.md.
+
+The dATTL pilot separated a previously embedded source component under `deep_anterior_tibiotalar`, preserving the assembled shape. Its identity is explicitly interpreted (possible talar tibionavicular/capsular slip); it is a source partition, not authored anatomy. See `docs/reviews/DATTL-PILOT.md`. Search connected components inside existing objects before treating missing object names as missing anatomy.

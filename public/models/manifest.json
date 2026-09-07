@@ -973,23 +973,23 @@
         "Posterior tibiotalar ligament.r"
       ],
       "provenance": {
-        "kind": "source_mesh",
+        "kind": "source_partition",
         "source": "Z-Anatomy / BodyParts3D",
         "references": [
           "https://github.com/Z-Anatomy/Models-of-human-anatomy"
         ],
         "review": "Technical review only; independent anatomical validation pending."
       },
-      "vertices": 180,
-      "polygons": 172,
+      "vertices": 150,
+      "polygons": 144,
       "min": [
-        14.823365211486816,
+        15.457320213317871,
         53.77577209472656,
         -11.448383331298828
       ],
       "max": [
         24.779897689819336,
-        86.0898208618164,
+        84.7848129272461,
         17.301918029785156
       ]
     },
@@ -2267,6 +2267,33 @@
         -16.724563598632812,
         35.791316986083984,
         38.43413543701172
+      ]
+    },
+    "deep_anterior_tibiotalar": {
+      "sources": [
+        "Tibionavicular ligament.r"
+      ],
+      "provenance": {
+        "kind": "source_partition",
+        "source": "Z-Anatomy / BodyParts3D; interpreted component of Tibionavicular ligament.r",
+        "references": [
+          "https://sportsfootankle.com/wp-content/uploads/2015/09/ligament-anatomy-deltoid-complex-ankle-qualitative-quantitative-anatomical-study.pdf",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9201323/",
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Identified from its short, deep tibia-to-talus course. The upstream source does not name this band separately. Native attachment boundaries and band identity are not independently validated; assembled source geometry is unchanged."
+      },
+      "vertices": 30,
+      "polygons": 28,
+      "min": [
+        14.823365211486816,
+        70.73184967041016,
+        6.521379470825195
+      ],
+      "max": [
+        19.776622772216797,
+        86.0898208618164,
+        13.054253578186035
       ]
     },
     "anterior_compartment": {
