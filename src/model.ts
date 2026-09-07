@@ -1,10 +1,11 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
-import { catalogue, palette, type Part } from './catalogue';
+import { catalogue, palette, partOpacity, type Part } from './catalogue';
 
 export function materialFor(part:Part,vertexColors=false){
- return new THREE.MeshStandardMaterial({color:vertexColors?'#ffffff':palette[part.type],vertexColors,roughness:part.type==='bone'?.68:.62,metalness:0,transparent:part.type==='fascia'||part.type==='joint',opacity:part.type==='fascia'?.12:part.type==='joint'?.38:1,side:THREE.DoubleSide});
+ const opacity=partOpacity(part);
+ return new THREE.MeshStandardMaterial({color:vertexColors?'#ffffff':palette[part.type],vertexColors,roughness:part.type==='bone'?.78:.72,metalness:0,transparent:opacity<1,opacity,depthWrite:opacity===1,side:THREE.DoubleSide});
 }
 export function validateModel(root:THREE.Object3D):Map<string,THREE.Mesh> {
  const map=new Map<string,THREE.Mesh>();root.updateMatrixWorld(true);

@@ -1,10 +1,12 @@
 """Run inside Blender. Import licensed Z-Anatomy, preserve surface regions, export one Draco GLB."""
-import bpy, bmesh, json, math
+import bpy, bmesh, json, math, os, hashlib
 from pathlib import Path
 from mathutils import Vector
 
-ROOT = Path('C:/DEV/Leg')
+ROOT = Path(os.environ.get('CRUS_ROOT', str(Path(__file__).resolve().parent.parent)))
 SOURCE = ROOT / 'output/review/source/Z-Anatomy.blend'
+source_info=json.loads((ROOT/'assets/source.json').read_text())
+if hashlib.sha256(SOURCE.read_bytes()).hexdigest()!=source_info['sha256']:raise RuntimeError('Source checksum mismatch: review and pin the intended source before export')
 metadata = {p['id']: p for p in json.loads((ROOT / 'output/review/catalogue.json').read_text(encoding='utf-8-sig'))}
 # An optional second tuple entry selects existing source material regions, never guessed anatomy.
 bindings = {
@@ -49,9 +51,11 @@ with bpy.data.libraries.load(str(SOURCE),link=False) as (src,dst):
  needed={name for sources in bindings.values() for name,_ in sources}
  missing=needed-set(src.objects)
  if missing:raise RuntimeError('Missing source anatomy: '+str(sorted(missing)))
- dst.objects=[n for n in needed if bpy.data.objects.get(n) is None]
+ ordered=sorted(needed)
+ dst.objects=ordered
+source_objects=dict(zip(ordered,dst.objects))
 for name in needed:
- obj=bpy.data.objects[name]
+ obj=source_objects[name]
  while obj:
   if obj.name not in work.objects:work.collection.objects.link(obj)
   obj.hide_viewport=False
@@ -64,7 +68,8 @@ if out:
 else:
  out=bpy.data.collections.new('CRUS_Export');work.collection.children.link(out)
 
-palette={'bone':'e3ddc8','cartilage':'a5c8d4','muscle':'a54e40','tendon':'e5dcc0','ligament':'dfd5ae','joint':'9abfcc','fascia':'55bda8','nerve':'dfc36c','bursa':'71bfff','retinaculum':'d3d3b9'}
+palette={k:v.lstrip('#') for k,v in json.loads((ROOT/'src/tissue-palette.json').read_text()).items()}
+
 def rgba(key):
  h=palette.get(key,'a54e40');v=[int(h[i:i+2],16)/255 for i in (0,2,4)]
  return tuple(c/12.92 if c<=.04045 else ((c+.055)/1.055)**2.4 for c in v)+(1,)
@@ -95,15 +100,15 @@ def finish(part_id,mesh,source_names):
  obj=bpy.data.objects.new(part_id,mesh);out.objects.link(obj)
  for k,v in part.items():obj[k]=v
  obj['source']='Z-Anatomy / BodyParts3D';obj['sourceObjects']=source_names
- obj['representation']='derived compartment envelope' if part['type']=='fascia' else 'articular region' if part['type']=='joint' else 'source mesh'
+ obj['representation']=part['provenance']['kind']
  xyz=[(v.co.x,v.co.z,-v.co.y) for v in mesh.vertices]
- manifest[part_id]={'sources':source_names,'vertices':len(mesh.vertices),'polygons':len(mesh.polygons),'min':[min(v[i] for v in xyz) for i in range(3)],'max':[max(v[i] for v in xyz) for i in range(3)]}
+ manifest[part_id]={'sources':source_names,'provenance':part['provenance'],'vertices':len(mesh.vertices),'polygons':len(mesh.polygons),'min':[min(v[i] for v in xyz) for i in range(3)],'max':[max(v[i] for v in xyz) for i in range(3)]}
  return obj
 
 for part_id,sources in bindings.items():
  vertices=[];faces=[];colors=[];part=metadata[part_id]
  for name,region in sources:
-  original=bpy.data.objects[name];evaluated=original.evaluated_get(depsgraph)
+  original=source_objects[name];evaluated=original.evaluated_get(depsgraph)
   mesh=bpy.data.meshes.new_from_object(evaluated,depsgraph=depsgraph)
   offset=len(vertices);world=[original.matrix_world@v.co for v in mesh.vertices];vertices.extend([transform(v) for v in world])
   for poly in mesh.polygons:
@@ -126,19 +131,12 @@ for part_id,sources in bindings.items():
   for loop in face.loop_indices:attribute.data[loop].color=color
  finish(part_id,mesh,[n for n,_ in sources])
 
-for comp in ['anterior','lateral','superficial_posterior','deep_posterior']:
- part_id=comp+'_compartment'
- bm=bmesh.new()
- members=[o for o in out.objects if o.get('type')=='muscle' and o.get('compartment')==comp]
- for obj in members:
-  for index,vert in enumerate(obj.data.vertices):
-   if index%5==0:bm.verts.new(vert.co)
- hull=bmesh.ops.convex_hull(bm,input=list(bm.verts))
- bmesh.ops.delete(bm,geom=list(set(hull.get('geom_interior',[])+hull.get('geom_unused',[]))),context='VERTS')
- mesh=bpy.data.meshes.new(part_id+'_geometry');bm.to_mesh(mesh);bm.free()
+# Immutable accepted envelopes: tendon partitioning must not redefine compartments.
+for part_id,data in json.loads((ROOT/'assets/compartment-baseline.json').read_text()).items():
+ mesh=bpy.data.meshes.new(part_id+'_geometry');mesh.from_pydata(data['vertices'],[],data['faces'])
  attr=mesh.color_attributes.new(name='Color',type='FLOAT_COLOR',domain='CORNER')
  for value in attr.data:value.color=rgba('fascia')
- finish(part_id,mesh,[o.name for o in members])
+ finish(part_id,mesh,['accepted pre-partition compartment envelope'])
 
 if set(manifest)!=set(metadata):raise RuntimeError('Catalogue/export mismatch '+str(set(metadata)-set(manifest)))
 for obj in work.objects:obj.select_set(False)
@@ -146,5 +144,5 @@ for obj in out.objects:obj.select_set(True);obj.hide_set(False);obj.hide_render=
 bpy.context.view_layer.objects.active=next(iter(out.objects))
 target=ROOT/'public/models/right-lower-leg.glb';target.parent.mkdir(parents=True,exist_ok=True)
 bpy.ops.export_scene.gltf(filepath=str(target),export_format='GLB',use_selection=True,export_extras=True,export_yup=True,export_apply=True,export_draco_mesh_compression_enable=True,export_draco_mesh_compression_level=6,export_draco_position_quantization=16,export_draco_normal_quantization=10,export_draco_color_quantization=10,export_materials='EXPORT',export_animations=False,export_cameras=False,export_lights=False)
-(ROOT/'public/models/manifest.json').write_text(json.dumps({'source':'Z-Anatomy','license':'CC BY-SA 4.0','coordinates':'+X medial, +Y proximal, +Z anterior; millimetres','parts':manifest},indent=2))
+(ROOT/'public/models/manifest.json').write_text(json.dumps({'source':'Z-Anatomy','sourcePin':source_info,'license':'CC BY-SA 4.0','coordinates':'+X medial, +Y proximal, +Z anterior; millimetres','parts':manifest},indent=2))
 print(json.dumps({'exported':str(target),'bytes':target.stat().st_size,'parts':len(manifest),'polygons':sum(p['polygons'] for p in manifest.values())}))

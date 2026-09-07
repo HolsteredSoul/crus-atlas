@@ -1,5 +1,14 @@
 {
   "source": "Z-Anatomy",
+  "sourcePin": {
+    "project": "Z-Anatomy",
+    "url": "https://github.com/Z-Anatomy/Models-of-human-anatomy",
+    "archiveUrl": "https://github.com/Z-Anatomy/Models-of-human-anatomy/raw/refs/heads/master/Z-Anatomy.zip",
+    "archiveMember": "Z-Anatomy/Startup.blend",
+    "retrieved": "2026-09-06",
+    "sha256": "9f08a17ea0115fed80b2a73ecdf0a1bc2ab2f6956f37c593ce23d513ea35afcd",
+    "license": "CC BY-SA 4.0"
+  },
   "license": "CC BY-SA 4.0",
   "coordinates": "+X medial, +Y proximal, +Z anterior; millimetres",
   "parts": {
@@ -7,6 +16,14 @@
       "sources": [
         "Tibia.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 837,
       "polygons": 1613,
       "min": [
@@ -24,6 +41,14 @@
       "sources": [
         "Fibula.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 634,
       "polygons": 1264,
       "min": [
@@ -41,6 +66,14 @@
       "sources": [
         "Femur.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 906,
       "polygons": 1716,
       "min": [
@@ -58,6 +91,14 @@
       "sources": [
         "Patella.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 140,
       "polygons": 274,
       "min": [
@@ -75,6 +116,14 @@
       "sources": [
         "Talus.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 677,
       "polygons": 1325,
       "min": [
@@ -92,6 +141,14 @@
       "sources": [
         "Calcaneus.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 726,
       "polygons": 1432,
       "min": [
@@ -109,6 +166,14 @@
       "sources": [
         "Navicular bone.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 368,
       "polygons": 731,
       "min": [
@@ -126,6 +191,14 @@
       "sources": [
         "Medial cuneiform bone.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 498,
       "polygons": 968,
       "min": [
@@ -143,6 +216,14 @@
       "sources": [
         "First metatarsal bone.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 546,
       "polygons": 1087,
       "min": [
@@ -160,6 +241,14 @@
       "sources": [
         "Fifth metatarsal bone.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 449,
       "polygons": 894,
       "min": [
@@ -178,6 +267,14 @@
         "Medial meniscus.r",
         "Lateral meniscus.r"
       ],
+      "provenance": {
+        "kind": "derived_illustration",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 380,
       "polygons": 376,
       "min": [
@@ -195,6 +292,14 @@
       "sources": [
         "Articular capsule of superior tibiofibular joint.r"
       ],
+      "provenance": {
+        "kind": "derived_illustration",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 280,
       "polygons": 280,
       "min": [
@@ -213,6 +318,14 @@
         "Anterior tibiofibular ligament.r",
         "Posterior tibiofibular ligament.r"
       ],
+      "provenance": {
+        "kind": "derived_illustration",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 252,
       "polygons": 248,
       "min": [
@@ -230,6 +343,14 @@
       "sources": [
         "Talus.r"
       ],
+      "provenance": {
+        "kind": "derived_illustration",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 170,
       "polygons": 247,
       "min": [
@@ -247,6 +368,14 @@
       "sources": [
         "Talus.r"
       ],
+      "provenance": {
+        "kind": "derived_illustration",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 127,
       "polygons": 177,
       "min": [
@@ -264,6 +393,14 @@
       "sources": [
         "Tibia.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 104,
       "polygons": 140,
       "min": [
@@ -281,6 +418,14 @@
       "sources": [
         "Tibialis anterior muscle.r"
       ],
+      "provenance": {
+        "kind": "source_partition",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 1306,
       "polygons": 2601,
       "min": [
@@ -298,6 +443,14 @@
       "sources": [
         "Tibialis anterior muscle.r"
       ],
+      "provenance": {
+        "kind": "source_partition",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 472,
       "polygons": 925,
       "min": [
@@ -315,6 +468,14 @@
       "sources": [
         "Extensor hallucis longus.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 1183,
       "polygons": 2362,
       "min": [
@@ -333,6 +494,14 @@
         "Extensor digitorum longus.r",
         "Tendon of extensor digitorum longus.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 4237,
       "polygons": 8360,
       "min": [
@@ -350,6 +519,14 @@
       "sources": [
         "Fibularis tertius muscle.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 294,
       "polygons": 586,
       "min": [
@@ -367,6 +544,14 @@
       "sources": [
         "Fibularis longus muscle.r"
       ],
+      "provenance": {
+        "kind": "source_partition",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 1769,
       "polygons": 3557,
       "min": [
@@ -384,6 +569,14 @@
       "sources": [
         "Fibularis longus muscle.r"
       ],
+      "provenance": {
+        "kind": "source_partition",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 993,
       "polygons": 1965,
       "min": [
@@ -401,6 +594,14 @@
       "sources": [
         "Fibularis brevis muscle.r"
       ],
+      "provenance": {
+        "kind": "source_partition",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 1130,
       "polygons": 2234,
       "min": [
@@ -418,6 +619,14 @@
       "sources": [
         "Fibularis brevis muscle.r"
       ],
+      "provenance": {
+        "kind": "source_partition",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 617,
       "polygons": 1212,
       "min": [
@@ -435,6 +644,14 @@
       "sources": [
         "Medial head of gastrocnemius.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 3233,
       "polygons": 6460,
       "min": [
@@ -452,6 +669,14 @@
       "sources": [
         "Lateral head of gastrocnemius.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 2454,
       "polygons": 4908,
       "min": [
@@ -469,6 +694,14 @@
       "sources": [
         "Soleus muscle.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 3379,
       "polygons": 6774,
       "min": [
@@ -486,6 +719,14 @@
       "sources": [
         "Plantaris muscle.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 2351,
       "polygons": 4698,
       "min": [
@@ -503,6 +744,14 @@
       "sources": [
         "Popliteus muscle.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 566,
       "polygons": 1132,
       "min": [
@@ -520,6 +769,14 @@
       "sources": [
         "Tibialis posterior muscle.r"
       ],
+      "provenance": {
+        "kind": "source_partition",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 1331,
       "polygons": 2646,
       "min": [
@@ -537,6 +794,14 @@
       "sources": [
         "Tibialis posterior muscle.r"
       ],
+      "provenance": {
+        "kind": "source_partition",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 1424,
       "polygons": 2880,
       "min": [
@@ -554,6 +819,14 @@
       "sources": [
         "Flexor digitorum longus.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 3420,
       "polygons": 6836,
       "min": [
@@ -571,6 +844,14 @@
       "sources": [
         "Flexor hallucis longus.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 2941,
       "polygons": 5878,
       "min": [
@@ -588,6 +869,14 @@
       "sources": [
         "Calcaneal tendon.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 2190,
       "polygons": 4334,
       "min": [
@@ -605,6 +894,14 @@
       "sources": [
         "Anterior talofibular ligament.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 18,
       "polygons": 16,
       "min": [
@@ -622,6 +919,14 @@
       "sources": [
         "Calcaneofibular ligament.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 18,
       "polygons": 16,
       "min": [
@@ -639,6 +944,14 @@
       "sources": [
         "Posterior talofibular ligament.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 18,
       "polygons": 16,
       "min": [
@@ -658,6 +971,14 @@
         "Tibiocalcaneal ligament.r",
         "Posterior tibiotalar ligament.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 180,
       "polygons": 172,
       "min": [
@@ -677,6 +998,14 @@
         "Posterior tibiofibular ligament.r",
         "Transverse tibiofibular ligament.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 306,
       "polygons": 300,
       "min": [
@@ -694,6 +1023,14 @@
       "sources": [
         "Common fibular nerve.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 1020,
       "polygons": 1008,
       "min": [
@@ -711,6 +1048,14 @@
       "sources": [
         "Subtendinous calcaneal bursa.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 274,
       "polygons": 272,
       "min": [
@@ -728,6 +1073,14 @@
       "sources": [
         "Superior fibular retinaculum.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 328,
       "polygons": 348,
       "min": [
@@ -745,6 +1098,14 @@
       "sources": [
         "Cuboid bone.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 501,
       "polygons": 994,
       "min": [
@@ -762,6 +1123,14 @@
       "sources": [
         "Intermediate cuneiform bone.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 224,
       "polygons": 444,
       "min": [
@@ -779,6 +1148,14 @@
       "sources": [
         "Lateral cuneiform bone.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 321,
       "polygons": 632,
       "min": [
@@ -796,6 +1173,14 @@
       "sources": [
         "Second metatarsal bone.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 347,
       "polygons": 690,
       "min": [
@@ -813,6 +1198,14 @@
       "sources": [
         "Third metatarsal bone.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 409,
       "polygons": 804,
       "min": [
@@ -830,6 +1223,14 @@
       "sources": [
         "Fourth metatarsal bone.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 419,
       "polygons": 732,
       "min": [
@@ -847,6 +1248,14 @@
       "sources": [
         "Sesamoid bones of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 149,
       "polygons": 290,
       "min": [
@@ -864,6 +1273,14 @@
       "sources": [
         "Extensor digitorum brevis.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 1596,
       "polygons": 3184,
       "min": [
@@ -881,6 +1298,14 @@
       "sources": [
         "Extensor hallucis brevis.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 561,
       "polygons": 1118,
       "min": [
@@ -898,6 +1323,14 @@
       "sources": [
         "Abductor hallucis.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 844,
       "polygons": 1687,
       "min": [
@@ -915,6 +1348,14 @@
       "sources": [
         "Flexor digitorum brevis.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 1610,
       "polygons": 3224,
       "min": [
@@ -932,6 +1373,14 @@
       "sources": [
         "Dorsal interossei muscles of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 975,
       "polygons": 1946,
       "min": [
@@ -949,6 +1398,14 @@
       "sources": [
         "Lumbrical muscles of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 207,
       "polygons": 418,
       "min": [
@@ -966,6 +1423,14 @@
       "sources": [
         "Proximal phalanx of first finger of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 268,
       "polygons": 517,
       "min": [
@@ -983,6 +1448,14 @@
       "sources": [
         "Distal phalanx of first finger of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 235,
       "polygons": 466,
       "min": [
@@ -1000,6 +1473,14 @@
       "sources": [
         "Proximal phalanx of second finger of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 215,
       "polygons": 424,
       "min": [
@@ -1017,6 +1498,14 @@
       "sources": [
         "Middle phalanx of second finger of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 193,
       "polygons": 326,
       "min": [
@@ -1034,6 +1523,14 @@
       "sources": [
         "Distal phalanx of second finger of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 120,
       "polygons": 236,
       "min": [
@@ -1051,6 +1548,14 @@
       "sources": [
         "Proximal phalanx of third finger of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 232,
       "polygons": 458,
       "min": [
@@ -1068,6 +1573,14 @@
       "sources": [
         "Middle phalanx of third finger of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 202,
       "polygons": 359,
       "min": [
@@ -1085,6 +1598,14 @@
       "sources": [
         "Distal phalanx of third finger of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 161,
       "polygons": 318,
       "min": [
@@ -1102,6 +1623,14 @@
       "sources": [
         "Proximal phalanx of fourth finger of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 232,
       "polygons": 460,
       "min": [
@@ -1119,6 +1648,14 @@
       "sources": [
         "Middle phalanx of fourth finger of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 226,
       "polygons": 404,
       "min": [
@@ -1136,6 +1673,14 @@
       "sources": [
         "Distal phalanx of fourth finger of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 141,
       "polygons": 278,
       "min": [
@@ -1153,6 +1698,14 @@
       "sources": [
         "Proximal phalanx of fifth finger of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 260,
       "polygons": 516,
       "min": [
@@ -1170,6 +1723,14 @@
       "sources": [
         "Middle phalanx of fifth finger of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 110,
       "polygons": 216,
       "min": [
@@ -1187,6 +1748,14 @@
       "sources": [
         "Distal phalanx of fifth finger of foot.r"
       ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 120,
       "polygons": 222,
       "min": [
@@ -1202,11 +1771,16 @@
     },
     "anterior_compartment": {
       "sources": [
-        "tibialis_anterior",
-        "extensor_hallucis_longus",
-        "extensor_digitorum_longus",
-        "fibularis_tertius"
+        "accepted pre-partition compartment envelope"
       ],
+      "provenance": {
+        "kind": "derived_illustration",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 101,
       "polygons": 198,
       "min": [
@@ -1222,9 +1796,16 @@
     },
     "lateral_compartment": {
       "sources": [
-        "fibularis_longus",
-        "fibularis_brevis"
+        "accepted pre-partition compartment envelope"
       ],
+      "provenance": {
+        "kind": "derived_illustration",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 128,
       "polygons": 252,
       "min": [
@@ -1240,11 +1821,16 @@
     },
     "superficial_posterior_compartment": {
       "sources": [
-        "gastrocnemius_medial",
-        "gastrocnemius_lateral",
-        "soleus",
-        "plantaris"
+        "accepted pre-partition compartment envelope"
       ],
+      "provenance": {
+        "kind": "derived_illustration",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 223,
       "polygons": 442,
       "min": [
@@ -1260,11 +1846,16 @@
     },
     "deep_posterior_compartment": {
       "sources": [
-        "popliteus",
-        "tibialis_posterior",
-        "flexor_digitorum_longus",
-        "flexor_hallucis_longus"
+        "accepted pre-partition compartment envelope"
       ],
+      "provenance": {
+        "kind": "derived_illustration",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
       "vertices": 110,
       "polygons": 216,
       "min": [

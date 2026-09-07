@@ -1,9 +1,9 @@
 """Spatially place illustrative regions on the exported source; not clinical validation."""
-import bpy,json
+import bpy,json,os
 from pathlib import Path
 from mathutils import Vector
 from mathutils.bvhtree import BVHTree
-root=Path('C:/DEV/Leg')
+root=Path(os.environ.get('CRUS_ROOT',str(Path(__file__).resolve().parent.parent)))
 cards=json.loads((root/'output/review/conditions.json').read_text(encoding='utf-8-sig'))
 objects={o.name:o for o in bpy.data.collections['CRUS_Export'].objects}
 points={k:[Vector((v.co.x,v.co.z,-v.co.y)) for v in o.data.vertices] for k,o in objects.items()}

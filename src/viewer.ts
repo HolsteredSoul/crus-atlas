@@ -6,7 +6,7 @@ import { OutlinePass } from 'three/addons/postprocessing/OutlinePass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import gsap from 'gsap';
 import { disposeModel, loadAtlasGLB } from './model';
-import { byId, type Part } from './catalogue';
+import { byId, partOpacity, hiddenByDefault, type Part } from './catalogue';
 import { overlayColors, type Condition } from './conditions';
 import { explodeOffsets, type ExplodeMode, type LayoutItem } from './layout';
 
@@ -25,16 +25,16 @@ export class AtlasViewer {
  onSelect:(id:string|null)=>void=()=>{};onStatus:(message:string)=>void=()=>{};onModel:()=>void=()=>{};
  constructor(private host:HTMLElement){
   this.renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});
-  this.renderer.setPixelRatio(Math.min(devicePixelRatio,1.65));this.renderer.outputColorSpace=THREE.SRGBColorSpace;this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.35;this.renderer.localClippingEnabled=true;
+  this.renderer.setPixelRatio(Math.min(devicePixelRatio,1.65));this.renderer.outputColorSpace=THREE.SRGBColorSpace;this.renderer.toneMapping=THREE.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.0;this.renderer.localClippingEnabled=true;
   this.renderer.domElement.setAttribute('aria-label','Interactive 3D right lower leg. Use the structure tree for keyboard selection.');this.renderer.domElement.tabIndex=0;
   host.prepend(this.renderer.domElement);
-  this.scene.add(new THREE.HemisphereLight(0xd3e4ea,0x28302a,2.5));
-  const key=new THREE.DirectionalLight(0xffeee2,3.5);key.position.set(-180,480,370);this.scene.add(key);
-  const fill=new THREE.DirectionalLight(0x9ac9ce,2.8);fill.position.set(230,320,-350);this.scene.add(fill);
-  const side=new THREE.DirectionalLight(0xffd1a9,1);side.position.set(-250,120,-100);this.scene.add(side);
+  this.scene.add(new THREE.HemisphereLight(0xd3e4ea,0x28302a,1.5));
+  const key=new THREE.DirectionalLight(0xffeee2,2.1);key.position.set(-180,480,370);this.scene.add(key);
+  const fill=new THREE.DirectionalLight(0x9ac9ce,1.6);fill.position.set(230,320,-350);this.scene.add(fill);
+  const side=new THREE.DirectionalLight(0xffd1a9,.65);side.position.set(-250,120,-100);this.scene.add(side);
   const grid=new THREE.GridHelper(1000,40,0x344245,0x253034);grid.position.y=-3;const gm=grid.material as THREE.Material;gm.transparent=true;gm.opacity=.27;this.ground.add(grid);
   const circle=new THREE.Mesh(new THREE.RingGeometry(85,86,96),new THREE.MeshBasicMaterial({color:0x5b7476,transparent:true,opacity:.35,side:THREE.DoubleSide}));circle.rotation.x=-Math.PI/2;circle.position.y=-1;this.ground.add(circle);this.scene.add(this.ground);
-  const plantarFill=new THREE.DirectionalLight(0xe2eeee,2.5);plantarFill.position.set(0,-350,120);this.scene.add(plantarFill);
+  const plantarFill=new THREE.DirectionalLight(0xe2eeee,1.5);plantarFill.position.set(0,-350,120);this.scene.add(plantarFill);
   this.controls=new OrbitControls(this.camera,this.renderer.domElement);this.controls.enableDamping=true;this.controls.dampingFactor=.075;this.controls.minPolarAngle=.12;this.controls.maxPolarAngle=Math.PI-.12;this.controls.minDistance=65;this.controls.maxDistance=9000;this.controls.target.set(0,285,0);
   this.controls.addEventListener('change',()=>this.dirty=true);this.controls.addEventListener('start',()=>{gsap.killTweensOf(this.camera.position);gsap.killTweensOf(this.controls.target);});
   this.composer=new EffectComposer(this.renderer);this.composer.addPass(new RenderPass(this.scene,this.camera));
@@ -52,7 +52,7 @@ export class AtlasViewer {
  private replace(root:THREE.Group){
   this.scene.remove(this.root);disposeModel(this.root);this.root=root;this.scene.add(root);this.pieces.clear();
   root.traverse(obj=>{if(obj instanceof THREE.Mesh){const mesh=obj as Piece['mesh'];mesh.geometry.computeBoundingBox();this.pieces.set(mesh.userData.id,{mesh,base:mesh.position.clone(),size:mesh.geometry.boundingBox!.getSize(new THREE.Vector3()),part:byId.get(mesh.userData.id)!});}});
-  this.hidden=new Set([...this.pieces.values()].filter(p=>p.part.type==='fascia'||p.part.type==='joint'||p.part.id==='tibial_cartilage').map(p=>p.part.id));this.apply();
+  this.hidden=new Set([...this.pieces.values()].filter(p=>hiddenByDefault(p.part)).map(p=>p.part.id));this.apply();
  }
  async load(url:string){try{const root=await loadAtlasGLB(url);if(this.dead){disposeModel(root);return;}this.clearGroup(this.overlays);this.clearGroup(this.leaders);this.condition=null;this.explodeAmount=0;this.selected=null;this.isolated=null;this.replace(root);this.preset('Reset');this.onModel();this.onStatus('Z-Anatomy model loaded');}catch(error){this.onStatus(`Model unavailable: ${error instanceof Error?error.message:'could not load the anatomical GLB'}`);}}
  private resize(){const {width,height}=this.host.getBoundingClientRect();if(width<1||height<1)return;this.camera.aspect=width/height;this.camera.updateProjectionMatrix();this.renderer.setSize(width,height);this.composer.setSize(width,height);this.dirty=true;}
@@ -65,15 +65,15 @@ export class AtlasViewer {
   for(const [id,p] of this.pieces){const context=this.isolated?this.isolated.has(id):this.condition?this.condition.parts.includes(id):id===this.selected;
    p.mesh.visible=!this.hidden.has(id)&&(!this.isolated||this.fade||context);
    const dim=(this.fade&&(!!this.selected||!!this.isolated)||!!this.condition)&&!context;
-   const opacity=dim?.1:this.xray&&p.part.type==='bone'?.16:p.part.type==='fascia'?.12:p.part.type==='joint'?.38:1;
-   const mat=p.mesh.material;mat.opacity=opacity;mat.transparent=opacity<1;mat.depthWrite=opacity>.5;mat.emissive.set(id===this.selected?'#56d4be':'#000000');mat.emissiveIntensity=id===this.selected?.23:0;
+   const opacity=dim?.1:this.xray&&p.part.type==='bone'?.16:partOpacity(p.part);
+   const mat=p.mesh.material;mat.opacity=opacity;mat.transparent=opacity<1;mat.depthWrite=opacity===1;mat.emissive.set(id===this.selected?'#56d4be':'#000000');mat.emissiveIntensity=id===this.selected?.23:0;
    mat.clippingPlanes=this.cutEnabled?[this.plane]:[];mat.needsUpdate=true;
   }
   const mesh=this.selected?this.pieces.get(this.selected)?.mesh:null;this.outline.selectedObjects=mesh?.visible&&!this.cutEnabled?[mesh]:[];this.dirty=true;
  }
  toggle(ids:string[]){const show=ids.some(id=>this.hidden.has(id));ids.forEach(id=>show?this.hidden.delete(id):this.hidden.add(id));this.apply();if(this.explodeAmount>0)this.explode(this.explodeAmount,this.explodeMode);}
  isolate(ids:string[],fade=false){this.isolated=new Set(ids);this.fade=fade;ids.forEach(id=>this.hidden.delete(id));this.apply();}
- restore(){this.hidden=new Set([...this.pieces.values()].filter(p=>p.part.type==='fascia'||p.part.type==='joint'||p.part.id==='tibial_cartilage').map(p=>p.part.id));this.isolated=null;this.fade=false;this.xray=false;this.showCondition(null);this.apply();}
+ restore(){this.hidden=new Set([...this.pieces.values()].filter(p=>hiddenByDefault(p.part)).map(p=>p.part.id));this.isolated=null;this.fade=false;this.xray=false;this.showCondition(null);this.apply();}
  setClip(enabled:boolean,height=300){this.cutEnabled=enabled;this.plane.constant=height;this.apply();this.overlays.traverse(o=>{if(o instanceof THREE.Mesh){o.material.clippingPlanes=enabled?[this.plane]:[];o.material.needsUpdate=true;}});}
  private travel(target:THREE.Vector3,position:THREE.Vector3,animate=true){const duration=animate&&!this.reduced?.75:0;gsap.to(this.controls.target,{x:target.x,y:target.y,z:target.z,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>this.dirty=true});gsap.to(this.camera.position,{x:position.x,y:position.y,z:position.z,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>this.dirty=true});this.dirty=true;}
  preset(name:Preset,animate=true){

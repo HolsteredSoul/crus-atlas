@@ -1,12 +1,16 @@
-export type PartType = 'bone'|'cartilage'|'joint'|'muscle'|'tendon'|'ligament'|'fascia'|'nerve'|'vessel'|'bursa'|'retinaculum'|'skin';
+import tissuePalette from './tissue-palette.json';
+export type PartType = 'bone'|'cartilage'|'joint'|'muscle'|'tendon'|'ligament'|'fascia'|'nerve'|'vessel'|'bursa'|'retinaculum'|'skin'|'sheath';
 export type Compartment = 'anterior'|'lateral'|'superficial_posterior'|'deep_posterior'|'knee'|'ankle'|'foot'|'neurovascular'|'none';
+export type Representation = 'source_mesh'|'source_partition'|'authored_reconstruction'|'derived_illustration';
+export interface Provenance { kind:Representation; source:string; references:string[]; review:string; }
 export interface Part {
   id: string; displayName: string; latinName?: string; type: PartType; compartment: Compartment;
   laterality: 'right'; group: string; parentGroup: string;
+  provenance?:Provenance; defaultHidden?:boolean;
   attachments?: {origin: string; insertion: string}; action: string; description: string; wikiUrl?: string;
 }
 export const compartmentNames: Record<Compartment,string> = {anterior:'Anterior',lateral:'Lateral',superficial_posterior:'Superficial posterior',deep_posterior:'Deep posterior',knee:'Knee',ankle:'Ankle',foot:'Foot',neurovascular:'Neurovascular',none:'Supporting structures'};
-export const typeNames: Record<PartType,string> = {bone:'Bones',cartilage:'Cartilage',joint:'Joints',muscle:'Muscles',tendon:'Tendons',ligament:'Ligaments',fascia:'Compartment envelopes',nerve:'Nerves',vessel:'Vessels',bursa:'Bursae',retinaculum:'Retinacula',skin:'Skin'};
+export const typeNames: Record<PartType,string> = {bone:'Bones',cartilage:'Cartilage',joint:'Joints',muscle:'Muscles',tendon:'Tendons',ligament:'Ligaments',fascia:'Fascia & compartments',nerve:'Nerves',vessel:'Vessels',bursa:'Bursae',retinaculum:'Retinacula',skin:'Skin',sheath:'Tendon sheaths'};
 const p = (id:string,displayName:string,type:PartType,compartment:Compartment,origin:string,insertion:string,action:string,description='',latinName?:string):Part => ({id,displayName,type,compartment,laterality:'right',group:compartmentNames[compartment],parentGroup:typeNames[type],attachments:{origin,insertion},action,description:description || action,latinName,wikiUrl:`https://en.wikipedia.org/wiki/${encodeURIComponent(displayName.replaceAll(' ','_'))}`});
 export const catalogue: Part[] = [
   p('tibia','Tibia','bone','none','Not applicable — bone','Not applicable — bone','Transfers load from the knee to the talus.','The medial, weight-bearing bone of the crus. The anterior crest and medial malleolus are palpable.','Tibia'),
@@ -68,4 +72,10 @@ for(const [id,name] of [['extensor_digitorum_brevis','Extensor digitorum brevis'
  catalogue.push(p(id,name,'muscle','foot','Intrinsic foot origin; see source anatomy','Digital tendons and phalanges','Contributes to coordinated toe motion and foot support.','Intrinsic foot muscle shown using the source anatomy mesh.'));
 }
 export const byId = new Map(catalogue.map(part => [part.id,part]));
-export const palette: Record<PartType,string> = {bone:'#ddd6bb',muscle:'#a34f43',tendon:'#ede0b4',ligament:'#e0d9b5',cartilage:'#97cadf',joint:'#8db8c7',fascia:'#55c7b8',nerve:'#e6c56d',vessel:'#c3666a',bursa:'#71bfff',retinaculum:'#c7d1bb',skin:'#d3ac93'};
+export const palette:Record<PartType,string> = tissuePalette;
+export const partOpacity=(part:Part)=>part.id.endsWith('_compartment')?.22:part.type==='fascia'?.65:part.type==='sheath'?.55:part.type==='joint'?.38:1;
+export const hiddenByDefault=(part:Part)=>part.defaultHidden??(['fascia','joint','sheath'].includes(part.type)||part.id==='tibial_cartilage');
+for(const part of catalogue){
+ const kind:Representation=part.id.endsWith('_compartment')||part.type==='joint'?'derived_illustration':['ta_tendon','tp_tendon','fl_tendon','fb_tendon','tibialis_anterior','tibialis_posterior','fibularis_longus','fibularis_brevis'].includes(part.id)?'source_partition':'source_mesh';
+ part.provenance??={kind,source:'Z-Anatomy / BodyParts3D',references:['https://github.com/Z-Anatomy/Models-of-human-anatomy'],review:'Technical review only; independent anatomical validation pending.'};
+}

@@ -20,7 +20,7 @@ export function explodeOffsets(items:LayoutItem[],mode:ExplodeMode):Map<string,V
   if(fixed){offsets.set(item.id,new Vector3());continue;}
   const radial=item.center.clone().sub(pivot);radial.y=0;
   const normal=new Vector3(...(normals[item.compartment]??[0,0,0]));
-  const weight=item.type==='tendon'||item.type==='ligament'?.45:1;
+  const weight=item.type==='tendon'||item.type==='ligament'||item.type==='sheath'?.45:1;
   if(mode==='compartment')offsets.set(item.id,normal.multiplyScalar(115));
   else offsets.set(item.id,radial.multiplyScalar(1.8*weight).addScaledVector(normal,75*weight));
  }

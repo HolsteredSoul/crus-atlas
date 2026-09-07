@@ -1,0 +1,15 @@
+{
+  "bone": "#d8d2c1",
+  "cartilage": "#7eafc9",
+  "joint": "#729ab4",
+  "muscle": "#963d35",
+  "tendon": "#b68037",
+  "ligament": "#8b70b7",
+  "fascia": "#348e83",
+  "sheath": "#507fbd",
+  "nerve": "#dbb54d",
+  "vessel": "#b55164",
+  "bursa": "#489cb9",
+  "retinaculum": "#b36694",
+  "skin": "#c39e85"
+}
