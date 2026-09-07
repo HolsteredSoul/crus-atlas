@@ -2,7 +2,19 @@
 
 A static Vite + TypeScript + Three.js browser app for exploring the **right lower leg**, ankle and distal knee. Includes 93 individually selectable entries (including one explicitly disputed source entry), compartment layers, camera presets, three explode modes and 14 source-linked clinical cards.
 
-Public repository: [HolsteredSoul/crus-atlas](https://github.com/HolsteredSoul/crus-atlas). Original application code/scripts are MIT; anatomical derivatives remain CC BY-SA 4.0. See [LICENSE.md](LICENSE.md). Repository publication does not deploy a website.
+Public repository: [HolsteredSoul/crus-atlas](https://github.com/HolsteredSoul/crus-atlas). Original application code/scripts are MIT; anatomical derivatives remain CC BY-SA 4.0. See [LICENSE.md](LICENSE.md).
+
+## GitHub Pages
+
+Hosted atlas: [holsteredsoul.github.io/crus-atlas/](https://holsteredsoul.github.io/crus-atlas/).
+The `Deploy atlas to GitHub Pages` workflow tests and builds changes pushed to
+`master`, then publishes only `dist/`. It can also be run manually from Actions.
+Repository Settings > Pages > Source must be **GitHub Actions**.
+
+The Pages build uses `--base=/crus-atlas/` so JavaScript, the GLB and bundled Draco
+decoders resolve beneath the repository URL. Local development retains the
+relative base in `vite.config.ts`. No Blender rebuild is needed to deploy the
+committed model, and no separate server or API credentials are required.
 
 **Educational use only. Not a medical device. Not for diagnosis, treatment decisions or surgical planning.** Source anatomy and landmark registration have not undergone independent clinical validation. Clinical overlays are schematic.
 
