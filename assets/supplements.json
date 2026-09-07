@@ -5,7 +5,7 @@
     "type": "tendon",
     "compartment": "anterior",
     "origin": "Extensor digitorum longus muscle",
-    "insertion": "Dorsal extensor expansions of toes 2\u20135",
+    "insertion": "Dorsal extensor expansions of toes 2–5",
     "action": "Transmits extension of the lateral four toes and assists ankle dorsiflexion.",
     "description": "Four distal branches retain the source extensor expansion geometry; separated without changing their course.",
     "splitFrom": "extensor_digitorum_longus",
@@ -69,7 +69,7 @@
     "type": "tendon",
     "compartment": "deep_posterior",
     "origin": "Flexor digitorum longus muscle",
-    "insertion": "Plantar bases of distal phalanges of toes 2\u20135",
+    "insertion": "Plantar bases of distal phalanges of toes 2–5",
     "action": "Transmits flexion of the lateral four toes.",
     "description": "Retains the source branches and the plantar crossing relationship with FHL.",
     "splitFrom": "flexor_digitorum_longus",
@@ -221,6 +221,162 @@
     "references": [
       "https://pmc.ncbi.nlm.nih.gov/articles/PMC10625514/",
       "https://pmc.ncbi.nlm.nih.gov/articles/PMC8296794/"
+    ]
+  },
+  {
+    "id": "ta_sheath",
+    "displayName": "Tibialis anterior tendon sheath",
+    "type": "sheath",
+    "compartment": "ankle",
+    "origin": "Anterior ankle around TA tendon",
+    "insertion": "Toward the medial midfoot along the source sheath",
+    "action": "Encloses the tendon segment and permits gliding relative to surrounding tissues.",
+    "description": "Anterior ankle sheath segment; does not extend over the muscle belly.",
+    "sources": [
+      [
+        "Tendon sheath of tibialis anterior.r",
+        "all"
+      ]
+    ],
+    "references": [
+      "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf",
+      "https://pubmed.ncbi.nlm.nih.gov/16861505/"
+    ]
+  },
+  {
+    "id": "ehl_sheath",
+    "displayName": "Extensor hallucis longus tendon sheath",
+    "type": "sheath",
+    "compartment": "ankle",
+    "origin": "Anterior ankle around EHL tendon",
+    "insertion": "Dorsal first-ray course represented by the source",
+    "action": "Encloses the tendon segment and permits gliding relative to surrounding tissues.",
+    "description": "Source sheath segment follows EHL across the anterior ankle toward the dorsal first ray; its endpoints represent this source, not a universal anatomical extent.",
+    "sources": [
+      [
+        "Tendon sheath of extensor hallucis longus.r",
+        "all"
+      ]
+    ],
+    "references": [
+      "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf"
+    ]
+  },
+  {
+    "id": "edl_sheath",
+    "displayName": "EDL / fibularis tertius tendon sheath",
+    "type": "sheath",
+    "compartment": "ankle",
+    "origin": "Anterior ankle extensor tendon passage",
+    "insertion": "Dorsolateral foot segment",
+    "action": "Encloses the tendon segment and permits gliding relative to surrounding tissues.",
+    "description": "Common extensor sheath region for EDL and fibularis tertius; not duplicated as independent overlapping sheaths.",
+    "sources": [
+      [
+        "Tendon sheath of extensor digitorum longus.r",
+        "all"
+      ]
+    ],
+    "references": [
+      "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf"
+    ]
+  },
+  {
+    "id": "tp_sheath",
+    "displayName": "Tibialis posterior tendon sheath",
+    "type": "sheath",
+    "compartment": "ankle",
+    "origin": "Behind the medial malleolus around TP",
+    "insertion": "Medial foot along the TP source course",
+    "action": "Encloses the tendon segment and permits gliding relative to surrounding tissues.",
+    "description": "Source retromalleolar-to-medial-foot segment; distinct from the flexor retinaculum.",
+    "sources": [
+      [
+        "Tendon sheath of tibialis posterior muscle.r",
+        "all"
+      ]
+    ],
+    "references": [
+      "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf"
+    ]
+  },
+  {
+    "id": "fdl_sheath",
+    "displayName": "Flexor digitorum longus tendon sheath",
+    "type": "sheath",
+    "compartment": "ankle",
+    "origin": "Medial ankle around FDL tendon",
+    "insertion": "Plantar route represented by the source",
+    "action": "Encloses the tendon segment and permits gliding relative to surrounding tissues.",
+    "description": "Source sheath segment; no claim of a continuous digital sheath to every toe.",
+    "sources": [
+      [
+        "Tendon sheath of flexor digitorum longus.r",
+        "all"
+      ]
+    ],
+    "references": [
+      "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf"
+    ]
+  },
+  {
+    "id": "fhl_sheath",
+    "displayName": "Flexor hallucis longus tendon sheath",
+    "type": "sheath",
+    "compartment": "ankle",
+    "origin": "Posterior ankle around FHL tendon",
+    "insertion": "Toward the sustentacular and plantar passage",
+    "action": "Encloses the tendon segment and permits gliding relative to surrounding tissues.",
+    "description": "Source sheath segment; inspect its relationship to the talus, sustentaculum and flexor tendon crossing.",
+    "sources": [
+      [
+        "Tendon sheath of flexor hallucis longus.r",
+        "all"
+      ]
+    ],
+    "references": [
+      "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC11733874/"
+    ]
+  },
+  {
+    "id": "fibular_sheath",
+    "displayName": "Common fibular tendon sheath",
+    "type": "sheath",
+    "compartment": "ankle",
+    "origin": "Retromalleolar passage behind lateral malleolus",
+    "insertion": "Distal fibular tendon routes in the source",
+    "action": "Encloses the tendon segment and permits gliding relative to surrounding tissues.",
+    "description": "Shared enclosure of fibularis longus and brevis; their distal courses diverge.",
+    "sources": [
+      [
+        "Common tendon sheath of fibularis muscles.r",
+        "all"
+      ]
+    ],
+    "references": [
+      "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC3535154/"
+    ]
+  },
+  {
+    "id": "plantar_fl_sheath",
+    "displayName": "Plantar fibularis longus tendon sheath",
+    "type": "sheath",
+    "compartment": "foot",
+    "origin": "Plantar cuboid passage",
+    "insertion": "Plantar medial course of fibularis longus",
+    "action": "Encloses the tendon segment and permits gliding relative to surrounding tissues.",
+    "description": "Plantar source segment follows longus across the foot; does not follow brevis to the fifth metatarsal.",
+    "sources": [
+      [
+        "Plantar tendon sheath of fibularis longus muscle.r",
+        "all"
+      ]
+    ],
+    "references": [
+      "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC3535154/"
     ]
   }
 ]

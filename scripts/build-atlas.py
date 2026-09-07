@@ -129,7 +129,9 @@ for part_id,sources in bindings.items():
    if region=='lower_cartilage' and mean_z>=.065:continue
    faces.append([offset+i for i in poly.vertices])
    face_uses.setdefault((name,poly.index),[]).append(part_id)
-   tissue=part.get('colourTissue') or ('tendon' if tendon else 'cartilage' if cartilage else part['type'])
+   # Embedded source regions only override mixed muscle/bone surfaces.
+   # A sheath material containing the word tendon remains a blue sheath.
+   tissue=part.get('colourTissue') or ('tendon' if tendon and part['type']=='muscle' else 'cartilage' if cartilage and part['type']=='bone' else part['type'])
    colors.append(rgba(tissue))
   bpy.data.meshes.remove(mesh)
  mesh=bpy.data.meshes.new(part_id+'_geometry');mesh.from_pydata(vertices,[],faces)

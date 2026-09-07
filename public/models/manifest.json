@@ -2055,6 +2055,218 @@
         5.314845561981201
       ]
     },
+    "ta_sheath": {
+      "sources": [
+        "Tendon sheath of tibialis anterior.r"
+      ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf",
+          "https://pubmed.ncbi.nlm.nih.gov/16861505/",
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Source geometry; technical and reference review only, not independent anatomical validation."
+      },
+      "vertices": 122,
+      "polygons": 120,
+      "min": [
+        -15.544713020324707,
+        71.24481964111328,
+        7.511241436004639
+      ],
+      "max": [
+        14.545239448547363,
+        144.38560485839844,
+        37.84941864013672
+      ]
+    },
+    "ehl_sheath": {
+      "sources": [
+        "Tendon sheath of extensor hallucis longus.r"
+      ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf",
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Source geometry; technical and reference review only, not independent anatomical validation."
+      },
+      "vertices": 298,
+      "polygons": 296,
+      "min": [
+        -20.299278259277344,
+        61.648284912109375,
+        1.1184922456741333
+      ],
+      "max": [
+        6.271287441253662,
+        139.83251953125,
+        63.3218879699707
+      ]
+    },
+    "edl_sheath": {
+      "sources": [
+        "Tendon sheath of extensor digitorum longus.r"
+      ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf",
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Source geometry; technical and reference review only, not independent anatomical validation."
+      },
+      "vertices": 1034,
+      "polygons": 1032,
+      "min": [
+        -26.907697677612305,
+        70.09994506835938,
+        -2.1491386890411377
+      ],
+      "max": [
+        -10.200568199157715,
+        139.1415252685547,
+        44.256710052490234
+      ]
+    },
+    "tp_sheath": {
+      "sources": [
+        "Tendon sheath of tibialis posterior muscle.r"
+      ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf",
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Source geometry; technical and reference review only, not independent anatomical validation."
+      },
+      "vertices": 145,
+      "polygons": 150,
+      "min": [
+        10.099067687988281,
+        56.70209884643555,
+        -23.542184829711914
+      ],
+      "max": [
+        27.07086753845215,
+        96.3094711303711,
+        6.460223197937012
+      ]
+    },
+    "fdl_sheath": {
+      "sources": [
+        "Tendon sheath of flexor digitorum longus.r"
+      ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf",
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Source geometry; technical and reference review only, not independent anatomical validation."
+      },
+      "vertices": 130,
+      "polygons": 128,
+      "min": [
+        5.653239727020264,
+        32.54883575439453,
+        -29.708337783813477
+      ],
+      "max": [
+        26.72683334350586,
+        99.05758666992188,
+        3.8810408115386963
+      ]
+    },
+    "fhl_sheath": {
+      "sources": [
+        "Tendon sheath of flexor hallucis longus.r"
+      ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC11733874/",
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Source geometry; technical and reference review only, not independent anatomical validation."
+      },
+      "vertices": 866,
+      "polygons": 864,
+      "min": [
+        -3.1480865478515625,
+        43.33579635620117,
+        -32.406394958496094
+      ],
+      "max": [
+        17.121706008911133,
+        93.84368896484375,
+        0.3772824704647064
+      ]
+    },
+    "fibular_sheath": {
+      "sources": [
+        "Common tendon sheath of fibularis muscles.r"
+      ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC3535154/",
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Source geometry; technical and reference review only, not independent anatomical validation."
+      },
+      "vertices": 770,
+      "polygons": 768,
+      "min": [
+        -29.050395965576172,
+        40.56253433227539,
+        -28.476457595825195
+      ],
+      "max": [
+        -15.665449142456055,
+        83.41978454589844,
+        -4.319723606109619
+      ]
+    },
+    "plantar_fl_sheath": {
+      "sources": [
+        "Plantar tendon sheath of fibularis longus muscle.r"
+      ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://downloads.lww.com/wolterskluwer_vitalstream_com/sample-content/9780781775250_Moore/samples/Moore6e-Chapter_5_LowerLimb.pdf",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC3535154/",
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Source geometry; technical and reference review only, not independent anatomical validation."
+      },
+      "vertices": 322,
+      "polygons": 320,
+      "min": [
+        -30.54875946044922,
+        28.68301773071289,
+        11.423267364501953
+      ],
+      "max": [
+        -16.724563598632812,
+        35.791316986083984,
+        38.43413543701172
+      ]
+    },
     "anterior_compartment": {
       "sources": [
         "accepted pre-partition compartment envelope"

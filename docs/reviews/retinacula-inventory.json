@@ -1,0 +1,77 @@
+[
+  {
+    "name": "Superior fibular retinaculum.r",
+    "faces": 348,
+    "min": [
+      -33.311553575702675,
+      36.29392758011818,
+      -27.096461543048857
+    ],
+    "max": [
+      24.05402409224891,
+      96.04665637016296,
+      53.94657697418785
+    ],
+    "properties": "{'M3': <bpy id prop: owner=\"OBSuperior fibular retinaculum.r.010\", name=\"M3\", address=0x000002A651910BA0>, 'SheetGenerator': <bpy id prop: owner=\"OBSuperior fibular retinaculum.r.010\", name=\"SheetGene"
+  },
+  {
+    "name": "Inferior fibular retinaculum.r",
+    "faces": 35,
+    "min": [
+      -45.085452773281105,
+      24.914059787988663,
+      25.478556713853838
+    ],
+    "max": [
+      -17.594024815269478,
+      73.70458543300629,
+      53.71613424161529
+    ],
+    "properties": "{'M3': <bpy id prop: owner=\"OBInferior fibular retinaculum.r\", name=\"M3\", address=0x000002A6519102A0>, 'SheetGenerator': <bpy id prop: owner=\"OBInferior fibular retinaculum.r\", name=\"SheetGenerator\", "
+  },
+  {
+    "name": "Superior extensor retinaculum of ankle.r",
+    "faces": 133,
+    "min": [
+      -31.044937946506508,
+      110.14518141746521,
+      -8.777003773654938
+    ],
+    "max": [
+      6.271928272537225,
+      141.68088138103485,
+      20.13979941496706
+    ],
+    "properties": "{'M3': <bpy id prop: owner=\"OBSuperior extensor retinaculum of ankle.r\", name=\"M3\", address=0x000002A6519120A0>, 'SheetGenerator': <bpy id prop: owner=\"OBSuperior extensor retinaculum of ankle.r\", nam"
+  },
+  {
+    "name": "Inferior extensor retinaculum of ankle.r",
+    "faces": 169,
+    "min": [
+      -30.95306483716584,
+      78.10010761022568,
+      -8.160170206035614
+    ],
+    "max": [
+      21.901838205150597,
+      106.53714835643768,
+      28.666081799958707
+    ],
+    "properties": "{'M3': <bpy id prop: owner=\"OBInferior extensor retinaculum of ankle.r\", name=\"M3\", address=0x000002A6519104E0>, 'SheetGenerator': <bpy id prop: owner=\"OBInferior extensor retinaculum of ankle.r\", nam"
+  },
+  {
+    "name": "Flexor retinaculum of ankle.r",
+    "faces": 358,
+    "min": [
+      12.872099600128168,
+      13.60830944031477,
+      -49.215253480876925
+    ],
+    "max": [
+      28.84383099465751,
+      93.132384121418,
+      5.193820184861184
+    ],
+    "properties": "{'M3': <bpy id prop: owner=\"OBFlexor retinaculum of ankle.r\", name=\"M3\", address=0x000002A651913BA0>, 'SheetGenerator': <bpy id prop: owner=\"OBFlexor retinaculum of ankle.r\", name=\"SheetGenerator\", ad"
+  }
+]

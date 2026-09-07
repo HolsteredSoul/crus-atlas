@@ -60,7 +60,7 @@ export const catalogue: Part[] = [
   p('deep_posterior_compartment','Deep posterior envelope','fascia','deep_posterior','Tibia, fibula, interosseous membrane and transverse septum','Not applicable — fascial envelope','Encloses the deep flexors, tibialis posterior and popliteus.'),
   p('common_fibular_nerve','Common fibular nerve','nerve','neurovascular','Sciatic nerve','Superficial and deep fibular nerve branches','Supplies the anterior and lateral compartments through its branches.','Winds around the fibular neck; also called the common peroneal nerve.'),
   p('retrocalcaneal_bursa','Retrocalcaneal bursa','bursa','ankle','Between anterior Achilles and posterosuperior calcaneus','Not applicable — bursa','Reduces friction between Achilles and calcaneus.'),
-  p('superior_fibular_retinaculum','Superior fibular retinaculum','retinaculum','ankle','Posterolateral fibula','Lateral calcaneus','Retains the fibular tendons in the retromalleolar groove.'),
+  p('superior_fibular_retinaculum','Ankle retinaculum · source label disputed','retinaculum','ankle','Attachment identity unresolved in this source','Attachment identity unresolved in this source','Anatomical function is not assigned while the source identity is unresolved.','The source calls this Superior fibular retinaculum, but its connected sheet spans the anterior ankle rather than remaining retromalleolar. Retained under its historical ID for review; it is not accepted as a correctly identified superior fibular retinaculum.'),
 ];
 for (const [id,name] of [['cuboid','Cuboid'],['intermediate_cuneiform','Intermediate cuneiform'],['lateral_cuneiform','Lateral cuneiform'],['metatarsal_2','Second metatarsal'],['metatarsal_3','Third metatarsal'],['metatarsal_4','Fourth metatarsal'],['sesamoids','Hallux sesamoids']]) {
  catalogue.push(p(id,name,'bone','foot','Not applicable — bone','Articulates with adjacent foot bones','Contributes to foot support and motion.','Source-derived right foot geometry from Z-Anatomy.'));
@@ -83,6 +83,7 @@ export const palette:Record<PartType,string> = tissuePalette;
 export const partOpacity=(part:Part)=>part.id.endsWith('_compartment')?.22:part.type==='fascia'?.65:part.type==='sheath'?.55:part.type==='joint'?.38:1;
 export const hiddenByDefault=(part:Part)=>part.defaultHidden??(['fascia','joint','sheath'].includes(part.type)||part.id==='tibial_cartilage');
 for(const part of catalogue){
+ if(part.id==='superior_fibular_retinaculum'){part.defaultHidden=true;part.wikiUrl=undefined;}
  const kind:Representation=part.id.endsWith('_compartment')||part.type==='joint'?'derived_illustration':['ta_tendon','tp_tendon','fl_tendon','fb_tendon','tibialis_anterior','tibialis_posterior','fibularis_longus','fibularis_brevis','tibial_cartilage',...supplements.flatMap(e=>'splitFrom' in e?[e.id,String(e.splitFrom)]:[])].includes(part.id)?'source_partition':'source_mesh';
  part.provenance??={kind,source:'Z-Anatomy / BodyParts3D',references:['https://github.com/Z-Anatomy/Models-of-human-anatomy'],review:'Technical review only; independent anatomical validation pending.'};
 }
