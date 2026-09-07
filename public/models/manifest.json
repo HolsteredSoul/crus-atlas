@@ -1947,6 +1947,114 @@
         108.63019561767578
       ]
     },
+    "crural_fascia": {
+      "sources": [
+        "Crural fascia.r"
+      ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10625514/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC8296794/",
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Source geometry; technical and reference review only, not independent anatomical validation."
+      },
+      "vertices": 5607,
+      "polygons": 5523,
+      "min": [
+        -71.75315856933594,
+        6.769387245178223,
+        -71.93311309814453
+      ],
+      "max": [
+        49.19462585449219,
+        448.7725524902344,
+        172.6240234375
+      ]
+    },
+    "anterior_septum": {
+      "sources": [
+        "Anterior intermuscular septum of leg.r"
+      ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10625514/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC8296794/",
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Source geometry; technical and reference review only, not independent anatomical validation."
+      },
+      "vertices": 147,
+      "polygons": 208,
+      "min": [
+        -50.56987762451172,
+        113.69745635986328,
+        -11.449966430664062
+      ],
+      "max": [
+        -22.285558700561523,
+        404.86700439453125,
+        8.903136253356934
+      ]
+    },
+    "posterior_septum": {
+      "sources": [
+        "Posterior intermuscular septum of leg.r"
+      ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10625514/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC8296794/",
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Source geometry; technical and reference review only, not independent anatomical validation."
+      },
+      "vertices": 179,
+      "polygons": 265,
+      "min": [
+        -59.89368438720703,
+        99.863037109375,
+        -33.35002517700195
+      ],
+      "max": [
+        -16.518795013427734,
+        390.94085693359375,
+        -13.518132209777832
+      ]
+    },
+    "transverse_septum": {
+      "sources": [
+        "Transverse intermuscular septum of leg.r"
+      ],
+      "provenance": {
+        "kind": "source_mesh",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10625514/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC8296794/",
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Source geometry; technical and reference review only, not independent anatomical validation."
+      },
+      "vertices": 301,
+      "polygons": 492,
+      "min": [
+        -45.52709197998047,
+        109.60164642333984,
+        -34.17560958862305
+      ],
+      "max": [
+        32.063697814941406,
+        401.58270263671875,
+        5.314845561981201
+      ]
+    },
     "anterior_compartment": {
       "sources": [
         "accepted pre-partition compartment envelope"

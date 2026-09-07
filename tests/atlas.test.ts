@@ -30,6 +30,12 @@ test('shipped GLB is complete Draco anatomy, with separate IDs and source tissue
 test('metadata validator rejects missing, duplicate, unknown and wrong-side anatomy',()=>{
  assert.throws(()=>validateModel(new Group()),/Missing parts/);const root=contractFixture();const mesh=root.children[0] as Mesh;const dupe=mesh.clone();root.add(dupe);assert.throws(()=>validateModel(root),/Duplicate/);root.remove(dupe);const id=mesh.userData.id;mesh.userData.id='bad';assert.throws(()=>validateModel(root),/Unknown/);mesh.userData.id=id;mesh.userData.laterality='left';assert.throws(()=>validateModel(root),/laterality/);disposeModel(root);
 });
+test('metadata validator rejects incorrect provenance',()=>{
+ const root=contractFixture();const mesh=root.children[0] as Mesh;
+ mesh.userData.provenance.kind='authored_reconstruction';
+ assert.throws(()=>validateModel(root),/Invalid provenance/);disposeModel(root);
+});
+
 test('clinical references and registered markers refer to included source anatomy',()=>{
  assert.equal(conditions.length,14);assert.equal(new Set(conditions.map(c=>c.id)).size,14);
  for(const c of conditions){assert.ok(c.mechanism&&c.landmark&&c.ultrasound&&c.mri&&c.lookAlikes);assert.ok(c.sources.every(s=>s.url.startsWith('https://')));for(const id of c.parts)assert.ok(byId.has(id));for(const m of c.markers){assert.ok(c.parts.includes(m.partId));assert.ok(m.scale.every(n=>n>0));const b=manifest.parts[m.partId];const bounds=new Box3(new Vector3(...b.min),new Vector3(...b.max)).expandByScalar(5);assert.ok(bounds.containsPoint(new Vector3(...m.position)),`${c.id}: marker outside ${m.partId}`);}}

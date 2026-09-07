@@ -15,6 +15,7 @@ export function validateModel(root:THREE.Object3D):Map<string,THREE.Mesh> {
   if(!part)throw new Error(`Unknown or missing mesh id: ${id??obj.name}`);
   if(map.has(id))throw new Error(`Duplicate mesh id: ${id}`);
   for(const key of ['displayName','type','compartment','laterality','group','parentGroup'] as const)if(obj.userData[key]!==part[key])throw new Error(`Invalid metadata ${key} for ${id}`);
+  if(obj.userData.provenance?.kind!==part.provenance?.kind||obj.userData.provenance?.source!==part.provenance?.source)throw new Error(`Invalid provenance for ${id}`);
   map.set(id,obj);
  });
  const missing=catalogue.filter(p=>!map.has(p.id));if(missing.length)throw new Error(`Missing parts: ${missing.map(p=>p.id).join(', ')}`);

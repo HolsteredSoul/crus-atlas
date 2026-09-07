@@ -142,5 +142,85 @@
       "https://pmc.ncbi.nlm.nih.gov/articles/PMC3879302/",
       "https://pmc.ncbi.nlm.nih.gov/articles/PMC3842207/"
     ]
+  },
+  {
+    "id": "crural_fascia",
+    "displayName": "Crural fascia",
+    "type": "fascia",
+    "compartment": "none",
+    "origin": "Deep fascia around the leg; proximal continuity around knee",
+    "insertion": "Distal continuity with ankle fascial and retinacular structures",
+    "action": "Encloses the leg and provides septal connections.",
+    "description": "Source fascial sleeve; displayed separately from the four illustrative compartment envelopes.",
+    "sources": [
+      [
+        "Crural fascia.r",
+        "all"
+      ]
+    ],
+    "references": [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC10625514/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC8296794/"
+    ]
+  },
+  {
+    "id": "anterior_septum",
+    "displayName": "Anterior intermuscular septum",
+    "type": "fascia",
+    "compartment": "none",
+    "origin": "Crural fascia",
+    "insertion": "Anterior border of fibula",
+    "action": "Separates anterior and lateral muscle groups.",
+    "description": "Source septal sheet; inspect together with the crural fascia and fibula.",
+    "sources": [
+      [
+        "Anterior intermuscular septum of leg.r",
+        "all"
+      ]
+    ],
+    "references": [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC10625514/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC8296794/"
+    ]
+  },
+  {
+    "id": "posterior_septum",
+    "displayName": "Posterior intermuscular septum",
+    "type": "fascia",
+    "compartment": "none",
+    "origin": "Crural fascia",
+    "insertion": "Posterior border of fibula",
+    "action": "Separates the lateral compartment from posterior muscle groups.",
+    "description": "Source septal sheet; exact fascial attachments vary between individuals.",
+    "sources": [
+      [
+        "Posterior intermuscular septum of leg.r",
+        "all"
+      ]
+    ],
+    "references": [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC10625514/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC8296794/"
+    ]
+  },
+  {
+    "id": "transverse_septum",
+    "displayName": "Transverse intermuscular septum",
+    "type": "fascia",
+    "compartment": "none",
+    "origin": "Deep crural fascial connections",
+    "insertion": "Tibial and fibular fascial attachments",
+    "action": "Separates superficial and deep posterior muscle groups.",
+    "description": "Source deep transverse fascial sheet; distinct from a compartment pressure envelope.",
+    "sources": [
+      [
+        "Transverse intermuscular septum of leg.r",
+        "all"
+      ]
+    ],
+    "references": [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC10625514/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC8296794/"
+    ]
   }
 ]
