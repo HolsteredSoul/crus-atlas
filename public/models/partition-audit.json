@@ -9,5 +9,45 @@
       "extensor_digitorum_longus": 2722
     },
     "allFacesAssignedExactlyOnce": true
+  },
+  "ehl_tendon": {
+    "sourceFaces": {
+      "Extensor hallucis longus.r": 2362
+    },
+    "allocation": {
+      "extensor_hallucis_longus": 1321,
+      "ehl_tendon": 1041
+    },
+    "allFacesAssignedExactlyOnce": true
+  },
+  "fhl_tendon": {
+    "sourceFaces": {
+      "Flexor hallucis longus.r": 5878
+    },
+    "allocation": {
+      "flexor_hallucis_longus": 3754,
+      "fhl_tendon": 2124
+    },
+    "allFacesAssignedExactlyOnce": true
+  },
+  "fdl_tendon": {
+    "sourceFaces": {
+      "Flexor digitorum longus.r": 6836
+    },
+    "allocation": {
+      "flexor_digitorum_longus": 2914,
+      "fdl_tendon": 3922
+    },
+    "allFacesAssignedExactlyOnce": true
+  },
+  "plantaris_tendon": {
+    "sourceFaces": {
+      "Plantaris muscle.r": 4698
+    },
+    "allocation": {
+      "plantaris_tendon": 2525,
+      "plantaris": 2173
+    },
+    "allFacesAssignedExactlyOnce": true
   }
 }

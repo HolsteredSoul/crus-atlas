@@ -469,24 +469,24 @@
         "Extensor hallucis longus.r"
       ],
       "provenance": {
-        "kind": "source_mesh",
+        "kind": "source_partition",
         "source": "Z-Anatomy / BodyParts3D",
         "references": [
           "https://github.com/Z-Anatomy/Models-of-human-anatomy"
         ],
         "review": "Technical review only; independent anatomical validation pending."
       },
-      "vertices": 1183,
-      "polygons": 2362,
+      "vertices": 671,
+      "polygons": 1321,
       "min": [
         -36.49103546142578,
-        23.879169464111328,
+        149.75074768066406,
         -6.336044788360596
       ],
       "max": [
-        6.229966640472412,
+        -17.689414978027344,
         304.3831787109375,
-        135.40310668945312
+        5.176532745361328
       ]
     },
     "extensor_digitorum_longus": {
@@ -719,22 +719,22 @@
         "Plantaris muscle.r"
       ],
       "provenance": {
-        "kind": "source_mesh",
+        "kind": "source_partition",
         "source": "Z-Anatomy / BodyParts3D",
         "references": [
           "https://github.com/Z-Anatomy/Models-of-human-anatomy"
         ],
         "review": "Technical review only; independent anatomical validation pending."
       },
-      "vertices": 2351,
-      "polygons": 4698,
+      "vertices": 1103,
+      "polygons": 2173,
       "min": [
         -29.50020980834961,
-        28.150379180908203,
-        -50.09913635253906
+        366.23431396484375,
+        -36.672611236572266
       ],
       "max": [
-        25.4005184173584,
+        -2.3839848041534424,
         510.48553466796875,
         29.559831619262695
       ]
@@ -819,24 +819,24 @@
         "Flexor digitorum longus.r"
       ],
       "provenance": {
-        "kind": "source_mesh",
+        "kind": "source_partition",
         "source": "Z-Anatomy / BodyParts3D",
         "references": [
           "https://github.com/Z-Anatomy/Models-of-human-anatomy"
         ],
         "review": "Technical review only; independent anatomical validation pending."
       },
-      "vertices": 3420,
-      "polygons": 6836,
+      "vertices": 1475,
+      "polygons": 2914,
       "min": [
-        -68.14128112792969,
-        7.78566312789917,
-        -29.54250144958496
+        -10.622493743896484,
+        100.17025756835938,
+        -27.75698471069336
       ],
       "max": [
-        26.36050796508789,
+        20.60219955444336,
         351.4026184082031,
-        163.609375
+        4.998248100280762
       ]
     },
     "flexor_hallucis_longus": {
@@ -844,24 +844,24 @@
         "Flexor hallucis longus.r"
       ],
       "provenance": {
-        "kind": "source_mesh",
+        "kind": "source_partition",
         "source": "Z-Anatomy / BodyParts3D",
         "references": [
           "https://github.com/Z-Anatomy/Models-of-human-anatomy"
         ],
         "review": "Technical review only; independent anatomical validation pending."
       },
-      "vertices": 2941,
-      "polygons": 5878,
+      "vertices": 1896,
+      "polygons": 3754,
       "min": [
         -39.693965911865234,
-        8.544832229614258,
-        -32.05751419067383
+        89.73529052734375,
+        -29.884431838989258
       ],
       "max": [
-        16.903779983520508,
+        5.171589374542236,
         326.20843505859375,
-        152.70286560058594
+        -3.50756573677063
       ]
     },
     "achilles": {
@@ -1792,6 +1792,106 @@
         -11.98083209991455,
         152.11940002441406,
         161.49136352539062
+      ]
+    },
+    "ehl_tendon": {
+      "sources": [
+        "Extensor hallucis longus.r"
+      ],
+      "provenance": {
+        "kind": "source_partition",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
+      "vertices": 531,
+      "polygons": 1041,
+      "min": [
+        -25.357933044433594,
+        23.879169464111328,
+        -6.185013771057129
+      ],
+      "max": [
+        6.229966640472412,
+        161.27764892578125,
+        135.40310668945312
+      ]
+    },
+    "fhl_tendon": {
+      "sources": [
+        "Flexor hallucis longus.r"
+      ],
+      "provenance": {
+        "kind": "source_partition",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
+      "vertices": 1081,
+      "polygons": 2124,
+      "min": [
+        -11.796489715576172,
+        8.544832229614258,
+        -32.05751419067383
+      ],
+      "max": [
+        16.903779983520508,
+        103.35079193115234,
+        152.70286560058594
+      ]
+    },
+    "fdl_tendon": {
+      "sources": [
+        "Flexor digitorum longus.r"
+      ],
+      "provenance": {
+        "kind": "source_partition",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
+      "vertices": 1979,
+      "polygons": 3922,
+      "min": [
+        -68.14128112792969,
+        7.78566312789917,
+        -29.54250144958496
+      ],
+      "max": [
+        26.36050796508789,
+        112.82221984863281,
+        163.609375
+      ]
+    },
+    "plantaris_tendon": {
+      "sources": [
+        "Plantaris muscle.r"
+      ],
+      "provenance": {
+        "kind": "source_partition",
+        "source": "Z-Anatomy / BodyParts3D",
+        "references": [
+          "https://github.com/Z-Anatomy/Models-of-human-anatomy"
+        ],
+        "review": "Technical review only; independent anatomical validation pending."
+      },
+      "vertices": 1279,
+      "polygons": 2525,
+      "min": [
+        -19.00677490234375,
+        28.150379180908203,
+        -50.09913635253906
+      ],
+      "max": [
+        25.4005184173584,
+        382.88079833984375,
+        -26.29750633239746
       ]
     },
     "anterior_compartment": {

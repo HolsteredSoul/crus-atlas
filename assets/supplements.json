@@ -22,5 +22,85 @@
         "all"
       ]
     ]
+  },
+  {
+    "id": "ehl_tendon",
+    "displayName": "Extensor hallucis longus tendon",
+    "type": "tendon",
+    "compartment": "anterior",
+    "origin": "Extensor hallucis longus muscle",
+    "insertion": "Dorsal base of distal phalanx of hallux",
+    "action": "Transmits great-toe extension and assists dorsiflexion.",
+    "description": "Retains the source course across the anterior ankle to the hallux.",
+    "splitFrom": "extensor_hallucis_longus",
+    "muscleSources": [
+      "Extensor hallucis longus.r"
+    ],
+    "sources": [
+      [
+        "Extensor hallucis longus.r",
+        "tendon"
+      ]
+    ]
+  },
+  {
+    "id": "fhl_tendon",
+    "displayName": "Flexor hallucis longus tendon",
+    "type": "tendon",
+    "compartment": "deep_posterior",
+    "origin": "Flexor hallucis longus muscle",
+    "insertion": "Plantar base of distal phalanx of hallux",
+    "action": "Transmits great-toe flexion and assists plantarflexion.",
+    "description": "Retains the source course behind the talus and through the plantar foot, including the relationship to FDL.",
+    "splitFrom": "flexor_hallucis_longus",
+    "muscleSources": [
+      "Flexor hallucis longus.r"
+    ],
+    "sources": [
+      [
+        "Flexor hallucis longus.r",
+        "tendon"
+      ]
+    ]
+  },
+  {
+    "id": "fdl_tendon",
+    "displayName": "Flexor digitorum longus tendon",
+    "type": "tendon",
+    "compartment": "deep_posterior",
+    "origin": "Flexor digitorum longus muscle",
+    "insertion": "Plantar bases of distal phalanges of toes 2\u20135",
+    "action": "Transmits flexion of the lateral four toes.",
+    "description": "Retains the source branches and the plantar crossing relationship with FHL.",
+    "splitFrom": "flexor_digitorum_longus",
+    "muscleSources": [
+      "Flexor digitorum longus.r"
+    ],
+    "sources": [
+      [
+        "Flexor digitorum longus.r",
+        "tendon"
+      ]
+    ]
+  },
+  {
+    "id": "plantaris_tendon",
+    "displayName": "Plantaris tendon",
+    "type": "tendon",
+    "compartment": "superficial_posterior",
+    "origin": "Plantaris muscle",
+    "insertion": "Posterior calcaneus; source illustrates one variable course",
+    "action": "Transmits the small plantaris contribution to plantarflexion.",
+    "description": "Slender source tendon, separated from the muscle belly; its course and insertion vary anatomically.",
+    "splitFrom": "plantaris",
+    "muscleSources": [
+      "Plantaris muscle.r"
+    ],
+    "sources": [
+      [
+        "Plantaris muscle.r",
+        "tendon"
+      ]
+    ]
   }
 ]

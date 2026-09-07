@@ -150,6 +150,7 @@ for entry in supplements:
    owners=[i for i in face_uses.get((name,index),[]) if i in ids]
    if len(owners)!=1:raise RuntimeError('Partition lost or duplicated face '+name+':'+str(index))
    allocation[owners[0]]+=1
+ if sum(manifest[i]['polygons'] for i in ids)!=sum(allocation.values()):raise RuntimeError('Geometry cleanup changed partition face count: '+entry['id'])
  partition_audit[entry['id']]={'sourceFaces':expected,'allocation':allocation,'allFacesAssignedExactlyOnce':True}
 (ROOT/'public/models/partition-audit.json').write_text(json.dumps(partition_audit,indent=2))
 
