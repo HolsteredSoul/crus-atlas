@@ -5,7 +5,7 @@ import { catalogue, palette, partOpacity, type Part } from './catalogue';
 
 export function materialFor(part:Part,vertexColors=false){
  const opacity=partOpacity(part);
- return new THREE.MeshStandardMaterial({color:vertexColors?'#ffffff':palette[part.type],vertexColors,roughness:part.type==='bone'?.78:.72,metalness:0,transparent:opacity<1,opacity,depthWrite:opacity===1,side:THREE.DoubleSide});
+ return new THREE.MeshStandardMaterial({color:vertexColors?'#ffffff':palette[part.colourTissue??part.type],vertexColors,roughness:part.type==='bone'?.78:.72,metalness:0,transparent:opacity<1,opacity,depthWrite:opacity===1,side:THREE.DoubleSide});
 }
 export function validateModel(root:THREE.Object3D):Map<string,THREE.Mesh> {
  const map=new Map<string,THREE.Mesh>();root.updateMatrixWorld(true);

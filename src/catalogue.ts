@@ -7,7 +7,7 @@ export interface Provenance { kind:Representation; source:string; references:str
 export interface Part {
   id: string; displayName: string; latinName?: string; type: PartType; compartment: Compartment;
   laterality: 'right'; group: string; parentGroup: string;
-  provenance?:Provenance; defaultHidden?:boolean;
+  provenance?:Provenance; colourTissue?:PartType; defaultHidden?:boolean;
   attachments?: {origin: string; insertion: string}; action: string; description: string; wikiUrl?: string;
 }
 export const compartmentNames: Record<Compartment,string> = {anterior:'Anterior',lateral:'Lateral',superficial_posterior:'Superficial posterior',deep_posterior:'Deep posterior',knee:'Knee',ankle:'Ankle',foot:'Foot',neurovascular:'Neurovascular',none:'Supporting structures'};
@@ -74,6 +74,7 @@ for(const [id,name] of [['extensor_digitorum_brevis','Extensor digitorum brevis'
 }
 for(const entry of supplements){
  const item=p(entry.id,entry.displayName,entry.type as PartType,entry.compartment as Compartment,entry.origin,entry.insertion,entry.action,entry.description);
+ if('colourTissue' in entry)item.colourTissue=entry.colourTissue as PartType;
  if('references' in entry)item.provenance={kind:'source_mesh',source:'Z-Anatomy / BodyParts3D',references:[...(entry.references as string[]),'https://github.com/Z-Anatomy/Models-of-human-anatomy'],review:'Source geometry; technical and reference review only, not independent anatomical validation.'};
  catalogue.push(item);
 }

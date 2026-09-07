@@ -121,5 +121,26 @@
     "references": [
       "https://pubmed.ncbi.nlm.nih.gov/33983148/"
     ]
+  },
+  {
+    "id": "plantar_aponeurosis",
+    "displayName": "Plantar aponeurosis",
+    "type": "fascia",
+    "compartment": "foot",
+    "colourTissue": "tendon",
+    "origin": "Plantar calcaneal tuberosity",
+    "insertion": "Plantar forefoot; distal digital attachments are not resolved in this source mesh",
+    "action": "Supports the longitudinal arch and transmits tension across the plantar foot.",
+    "description": "Source representation of the broad central plantar aponeurosis over the intrinsic muscles. Distal digital branching, dermal attachments and plantar-plate connections are not separately resolved.",
+    "sources": [
+      [
+        "Plantar aponeurosis.r",
+        "all"
+      ]
+    ],
+    "references": [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC3879302/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC3842207/"
+    ]
   }
 ]
