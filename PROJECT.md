@@ -16,7 +16,7 @@ The requested structures are independently selectable under a stable metadata co
 - **Phase:** 2 — Source anatomy integrated; awaiting user visual review.
 - **Last done:** Added Sole preset and underside orbiting, concealed floor guides below ground, lit plantar surfaces and preserved viewing angle when focusing. Browser verified heel-to-toe framing, focus and orbit beneath the foot; production build passes. Source-model validation and acceptance remain as previously recorded.
 - **Next action:** User visual review of the source model; independent anatomical validation and representative-device performance remain outstanding.
-- **Synced to:** efff3ba — 2026-09-07, with uncommitted underside-view changes. User acceptance is pending.
+- **Synced to:** a274d61 — 2026-09-07, underside-view changes committed. User acceptance is pending.
 
 ## Slips
 - Treated procedural fallback permission as acceptable final anatomical quality; pursued publishing before visually verifying the model. User screenshots exposed the failure.
