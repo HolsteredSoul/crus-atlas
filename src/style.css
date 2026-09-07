@@ -15,3 +15,12 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
 
 .tissue-legend{padding:10px 18px;border-top:1px solid var(--line);font-size:11px;color:#c6d3d5}.tissue-legend summary{cursor:pointer}.tissue-legend>div{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:12px 0}.tissue-legend span{display:flex;align-items:center;gap:7px}.tissue-legend i{width:12px;height:12px;border-radius:3px;flex-shrink:0}.tissue-legend small{display:block;font-size:10px;line-height:1.5;color:#94abad}.provenance-note{padding:10px 12px;border:1px solid #405455;border-radius:6px;display:grid;gap:5px;font-size:11px;color:#b2c6c8}.provenance-note strong{text-transform:capitalize;color:#d6e3e4}.provenance-note small{line-height:1.5;color:#91a6a9}
+.guide-swatch,.part-row.selected .part-dot.guide-swatch{background:transparent!important;border:1px dashed var(--tissue-color,#59b8ad);border-radius:2px!important;width:9px;height:9px;opacity:1}
+.guide-notice{font-size:11px;line-height:1.55;color:#a4c8c3;padding:9px 10px;margin:3px 4px 8px;background:#203432;border-left:2px solid #59b8ad;border-radius:3px}
+.system-disclosure>span:first-of-type{text-align:left;line-height:1.4}
+.condition-filters{display:flex;align-items:center;gap:5px;margin:0 0 9px}
+.condition-filters>button{font-size:10px;padding:4px 8px;color:#9fb6b5;border:1px solid transparent}
+.condition-filters>button[aria-pressed=true]{color:#d3e9df;background:#293c36;border-color:#4d6b60}
+.condition-chip[hidden]{display:none}
+.landmark-card>div{text-transform:uppercase}
+.illustration-note{padding:10px 12px;border-left:2px solid #759caa;background:#213038;line-height:1.6}

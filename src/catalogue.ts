@@ -81,7 +81,7 @@ for(const entry of supplements){
 }
 export const byId = new Map(catalogue.map(part => [part.id,part]));
 export const palette:Record<PartType,string> = tissuePalette;
-export const partOpacity=(part:Part)=>part.id.endsWith('_compartment')?.22:part.type==='fascia'?.65:part.type==='sheath'?.55:part.type==='joint'?.38:1;
+export const partOpacity=(part:Part)=>part.id.endsWith('_compartment')?.18:part.type==='fascia'?.65:part.type==='sheath'?.55:part.type==='joint'?.38:1;
 export const hiddenByDefault=(part:Part)=>part.defaultHidden??(['fascia','joint','sheath'].includes(part.type)||part.id==='tibial_cartilage');
 for(const part of catalogue){
  if(part.id==='superior_fibular_retinaculum'){part.defaultHidden=true;part.wikiUrl=undefined;}

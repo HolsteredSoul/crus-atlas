@@ -5,7 +5,8 @@ import { catalogue, palette, partOpacity, type Part } from './catalogue';
 
 export function materialFor(part:Part,vertexColors=false){
  const opacity=partOpacity(part);
- return new THREE.MeshStandardMaterial({color:vertexColors?'#ffffff':palette[part.colourTissue??part.type],vertexColors,roughness:part.type==='bone'?.78:.72,metalness:0,transparent:opacity<1,opacity,depthWrite:opacity===1,side:THREE.DoubleSide});
+ const guide=part.id.endsWith('_compartment');
+ return new THREE.MeshStandardMaterial({color:guide?'#91b0b4':vertexColors?'#ffffff':palette[part.colourTissue??part.type],vertexColors:vertexColors&&!guide,roughness:part.type==='bone'?.78:.72,metalness:0,transparent:opacity<1,opacity,depthWrite:opacity===1,side:THREE.DoubleSide});
 }
 export function validateModel(root:THREE.Object3D):Map<string,THREE.Mesh> {
  const map=new Map<string,THREE.Mesh>();root.updateMatrixWorld(true);
@@ -30,9 +31,15 @@ export async function loadAtlasGLB(url:string):Promise<THREE.Group>{
    const g=obj.geometry.clone().applyMatrix4(obj.matrixWorld);g.computeBoundingBox();
    const center=g.boundingBox!.getCenter(new THREE.Vector3());g.translate(-center.x,-center.y,-center.z);
    const mesh=new THREE.Mesh(g,materialFor(catalogue.find(p=>p.id===id)!,!!g.getAttribute('color')));
-   mesh.position.copy(center);mesh.name=id;mesh.userData={...obj.userData};root.add(mesh);
+   mesh.position.copy(center);mesh.name=id;mesh.userData={...obj.userData};
+   if(id.endsWith('_compartment')){
+    // Coarse guides stay schematic: restrained edges, not invented smooth anatomy.
+    const edges=new THREE.LineSegments(new THREE.EdgesGeometry(g,28),new THREE.LineBasicMaterial({color:'#91b0b4',transparent:true,opacity:.28,depthWrite:false}));
+    mesh.add(edges);
+   }
+   root.add(mesh);
   }
   return root;
  }finally{if(original)disposeModel(original);draco.dispose();}
 }
-export function disposeModel(root:THREE.Object3D){root.traverse(obj=>{if(obj instanceof THREE.Mesh){obj.geometry.dispose();const materials=Array.isArray(obj.material)?obj.material:[obj.material];materials.forEach(m=>m.dispose());}});}
+export function disposeModel(root:THREE.Object3D){root.traverse(obj=>{if(obj instanceof THREE.Mesh||obj instanceof THREE.Line){obj.geometry.dispose();const materials=Array.isArray(obj.material)?obj.material:[obj.material];materials.forEach(m=>m.dispose());}});}

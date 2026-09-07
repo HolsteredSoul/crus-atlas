@@ -19,3 +19,6 @@ fibular retinaculum ID is a disputed source sheet, explicitly labelled and hidde
 by default. See docs/reviews/IMPLEMENTATION.md and anatomical-references.md.
 
 The dATTL pilot separated a previously embedded source component under `deep_anterior_tibiotalar`, preserving the assembled shape. Its identity is explicitly interpreted (possible talar tibionavicular/capsular slip); it is a source partition, not authored anatomy. See `docs/reviews/DATTL-PILOT.md`. Search connected components inside existing objects before treating missing object names as missing anatomy.
+
+
+Foot clinical expansion: 20 educational cards now include proximal plantar fasciopathy, FHL sheath symptoms, three foot bone-stress sites and a talar-dome lesion. Reproduce the six new markers with scripts/register-foot-clinical.py and verify its pinned audit after a geometry swap; preserve the original registrations. The UI separates six anatomical fascia sheets from four schematic compartment guides without altering GLB metadata. Guide colours are a presentation override; actual tissue vertex colours remain intact. See docs/reviews/FOOT-CLINICAL.md for review scope and limitations.

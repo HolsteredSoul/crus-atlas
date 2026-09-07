@@ -18,6 +18,7 @@ export class AtlasViewer {
  readonly renderer:THREE.WebGLRenderer; readonly controls:OrbitControls; readonly composer:EffectComposer;readonly outline:OutlinePass;
  readonly pieces=new Map<string,Piece>();hidden=new Set<string>();selected:string|null=null;isolated:Set<string>|null=null;fade=false;xray=false;
  explodeAmount=0;explodeMode:ExplodeMode='compartment';condition:Condition|null=null;
+ private conditionRevealed=new Set<string>();
  private ground=new THREE.Group();private root=new THREE.Group();private overlays=new THREE.Group();private leaders=new THREE.Group();
  private raycaster=new THREE.Raycaster();private pointer=new THREE.Vector2();private down={x:0,y:0};private raf=0;
  private observer:ResizeObserver;private plane=new THREE.Plane(new THREE.Vector3(0,-1,0),600);private cutEnabled=false;
@@ -54,7 +55,7 @@ export class AtlasViewer {
   root.traverse(obj=>{if(obj instanceof THREE.Mesh){const mesh=obj as Piece['mesh'];mesh.geometry.computeBoundingBox();this.pieces.set(mesh.userData.id,{mesh,base:mesh.position.clone(),size:mesh.geometry.boundingBox!.getSize(new THREE.Vector3()),part:byId.get(mesh.userData.id)!});}});
   this.hidden=new Set([...this.pieces.values()].filter(p=>hiddenByDefault(p.part)).map(p=>p.part.id));this.apply();
  }
- async load(url:string){try{const root=await loadAtlasGLB(url);if(this.dead){disposeModel(root);return;}this.clearGroup(this.overlays);this.clearGroup(this.leaders);this.condition=null;this.explodeAmount=0;this.selected=null;this.isolated=null;this.replace(root);this.preset('Reset');this.onModel();this.onStatus('Z-Anatomy model loaded');}catch(error){this.onStatus(`Model unavailable: ${error instanceof Error?error.message:'could not load the anatomical GLB'}`);}}
+ async load(url:string){try{const root=await loadAtlasGLB(url);if(this.dead){disposeModel(root);return;}this.clearGroup(this.overlays);this.clearGroup(this.leaders);this.condition=null;this.conditionRevealed.clear();this.explodeAmount=0;this.selected=null;this.isolated=null;this.replace(root);this.preset('Reset');this.onModel();this.onStatus('Z-Anatomy model loaded');}catch(error){this.onStatus(`Model unavailable: ${error instanceof Error?error.message:'could not load the anatomical GLB'}`);}}
  private resize(){const {width,height}=this.host.getBoundingClientRect();if(width<1||height<1)return;this.camera.aspect=width/height;this.camera.updateProjectionMatrix();this.renderer.setSize(width,height);this.composer.setSize(width,height);this.dirty=true;}
  private hit(event:PointerEvent|MouseEvent){const r=this.renderer.domElement.getBoundingClientRect();this.pointer.set((event.clientX-r.left)/r.width*2-1,-(event.clientY-r.top)/r.height*2+1);this.raycaster.setFromCamera(this.pointer,this.camera);
   const selectable=[...this.pieces.values()].filter(p=>p.mesh.visible&&p.mesh.material.opacity>.15).map(p=>p.mesh);
@@ -65,15 +66,16 @@ export class AtlasViewer {
   for(const [id,p] of this.pieces){const context=this.isolated?this.isolated.has(id):this.condition?this.condition.parts.includes(id):id===this.selected;
    p.mesh.visible=!this.hidden.has(id)&&(!this.isolated||this.fade||context);
    const dim=(this.fade&&(!!this.selected||!!this.isolated)||!!this.condition)&&!context;
-   const opacity=dim?.1:this.xray&&p.part.type==='bone'?.16:partOpacity(p.part);
+   const opacity=dim?.1:this.xray&&p.part.type==='bone'?.16:this.condition?.transparentParts?.includes(id)?.24:partOpacity(p.part);
    const mat=p.mesh.material;mat.opacity=opacity;mat.transparent=opacity<1;mat.depthWrite=opacity===1;mat.emissive.set(id===this.selected?'#56d4be':'#000000');mat.emissiveIntensity=id===this.selected?.23:0;
    mat.clippingPlanes=this.cutEnabled?[this.plane]:[];mat.needsUpdate=true;
+   for(const child of p.mesh.children)if(child instanceof THREE.LineSegments){const edge=child.material as THREE.LineBasicMaterial;edge.opacity=dim?.07:.28;edge.clippingPlanes=mat.clippingPlanes;edge.needsUpdate=true;}
   }
   const mesh=this.selected?this.pieces.get(this.selected)?.mesh:null;this.outline.selectedObjects=mesh?.visible&&!this.cutEnabled?[mesh]:[];this.dirty=true;
  }
- toggle(ids:string[]){const show=ids.some(id=>this.hidden.has(id));ids.forEach(id=>show?this.hidden.delete(id):this.hidden.add(id));this.apply();if(this.explodeAmount>0)this.explode(this.explodeAmount,this.explodeMode);}
- isolate(ids:string[],fade=false){this.isolated=new Set(ids);this.fade=fade;ids.forEach(id=>this.hidden.delete(id));this.apply();}
- restore(){this.hidden=new Set([...this.pieces.values()].filter(p=>hiddenByDefault(p.part)).map(p=>p.part.id));this.isolated=null;this.fade=false;this.xray=false;this.showCondition(null);this.apply();}
+ toggle(ids:string[]){const show=ids.some(id=>this.hidden.has(id));ids.forEach(id=>{this.conditionRevealed.delete(id);show?this.hidden.delete(id):this.hidden.add(id);});this.apply();if(this.explodeAmount>0)this.explode(this.explodeAmount,this.explodeMode);}
+ isolate(ids:string[],fade=false){this.isolated=new Set(ids);this.fade=fade;ids.forEach(id=>{this.conditionRevealed.delete(id);this.hidden.delete(id);});this.apply();}
+ restore(){this.conditionRevealed.clear();this.hidden=new Set([...this.pieces.values()].filter(p=>hiddenByDefault(p.part)).map(p=>p.part.id));this.isolated=null;this.fade=false;this.xray=false;this.showCondition(null);this.apply();}
  setClip(enabled:boolean,height=300){this.cutEnabled=enabled;this.plane.constant=height;this.apply();this.overlays.traverse(o=>{if(o instanceof THREE.Mesh){o.material.clippingPlanes=enabled?[this.plane]:[];o.material.needsUpdate=true;}});}
  private travel(target:THREE.Vector3,position:THREE.Vector3,animate=true){const duration=animate&&!this.reduced?.75:0;gsap.to(this.controls.target,{x:target.x,y:target.y,z:target.z,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>this.dirty=true});gsap.to(this.camera.position,{x:position.x,y:position.y,z:position.z,duration,ease:'power2.inOut',overwrite:true,onUpdate:()=>this.dirty=true});this.dirty=true;}
  preset(name:Preset,animate=true){
@@ -88,6 +90,23 @@ export class AtlasViewer {
   if(box.isEmpty())return;const center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3());const dist=Math.max(size.y,size.x/this.camera.aspect,size.z)*.65/Math.tan(THREE.MathUtils.degToRad(this.camera.fov/2));
   const direction=this.camera.position.clone().sub(this.controls.target).normalize();this.travel(center,center.clone().addScaledVector(direction,Math.max(100,dist)));
  }
+ focusCondition(condition:Condition|null=this.condition){
+  if(!condition)return;
+  const box=new THREE.Box3();
+  for(const marker of condition.markers){
+   const p=this.pieces.get(marker.partId);if(!p)continue;
+   const offset=this.explodeAmount>0?p.mesh.position.clone().sub(p.base):new THREE.Vector3();
+   if(marker.kind==='pressure'||marker.kind==='sprain')box.union(new THREE.Box3().setFromCenterAndSize(p.base.clone().add(offset),p.size));
+   else box.union(new THREE.Box3().setFromCenterAndSize(new THREE.Vector3(...marker.position).add(offset),new THREE.Vector3(...marker.scale).multiplyScalar(2)));
+  }
+  if(box.isEmpty())return;
+  // Include surrounding landmarks while focusing the lesion, not an entire long tendon.
+  box.expandByScalar(35);
+  const center=box.getCenter(new THREE.Vector3()),size=box.getSize(new THREE.Vector3());
+  const distance=Math.max(size.y,size.x/this.camera.aspect,size.z)*.65/Math.tan(THREE.MathUtils.degToRad(this.camera.fov/2));
+  const direction=this.camera.position.clone().sub(this.controls.target).normalize();
+  this.travel(center,center.clone().addScaledVector(direction,Math.max(180,distance)));
+ }
  explode(amount:number,mode:ExplodeMode){
   this.explodeAmount=amount;this.explodeMode=mode;const items:LayoutItem[]=[...this.pieces.values()].filter(p=>p.mesh.visible).map(p=>({id:p.part.id,center:p.base,size:p.size,type:p.part.type,compartment:p.part.compartment}));
   const offsets=explodeOffsets(items,mode);this.clearGroup(this.leaders);
@@ -97,8 +116,10 @@ export class AtlasViewer {
  }
  private clearGroup(group:THREE.Group){group.children.forEach(o=>{if(o instanceof THREE.Mesh||o instanceof THREE.Line){o.geometry.dispose();(o.material as THREE.Material).dispose();}});group.clear();}
  showCondition(condition:Condition|null){
+  for(const id of this.conditionRevealed)this.hidden.add(id);
+  this.conditionRevealed.clear();
   this.condition=condition;this.clearGroup(this.overlays);
-  if(condition){this.isolated=null;condition.parts.forEach(id=>this.hidden.delete(id));
+  if(condition){this.isolated=null;condition.parts.forEach(id=>{if(this.hidden.has(id))this.conditionRevealed.add(id);this.hidden.delete(id);});
    for(const marker of condition.markers){
     let geometry:THREE.BufferGeometry;
     const sourcePiece=this.pieces.get(marker.partId);

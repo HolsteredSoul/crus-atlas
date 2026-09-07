@@ -292,5 +292,101 @@
       ],
       "kind": "landmark"
     }
+  ],
+  "plantar_fasciopathy": [
+    {
+      "partId": "plantar_aponeurosis",
+      "position": [
+        9.073,
+        11.831,
+        -29.139
+      ],
+      "scale": [
+        9,
+        5,
+        13
+      ],
+      "kind": "tendinopathy"
+    }
+  ],
+  "fhl_tenosynovitis": [
+    {
+      "partId": "fhl_sheath",
+      "position": [
+        10.262,
+        67.97,
+        -25.061
+      ],
+      "scale": [
+        6,
+        12,
+        6
+      ],
+      "kind": "fluid"
+    }
+  ],
+  "navicular_stress": [
+    {
+      "partId": "navicular",
+      "position": [
+        -0.155,
+        74.716,
+        29.088
+      ],
+      "scale": [
+        7,
+        5,
+        6
+      ],
+      "kind": "stress"
+    }
+  ],
+  "metatarsal_stress": [
+    {
+      "partId": "metatarsal_2",
+      "position": [
+        -15.933,
+        47.599,
+        84.458
+      ],
+      "scale": [
+        6,
+        6,
+        12
+      ],
+      "kind": "stress"
+    }
+  ],
+  "calcaneal_stress": [
+    {
+      "partId": "calcaneus",
+      "position": [
+        -5.0,
+        32.0,
+        -32.0
+      ],
+      "scale": [
+        13,
+        12,
+        13
+      ],
+      "kind": "stress"
+    }
+  ],
+  "talar_osteochondral": [
+    {
+      "partId": "talus",
+      "position": [
+        10.011,
+        83.893,
+        -6.471
+      ],
+      "scale": [
+        8,
+        4,
+        8
+      ],
+      "kind": "stress"
+    }
   ]
 }

@@ -1,0 +1,108 @@
+{
+  "glbSha256": "8572097f72f70b541ffd1dbf475d288efded3874abe42681950e19c9765e9e49",
+  "coordinates": "+X medial, +Y proximal, +Z anterior; mm",
+  "regions": {
+    "plantar_fasciopathy": {
+      "partId": "plantar_aponeurosis",
+      "target": [
+        8,
+        16,
+        -30
+      ],
+      "position": [
+        9.073,
+        11.831,
+        -29.139
+      ],
+      "method": "surface",
+      "nearestSourceFace": 28,
+      "targetDistanceMm": 4.3904,
+      "note": "Illustrative site; geometry registration is not clinical validation."
+    },
+    "fhl_tenosynovitis": {
+      "partId": "fhl_sheath",
+      "target": [
+        10,
+        68,
+        -24
+      ],
+      "position": [
+        10.262,
+        67.97,
+        -25.061
+      ],
+      "method": "surface",
+      "nearestSourceFace": 383,
+      "targetDistanceMm": 1.0932,
+      "note": "Illustrative site; geometry registration is not clinical validation."
+    },
+    "navicular_stress": {
+      "partId": "navicular",
+      "target": [
+        0,
+        75,
+        29
+      ],
+      "position": [
+        -0.155,
+        74.716,
+        29.088
+      ],
+      "method": "surface",
+      "nearestSourceFace": 443,
+      "targetDistanceMm": 0.3352,
+      "note": "Illustrative site; geometry registration is not clinical validation."
+    },
+    "metatarsal_stress": {
+      "partId": "metatarsal_2",
+      "target": [
+        -15,
+        50,
+        86
+      ],
+      "position": [
+        -15.933,
+        47.599,
+        84.458
+      ],
+      "method": "surface",
+      "nearestSourceFace": 553,
+      "targetDistanceMm": 3.0019,
+      "note": "Illustrative site; geometry registration is not clinical validation."
+    },
+    "calcaneal_stress": {
+      "partId": "calcaneus",
+      "target": [
+        -5,
+        32,
+        -32
+      ],
+      "position": [
+        -5.0,
+        32.0,
+        -32.0
+      ],
+      "method": "internal",
+      "nearestSourceFace": 77,
+      "targetDistanceMm": 9.561,
+      "note": "Illustrative site; geometry registration is not clinical validation."
+    },
+    "talar_osteochondral": {
+      "partId": "talus",
+      "target": [
+        10,
+        85,
+        -7
+      ],
+      "position": [
+        10.011,
+        83.893,
+        -6.471
+      ],
+      "method": "surface",
+      "nearestSourceFace": 1282,
+      "targetDistanceMm": 1.227,
+      "note": "Illustrative site; geometry registration is not clinical validation."
+    }
+  }
+}

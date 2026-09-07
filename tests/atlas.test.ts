@@ -1,6 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { createHash } from 'node:crypto';
+import { layerKey } from '../src/layers.ts';
 import { Box3, BoxGeometry, Group, Mesh, Vector3 } from 'three';
 import requiredParts from '../assets/required-parts.json';
 import supplements from '../assets/supplements.json';
@@ -37,7 +39,8 @@ test('metadata validator rejects incorrect provenance',()=>{
 });
 
 test('clinical references and registered markers refer to included source anatomy',()=>{
- assert.equal(conditions.length,14);assert.equal(new Set(conditions.map(c=>c.id)).size,14);
+ assert.equal(new Set(conditions.map(c=>c.id)).size,conditions.length);
+ for(const id of ['plantar_fasciopathy','fhl_tenosynovitis','navicular_stress','metatarsal_stress','calcaneal_stress','talar_osteochondral'])assert.ok(conditions.some(c=>c.id===id),id);
  for(const c of conditions){assert.ok(c.mechanism&&c.landmark&&c.ultrasound&&c.mri&&c.lookAlikes);assert.ok(c.sources.every(s=>s.url.startsWith('https://')));for(const id of c.parts)assert.ok(byId.has(id));for(const m of c.markers){assert.ok(c.parts.includes(m.partId));assert.ok(m.scale.every(n=>n>0));const b=manifest.parts[m.partId];const bounds=new Box3(new Vector3(...b.min),new Vector3(...b.max)).expandByScalar(5);assert.ok(bounds.containsPoint(new Vector3(...m.position)),`${c.id}: marker outside ${m.partId}`);}}
  for(const id of ['tennis_leg','achilles_rupture','soleus_strain'])assert.match(conditions.find(c=>c.id===id)!.lookAlikes,/DVT/);
 });
@@ -59,4 +62,27 @@ test('new tendon partitions conserve all source faces and visible fascia can be 
   assert.ok(record.allocation[item.id]>0);assert.ok(record.allocation[parent]>0);
  }
  for(const part of catalogue){assert.ok(part.provenance);assert.deepEqual(manifest.parts[part.id].provenance,part.provenance);assert.deepEqual(nodes.find((n:any)=>n.extras.id===part.id).extras.provenance,part.provenance);if(['fascia','sheath'].includes(part.type)){assert.ok(partOpacity(part)>.15);assert.ok(hiddenByDefault(part));}}
+});
+
+
+test('fascia sheets and schematic guides have independent, complete layer membership',()=>{
+ const fascia=catalogue.filter(p=>p.type==='fascia');
+ const guides=fascia.filter(p=>p.id.endsWith('_compartment'));
+ assert.equal(guides.length,4);
+ assert.ok(guides.every(p=>layerKey(p)==='compartment_guides'));
+ assert.equal(fascia.filter(p=>layerKey(p)==='fascia').length,6);
+});
+test('foot teaching regions remain registered to the reviewed source model',()=>{
+ const audit=JSON.parse(fs.readFileSync(new URL('../assets/review/foot-clinical-registration.json',import.meta.url),'utf8'));
+ assert.equal(audit.glbSha256,createHash('sha256').update(binary).digest('hex'));
+ for(const [id,region] of Object.entries<any>(audit.regions)){
+  const condition=conditions.find(c=>c.id===id)!;
+  assert.equal(condition.area,'foot_ankle');
+  assert.deepEqual(condition.markers[0].position,region.position);
+  assert.equal(condition.markers[0].partId,region.partId);
+  assert.ok(condition.illustration);
+ }
+ assert.equal(conditions.find(c=>c.id==='plantar_fasciopathy')!.view,'Sole');
+ assert.deepEqual(conditions.find(c=>c.id==='calcaneal_stress')!.transparentParts,['calcaneus']);
+ assert.match(conditions.find(c=>c.id==='talar_osteochondral')!.landmark,/cannot be directly palpated/);
 });

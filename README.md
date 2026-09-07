@@ -1,6 +1,6 @@
 # CRUS — lower leg anatomy atlas
 
-A static Vite + TypeScript + Three.js browser app for exploring the **right lower leg**, ankle and distal knee. Includes 94 individually selectable entries (including one explicitly disputed source entry), compartment layers, camera presets, three explode modes and 14 source-linked clinical cards.
+A static Vite + TypeScript + Three.js browser app for exploring the **right lower leg**, ankle and distal knee. Includes 94 individually selectable entries (including one explicitly disputed source entry), compartment layers, camera presets, three explode modes and 20 source-linked clinical cards.
 
 Public repository: [HolsteredSoul/crus-atlas](https://github.com/HolsteredSoul/crus-atlas). Original application code/scripts are MIT; anatomical derivatives remain CC BY-SA 4.0. See [LICENSE.md](LICENSE.md).
 
@@ -41,11 +41,13 @@ Deploy the contents of `dist/` to a static host. No backend, API key, account or
 - Left: search, expand systems/compartments, select individual parts, toggle eyes, solo a system or compartment, X-ray bones, fade others and restore the default layer state.
 - Centre: drag to orbit, right-drag to pan, wheel/pinch to zoom. Double-click a part to focus it. OrbitControls uses damping and allows inspection underneath the foot while keeping a small limit at each pole to avoid inversion.
 - Right: structure name, attachments, action, related conditions and clinical references. Section plane keeps anatomy below the chosen nominal Y coordinate; it does not create filled anatomical slice surfaces.
-- Bottom: anterior, posterior, medial, lateral, knee plateau, ankle mortise, foot and Sole (plantar) views; explode slider; clinical condition chips.
+- Bottom: anterior, posterior, medial, lateral, knee plateau, ankle mortise, foot and Sole (plantar) views; explode slider; clinical condition chips with All, Foot & ankle and Calf & knee filters.
 - Keyboard: **F** focus, **H** hide, **I** isolate, **R** reset, **Esc** clear selection/overlay, **/** search. Shortcuts are disabled while typing or while help is open. The structure tree provides keyboard selection without requiring canvas picking.
 - Small screens: header layer and information buttons open the corresponding panels. Help explains axes, shortcuts, source limitations and the colour key.
 
 **Restore all** restores the default anatomy layers and clears isolation, fading, X-ray and the clinical overlay. Fascia, compartment envelopes, joint-region highlights, tendon sheaths, standalone tibial cartilage and the disputed retinaculum are hidden by default (69/94 visible). Bone surfaces retain their embedded source cartilage colours. Reset additionally reassembles the model, disables clipping and resets the camera.
+
+The tree separates **Anatomical fascia** (six source sheets) from **Compartment guides · schematic** (four frozen illustrative hulls). Guides use subdued grey-blue surfaces and edges, with hollow swatches; their geometry is deliberately schematic, not reconstructed fascia. Both groups remain hidden by default. Clinical-only reveals are restored when switching or clearing a card; explicit layer toggles are retained.
 
 The tissue legend and tree swatches use `src/tissue-palette.json`: off-white bone, brick-red muscle, ochre tendon/aponeurosis, violet ligament, teal fascia, pale-blue cartilage, medium-blue sheath and rose-purple retinaculum. These educational colours are applied to GLB vertex regions in Blender, not just fallback materials. Clinical-overlay colours have their own explanation in the clinical cards/help. Selection remains cyan.
 
@@ -100,7 +102,7 @@ Restart Vite or rebuild. For subdirectory deployments, use a URL that resolves b
 
 `GLTFLoader` and `DRACOLoader` load and validate the GLB. The loader bakes nested transforms, recentres each mesh for explosion, restores the atlas material palette and uses the same metadata for selection and layers. Source tissue colours in COLOR_0 are preserved with atlas lighting. Without vertex colours the loader uses the catalogue tissue palette.
 
-**Clinical marker registration is a required part of swapping the model.** Adjust marker coordinates and scales in `src/landmarks.json` to the replacement geometry and have their anatomical placement reviewed. Model metadata alone does not register spatial landmarks. Current markers were projected onto source surfaces with `scripts/register-landmarks.py`; that registration still requires anatomical review. The loader's validation checks identity metadata, not medical accuracy, orientation, scale or source licensing.
+**Clinical marker registration is a required part of swapping the model.** Adjust marker coordinates and scales in `src/landmarks.json` to the replacement geometry and have their anatomical placement reviewed. Model metadata alone does not register spatial landmarks. Original markers were projected onto source surfaces with `scripts/register-landmarks.py`. The six added foot markers are reproduced from the accepted Blender collection using `blender -b --python scripts/register-foot-clinical.py`; the calcaneal stress marker is intentionally internal. Its audit in `assets/review/foot-clinical-registration.json` pins the GLB checksum, target, source face and final coordinates. Re-register and review these after any model replacement; geometric registration is not clinical validation. The loader's validation checks identity metadata, not medical accuracy, orientation, scale or source licensing.
 
 The Sole preset frames the plantar surface. Orbiting can pass beneath the foot; the floor guides disappear below ground level, and focus preserves the viewing side. Reset returns to the upright overview.
 
@@ -165,3 +167,10 @@ blender --background --factory-startup --python-exit-code 1 --python scripts/bui
 ```
 
 `scripts/register-landmarks.py` is for an intentional model replacement, not routine supplementation: this iteration preserved `src/landmarks.json` exactly. Re-registering requires anatomical review. Run tests/build and inspect full-leg, ankle, Sole and layered views after export. Blender assets and scripts do not substitute for anatomical validation.
+
+
+## Foot and ankle clinical additions
+
+Plantar fasciitis / fasciopathy, FHL tenosynovitis, navicular stress injury, second-metatarsal stress injury, calcaneal stress injury and talar-dome osteochondral lesion are now separate educational cards. Each provides a referenced mechanism, anatomical landmark, US/MRI considerations and look-alikes. Deep FHL and talar sites are explicitly distinguished from surface palpation points. Amber also denotes fascial change, and magenta can locate an osteochondral illustration; the colour key explains these uses.
+
+Selecting a condition reassembles the model and frames its marker region. Plantar fasciopathy opens from underneath the heel; calcaneal stress temporarily makes its bone translucent to show an internal region. These are teaching symbols, not actual simulated tissue defects or explanations of an individual's symptoms. No anatomy meshes were added or reconstructed in this pass. See [review and saved views](docs/reviews/FOOT-CLINICAL.md).

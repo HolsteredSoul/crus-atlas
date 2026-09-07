@@ -36,6 +36,10 @@ anchors={
 result={}
 for card in cards:
  markers=card['markers']
+ if card['id'] not in anchors:
+  # New foot registrations have a separate, source-reviewed registration script.
+  result[card['id']]=markers
+  continue
  for index,marker in enumerate(markers):
   marker['position']=[round(n,3) for n in anchors[card['id']][index]]
   if card['id']=='achilles_mid':marker['scale']=[8,20,7]
